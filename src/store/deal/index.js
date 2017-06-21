@@ -157,7 +157,7 @@ const actions = {
     if (state.allFoods.length === 0) {
       return DealService.getAllFoods()
       .then(data => {
-        commit('SET_ALL_FOODS', data.goods.map(e => {
+        commit('SET_ALL_FOODS', data.foods.map(e => {
           Object.assign(e, {selectFoodCount: 0})
           return e
         }))
