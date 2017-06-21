@@ -79,17 +79,17 @@ const mutations = {
     } else {
       Vue.set(state.tempShopCart, food.id, {num, remark})
     }
-    // foodTypes 里选中食物加一
-    const foodType = state.allFoods[typeIndex]
 
-    if (foodType.selectFoodCount) {
-      if (food.unit === '份') {
-        foodType.selectFoodCount += 1
-      } else if (food.unit === '斤') {
-        // ignore
-      }
-    } else {
-      Vue.set(foodType, 'selectFoodCount', 1)
+    // 确定 allFoods 里 临时购物车里选中食物的 types
+    for (let typeFoods of state.allFoods) {
+      typeFoods.selectFoodCount = 0
+      debugger
+      Object.keys(state.tempShopCart).forEach(e => {
+        if (typeFoods.foods.find(food => food.id === Number(e))) {
+          debugger
+          typeFoods.selectFoodCount += state.tempShopCart[e].num
+        }
+      })
     }
   },
   REMOVE_FOOD(state, { food, num = 1, typeIndex }) {
@@ -101,14 +101,16 @@ const mutations = {
         Vue.delete(state.tempShopCart, food.id)
       }
     }
-    // foodTypes 里选中食物减一
-    const foodType = state.allFoods[typeIndex]
 
-    if (foodType.selectFoodCount) {
-      foodType.selectFoodCount -= 1
-      if (foodType.selectFoodCount === 0) {
-        Vue.delete(foodType, 'selectFoodCount')
-      }
+    // 确定 allFoods 里 临时购物车里选中食物的 types
+    for (let typeFoods of state.allFoods) {
+      typeFoods.selectFoodCount = 0
+      
+      Object.keys(state.tempShopCart).forEach(e => {
+        if (typeFoods.foods.find(food => food.id === Number(e))) {
+          typeFoods.selectFoodCount += state.tempShopCart[e].num
+        }
+      })
     }
   },
 
@@ -178,7 +180,7 @@ const actions = {
       return DealService.getAllFoods()
       .then(data => {
         commit('SET_ALL_FOODS', data.goods.map(e => {
-          Object.assign(e, {selectFoodCount: ''})
+          Object.assign(e, {selectFoodCount: 0})
           return e
         }))
       })
@@ -514,4 +516,14 @@ export {
   mutations,
   actions,
   getters
+}
+
+function getFood(allFoods, foodId) {
+  for (let typeFoods of allFoods) {
+    for (let food of typeFoods) {
+      if (food.id === foodId) {
+        return food
+      }
+    }
+  }
 }

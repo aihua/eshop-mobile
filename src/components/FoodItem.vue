@@ -30,7 +30,8 @@
       </span>
     </div>
     <div class="food-action" v-else>
-      <span>请点击选择斤数/口味</span>
+      <span v-if="hasChoose">已点</span>
+      <span v-else>请点击选择斤数/口味</span>
     </div>
 
   </li>
@@ -62,7 +63,13 @@ export default {
   },
   computed: {
     foodCount() {
-      return this.$store.state.deal.tempShopCart[this.food.id]
+      if (this.$store.state.deal.tempShopCart[this.food.id]) {
+        return this.$store.state.deal.tempShopCart[this.food.id].num
+      }
+      return 0
+    },
+    hasChoose() {
+      return !!this.$store.state.deal.tempShopCart[this.food.id]
     }
   },
   methods: {
