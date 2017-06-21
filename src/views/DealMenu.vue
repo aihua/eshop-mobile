@@ -23,7 +23,8 @@
     <deal-content>
       <div class="left-tab">
         <ul class="dish-type-container">
-          <li class="dish-type" :class="{'selected': menuCurrentIndex === index}" @click="selectFoodType(item, index)" v-for="(item, index) in allFoods" :key="item.id">
+          <li class="dish-type" :class="{'selected': menuCurrentIndex === index}"
+           @click="selectFoodType(item, index)" v-for="(item, index) in allFoods" :key="item.id">
             <span class="text">{{item.name}}</span>
             <div class="food-count" v-if="item.selectFoodCount">{{item.selectFoodCount || ''}}</div>
           </li>
@@ -33,7 +34,9 @@
       <div class="right-content" ref="foodsWrapper">
         <li class="food-type-container" v-for="(subFoods, index) in allFoods" :key="subFoods.id">
           <div class="food-type-title" :class="{selected: index === menuCurrentIndex}">{{subFoods.name}}</div>
-          <food-item v-for="food in subFoods.foods" :key="food.id" :food="food" :type-index="index" @change-food="changeFood($event, food, index)" @add-food="addFood(food, index)" @remove-food="removeFood(food, index)" :mode="showMode" @show-detail="showDetail(food,index)">
+          <food-item v-for="food in subFoods.foods" :key="food.id" :food="food" :type-index="index" 
+          @change-food="changeFood($event, food, index)" @add-food="addFood(food, index)" 
+          @remove-food="removeFood(food, index)" :mode="showMode" @show-detail="showDetail(food,index)">
           </food-item>
         </li>
       </div>
