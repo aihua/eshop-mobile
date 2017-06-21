@@ -257,6 +257,8 @@ export default {
   }
 
   .deal-footer-container {
+    background-color: black;
+
     .comment,
     .add-food,
     .pay,
