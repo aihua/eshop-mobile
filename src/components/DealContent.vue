@@ -14,7 +14,8 @@ export default {
   top: 40px;
   right: 0;
   left: 0;
-  bottom: 40px;
+  bottom: 50px;
+  overflow: overlay;
 }
 </style>
 

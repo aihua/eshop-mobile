@@ -47,7 +47,7 @@
         <span>{{tempShopCartFoodCost}}</span>
       </div>
       <div class="right-area">
-        <button class="btn" @click="toShopCart">购物车</button>
+        <x-button class="btn" type="primary" @click.native="toShopCart">购物车</x-button>
       </div>
     </deal-footer>
   
@@ -72,6 +72,7 @@
   </div>
 </template>
 <script>
+import { XButton } from 'vux'
 import DealDialog from '@/components/DealDialog'
 import DealHeader from '@/components/DealHeader'
 import DealContent from '@/components/DealContent'
@@ -96,6 +97,7 @@ export default {
 
     'food-item': FoodItem,
     'back-top': BackTop,
+    XButton
   },
   data() {
     return {
@@ -118,7 +120,6 @@ export default {
       'allFoods',
       'tempShopCartFoodCount',
       'tempShopCartFoodCost',
-      'deskNumber',
       'isAddMoreFood',
       'shopCart',
       'showMode'
@@ -392,23 +393,7 @@ export default {
       align-items: center;
 
       .btn {
-        display: inline-block;
-        line-height: 1;
-        white-space: nowrap;
-        cursor: pointer;
-        background: #86b201;
-        border: 1px solid #86b201;
-        color: #fff;
-        -webkit-appearance: none;
-        text-align: center;
-        box-sizing: border-box;
-        outline: none;
-        margin: 0;
-        padding: 10px 15px;
-        font-size: 14px;
-        border-radius: 4px;
-        /*background-color: #86b201;*/
-        /*border-color: #86b201;*/
+        width: 80%;
       }
     }
   }

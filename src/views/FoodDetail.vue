@@ -26,6 +26,9 @@
         <div class="addCart" v-if="foodDetail.food.unit === '斤'" @click="toggleSelection()">
           <x-button type="primary">斤数/口味</x-button>
         </div>
+        <div class="addCart" v-else @click="addFood">
+          <x-button type="primary">加购物车</x-button>
+        </div>
       </div>
       <div class="separate-lines">
       </div>
@@ -61,6 +64,25 @@
         </div>
       </div>
     </deal-content>
+  
+    <deal-footer>
+      <div class="left-area">
+        <span>{{isAddMoreFood ? '新增' : ''}}菜品</span>
+        <div class="food-count">{{tempShopCartFoodCount}}</div>
+        <i class="icon-money"></i>
+        <span>{{tempShopCartFoodCost}}</span>
+      </div>
+      <div class="right-area">
+        <x-button class="btn" type="primary" @click.native="toShopCart">购物车</x-button>
+      </div>
+    </deal-footer>
+  
+    <deal-dialog v-model="showDialog">
+      <div class="content">您还没有点菜哟 :)</div>
+      <div class="btn-group">
+        <span class="ok" @click="showDialog=false">我知道了</span>
+      </div>
+    </deal-dialog>
   
     <transition enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
       <div class="select-area" v-if="showSelection">
@@ -116,6 +138,8 @@
 import { XButton, XNumber } from 'vux'
 import DealHeader from '@/components/DealHeader'
 import DealContent from '@/components/DealContent'
+import DealFooter from '@/components/DealFooter'
+import DealDialog from '@/components/DealDialog'
 import { mapGetters } from 'vuex'
 import fecha from 'fecha'
 import storage from '@/util/storage'
@@ -124,6 +148,8 @@ export default {
   components: {
     DealHeader,
     DealContent,
+    DealFooter,
+    DealDialog,
     XButton,
     XNumber
   },
@@ -132,6 +158,7 @@ export default {
       selectedIndexes: [],
       hasPhoneNumber: false,
       showSelection: false,
+      showDialog: false,
       commentText: '',
       food: {
         quantity: 1,
@@ -184,7 +211,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['foodDetail', 'tempShopCart'])
+    ...mapGetters([
+      'foodDetail',
+      'tempShopCart',
+      'tempShopCartFoodCount',
+      'tempShopCartFoodCost',
+      'isAddMoreFood',
+    ])
   },
   created() {
     this.hasPhoneNumber = !!storage.get('phoneNumber')
@@ -222,7 +255,20 @@ export default {
     toggleSelection() {
       this.showSelection = !this.showSelection
     },
-
+    addFood() {
+      this.$store.dispatch('ADD_FOOD', { 
+        food: this.foodDetail.food, 
+        typeIndex: this.foodDetail.typeIndex 
+      })
+    },
+    toShopCart() {
+      // 如果临时购物车和购物车 都没有 则提示 还没有点菜
+      if (this.tempShopCartFoodCost === 0 && this.shopCart.totalPrice === 0) {
+        this.showDialog = true
+      } else {
+        this.$store.dispatch('ADD_SHOP_CART')
+      }
+    },
     thumbsUp(index) {
       const i = this.selectedIndexes.indexOf(index)
       if (i >= 0) {
@@ -424,7 +470,43 @@ export default {
     }
   }
 
-  .deal-footer-container {}
+  .deal-footer-container {
+    background-color: black;
+    .left-area {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .food-count {
+        position: absolute;
+        left: 104px;
+        top: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 14px;
+        padding: 1px 0;
+        background-color: #da4553;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 12px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    .right-area {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .btn {
+        width: 80%;
+      }
+    }
+  }
 
   .select-area {
     position: fixed;
