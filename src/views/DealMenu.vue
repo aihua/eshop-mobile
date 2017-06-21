@@ -327,11 +327,6 @@ export default {
 
           &.selected {
             color: #86b201;
-            // border-left: 3px solid #86b201;
-
-            .food-count {
-              left: 50px;
-            }
           }
         }
       }

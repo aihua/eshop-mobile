@@ -25,11 +25,13 @@ export default {
     ...mapGetters(['shopComments'])
   },
   created() {
+    document.title = storage.get('tenantName')
   },
   beforeRouteEnter(to, from, next) {
     if (window.location.search) {
       const searchObj = objFrom(decodeURIComponent(window.location.search))
       store.commit('SET_QRCODE_INFO', searchObj)
+
       store.dispatch('FETCH_SHOP_COMMENT')
     }
     if (from.path === '/') {

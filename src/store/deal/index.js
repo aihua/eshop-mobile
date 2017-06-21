@@ -79,18 +79,6 @@ const mutations = {
     } else {
       Vue.set(state.tempShopCart, food.id, {num, remark})
     }
-
-    // 确定 allFoods 里 临时购物车里选中食物的 types
-    for (let typeFoods of state.allFoods) {
-      typeFoods.selectFoodCount = 0
-      debugger
-      Object.keys(state.tempShopCart).forEach(e => {
-        if (typeFoods.foods.find(food => food.id === Number(e))) {
-          debugger
-          typeFoods.selectFoodCount += state.tempShopCart[e].num
-        }
-      })
-    }
   },
   REMOVE_FOOD(state, { food, num = 1, typeIndex }) {
     debugger
@@ -100,17 +88,6 @@ const mutations = {
       if (state.tempShopCart[food.id].num === 0) {
         Vue.delete(state.tempShopCart, food.id)
       }
-    }
-
-    // 确定 allFoods 里 临时购物车里选中食物的 types
-    for (let typeFoods of state.allFoods) {
-      typeFoods.selectFoodCount = 0
-      
-      Object.keys(state.tempShopCart).forEach(e => {
-        if (typeFoods.foods.find(food => food.id === Number(e))) {
-          typeFoods.selectFoodCount += state.tempShopCart[e].num
-        }
-      })
     }
   },
 
@@ -142,6 +119,7 @@ const mutations = {
   },
   SET_SHOP_CART(state, shopCart) {
     state.shopCart = shopCart
+    state.tempShopCart = {}
   },
   ADD_MORE_FOOD(state) {
     state.isAddMoreFood = true
@@ -197,9 +175,6 @@ const actions = {
   },
   SET_QRCODE_INFO: ({ commit }, searchObj) => {
     commit('SET_QRCODE_INFO', searchObj)
-  },
-  cartAdd:({commit},{foodId,typeId}) => {
-    commit('addForCart',{foodId,typeId})
   },
   ADD_SHOP_CART: ({ commit }) => {
     commit('SHOW_LOADING', true)
@@ -483,6 +458,17 @@ const getters = {
     return state.shopComments
   },
   allFoods(state) {
+    // 确定 allFoods 里 临时购物车里选中食物的 types
+    for (let typeFoods of state.allFoods) {
+      typeFoods.selectFoodCount = 0
+      
+      Object.keys(state.tempShopCart).forEach(e => {
+        if (typeFoods.foods.find(food => food.id === Number(e))) {
+          typeFoods.selectFoodCount += state.tempShopCart[e].num
+        }
+      })
+    }
+
     return state.allFoods
   },
   shopCart(state) {
