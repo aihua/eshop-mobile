@@ -106,6 +106,8 @@ export default {
   created() {
     this.tenantName = storage.get('tenantName')
     const obj = objFrom(decodeURIComponent(location.search))
+
+    window.alert(JSON.stringify(obj, null, 2))
     this.payTime = obj.timestamp
 
     // this.$store.dispatch('FETCH_ORDER', obj.out_trade_no)
