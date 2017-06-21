@@ -116,17 +116,8 @@ export default {
   height: 100%;
   background-color: #eee;
   .deal-header-container {
-    .add-more-food {
-      .btn {
-        position: absolute;
-        left: 10px;
-        top: 6px;
-        padding: 3px 10px 2px 10px;
-        color: #86b201;
-        border: 1px solid #86b201;
-        line-height: 20px;
-        border-radius: 5px;
-      }
+    .bill-title {
+      width: 40px;
     }
   }
 

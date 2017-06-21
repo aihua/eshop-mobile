@@ -60,7 +60,6 @@ export default {
     .title {
       flex: 1;
     }
-
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="bill-detail-container">
     <deal-header title="账单">
-      <span slot="left">
+      <span class="detail-title" slot="left">
         <i class="icon-back" @click="$router.back()"></i>
       </span>
     </deal-header>
@@ -111,7 +111,11 @@ export default {
 <style lang="scss" scoped>
 .bill-detail-container {
   height: 100%;
-  .deal-header-container {}
+  .deal-header-container {
+    .detail-title {
+      width: 40px;
+    }
+  }
 
   .deal-content-container {
     padding: 10px;
