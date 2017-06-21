@@ -103,6 +103,8 @@ export default {
           }
         } else if(ua.indexOf('AlipayClient') >= 0) {
           this.$store.dispatch('FETCH_ALIPAY_URL')
+        } else {
+          this.showDialog = true
         }
     }
   }

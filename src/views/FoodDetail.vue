@@ -81,7 +81,8 @@
                 <span class="remark">当日限售1000斤, 余0斤</span>
               </div>
               <div class="number-wrap">
-                <x-number v-model="food.quantity" :step="0.1"></x-number>
+                <input v-model.number="food.quantity">
+                <!--<x-number v-model="food.quantity" :step="0.1"></x-number>-->
               </div>
             </div>
   
