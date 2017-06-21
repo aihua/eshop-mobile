@@ -81,6 +81,9 @@ import { WechatService } from '@/http/index'
 import { objFrom } from '@/util/index'
 import { mapGetters } from 'vuex'
 import storage from '@/util/storage'
+
+
+
 export default {
   name: 'WechatCallback',
   components: {
@@ -104,6 +107,7 @@ export default {
     }
   },
   created() {
+    let payParams = null
     this.tenantName = storage.get('tenantName')
     const obj = objFrom(decodeURIComponent(location.search))
 
