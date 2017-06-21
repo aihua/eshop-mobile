@@ -426,7 +426,7 @@ export default {
   .deal-footer-container {}
 
   .select-area {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
@@ -560,8 +560,7 @@ export default {
     }
 
     .food-btn {
-      position: fixed;
-      bottom: 0;
+      position: absolute;
       width: 100%;
       height: 40px;
       background-color: #86b201;
