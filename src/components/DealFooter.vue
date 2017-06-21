@@ -19,7 +19,7 @@ export default {
   justify-content: center;
   line-height: 50px;
   height: 50px;
-  background-color: #24292c;
+  // background-color: #24292c;
   color: #fff;
   text-align: center;
 }

@@ -1,20 +1,20 @@
 /*
 
-[class*="icon-"],[class^="icon-"]
+[class^="icon-"]
 
 */
 
 
-
-@font-face {font-family: "iconfont";
-  src: url('//at.alicdn.com/t/font_si24phqlonvims4i.eot?t=1498010790608'); /* IE9*/
-  src: url('//at.alicdn.com/t/font_si24phqlonvims4i.eot?t=1498010790608#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('//at.alicdn.com/t/font_si24phqlonvims4i.woff?t=1498010790608') format('woff'), /* chrome, firefox */
-  url('//at.alicdn.com/t/font_si24phqlonvims4i.ttf?t=1498010790608') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('//at.alicdn.com/t/font_si24phqlonvims4i.svg?t=1498010790608#iconfont') format('svg'); /* iOS 4.1- */
+@font-face {
+  font-family: "iconfont";
+  src: url('//at.alicdn.com/t/font_3bz76sejyaocrf6r.eot?t=1498047113008'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_3bz76sejyaocrf6r.eot?t=1498047113008#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_3bz76sejyaocrf6r.woff?t=1498047113008') format('woff'), /* chrome, firefox */
+  url('//at.alicdn.com/t/font_3bz76sejyaocrf6r.ttf?t=1498047113008') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_3bz76sejyaocrf6r.svg?t=1498047113008#iconfont') format('svg'); /* iOS 4.1- */
 }
 
-[class*="icon-"],[class^="icon-"] {
+[class^="icon-"] {
   font-family:"iconfont" !important;
   font-size:16px;
   font-style:normal;
@@ -38,11 +38,11 @@
 
 .icon-refresh:before { content: "\e60f"; }
 
-.icon-comment:before { content: "\e600"; }
-
 .icon-loading:before { content: "\e62f"; }
 
 .icon-like:before { content: "\e612"; }
+
+.icon-food:before { content: "\e60e"; }
 
 .icon-shop:before { content: "\e8e6"; }
 
@@ -56,11 +56,9 @@
 
 .icon-forward:before { content: "\e613"; }
 
-.icon-pay:before { content: "\e61b"; }
+.icon-vip:before { content: "\e680"; }
 
 .icon-bag:before { content: "\e624"; }
-
-.icon-vip:before { content: "\e616"; }
 
 .icon-Zambia:before { content: "\e622"; }
 
@@ -76,8 +74,10 @@
 
 .icon-fail:before { content: "\e666"; }
 
-.icon-food:before { content: "\e6d7"; }
+.icon-comment:before { content: "\e674"; }
 
 .icon-ban:before { content: "\e706"; }
+
+.icon-pay:before { content: "\e68c"; }
 
 .icon-points:before { content: "\e84c"; }

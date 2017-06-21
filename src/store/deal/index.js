@@ -66,7 +66,6 @@ const mutations = {
     state.allFoods = foods
   },
   ADD_FOOD(state, { food, num = 1, remark = '', typeIndex }) {
-    debugger
     // 临时购物车 food 数量加一
     if (state.tempShopCart[food.id]) {
       if (food.unit === '份') {
@@ -81,7 +80,6 @@ const mutations = {
     }
   },
   REMOVE_FOOD(state, { food, num = 1, typeIndex }) {
-    debugger
     // 临时购物车 food 数量减一
     if (state.tempShopCart[food.id]) {
       state.tempShopCart[food.id].num -= 1

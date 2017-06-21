@@ -1,6 +1,6 @@
 <template>
   <div class="deal-menu-container">
-    <deal-dialog class="menu-dialog" v-model="showMenu"  dialog-enter-active="animated fadeInLeft" dialog-leave-active="animated fadeOutLeft">
+    <deal-dialog class="menu-dialog" v-model="showMenu" dialog-enter-active="animated fadeInLeft" dialog-leave-active="animated fadeOutLeft">
       <li class="menu-item" @click="choose('picMode')">
         <i class="icon-iconfontlist"></i>
         <span class="text">有图模式</span>
@@ -10,7 +10,7 @@
         <span class="text">无图模式</span>
       </li>
     </deal-dialog>
-
+  
     <deal-header title="菜单">
       <span class="menu" slot="left">
         <i class="icon-menu" @click="show"></i>
@@ -19,28 +19,26 @@
         <i class="icon-search" @click="toSearch"></i>
       </span>
     </deal-header>
-
+  
     <deal-content>
       <div class="left-tab">
         <ul class="dish-type-container">
-          <li class="dish-type" :class="{'selected': menuCurrentIndex === index}" @click="selectFoodType(item, index)"
-           v-for="(item, index) in allFoods" :key="item.id">
+          <li class="dish-type" :class="{'selected': menuCurrentIndex === index}" @click="selectFoodType(item, index)" v-for="(item, index) in allFoods" :key="item.id">
             <span class="text">{{item.name}}</span>
             <div class="food-count" v-if="item.selectFoodCount">{{item.selectFoodCount || ''}}</div>
           </li>
         </ul>
       </div>
-
+  
       <div class="right-content" ref="foodsWrapper">
         <li class="food-type-container" v-for="(subFoods, index) in allFoods" :key="subFoods.id">
           <div class="food-type-title" :class="{selected: index === menuCurrentIndex}">{{subFoods.name}}</div>
-          <food-item v-for="food in subFoods.foods" :key="food.id" :food="food" :type-index="index" @change-food="changeFood($event, food, index)" @add-food="addFood(food, index)" @remove-food="removeFood(food, index)"
-          :mode="showMode" @show-detail="showDetail(food,index)">
+          <food-item v-for="food in subFoods.foods" :key="food.id" :food="food" :type-index="index" @change-food="changeFood($event, food, index)" @add-food="addFood(food, index)" @remove-food="removeFood(food, index)" :mode="showMode" @show-detail="showDetail(food,index)">
           </food-item>
         </li>
       </div>
     </deal-content>
-
+  
     <deal-footer>
       <div class="left-area">
         <span>{{isAddMoreFood ? '新增' : ''}}菜品</span>
@@ -52,23 +50,25 @@
         <button class="btn" @click="toShopCart">购物车</button>
       </div>
     </deal-footer>
-
+  
     <back-top></back-top>
-
+  
     <deal-dialog v-model="showDialog">
       <div class="content">您还没有点菜哟 :)</div>
       <div class="btn-group">
         <span class="ok" @click="showDialog=false">我知道了</span>
       </div>
     </deal-dialog>
-
+  
     <deal-dialog v-model="remind">
-      <div class="content" style="color: red;"><span>{{consumed}} :)</span></div>
+      <div class="content" style="color: red;">
+        <span>{{consumed}} : )</span>
+      </div>
       <div class="btn-group">
         <span class="ok" @click="remind=false">我知道了</span>
       </div>
     </deal-dialog>
-
+  
   </div>
 </template>
 <script>
@@ -104,9 +104,12 @@ export default {
       foodsScrollY: 0,// 菜单右边滚动区的 滚动y轴偏差
       menuCurrentIndex: 0,// 菜单左边 当前选中索引,
       showDialog: false,// 是否显示 还没有点菜弹出框
-      remind:false,
-      totalConsumer:300,
-      consumed:''
+      remind: false,// 提示框 是否满会员门槛
+      totalConsumer: 100, // 会员门槛金额
+      ratio: 0.8, // 快满会员金额 比率
+      consumed: '', // 会员门槛 提示信息
+      hasPromptAlmostVip: false, // 是否已经提示 快满会员
+      hasPromptVip: false // 是否已经提示 可以成为会员
     }
   },
   computed: {
@@ -133,29 +136,29 @@ export default {
       }
       this.menuCurrentIndex = 0
     },
-    'tempShopCartFoodCost':{
-        handler:function(val,oldVal){
-          if(val >= this.totalConsumer){
-            this.remind = true;
-            this.consumed = `消费已满${this.totalConsumer}元,可晋升为会员`;
-          }
-          else if(val > 260){
-            this.remind = true;
-            this.consumed = `还差${(this.totalConsumer - val).toFixed(2)}元即可成为会员  享受会员价`;
-          }else{
-            this.remind = false;
-          }
-        },
-       deep:true
-     },
+    'tempShopCartFoodCost': function (val, oldVal) {
+      if (!this.hasPromptAlmostVip && val > this.totalConsumer * this.ratio) {
+        this.remind = true
+        this.hasPromptAlmostVip = true
+        this.consumed = `还差${(this.totalConsumer - val).toFixed(2)}元可成为会员, 享受会员价`
+      }
+
+      if (!this.hasPromptVip && val >= this.totalConsumer) {
+        this.remind = true
+        this.hasPromptVip = true
+        this.consumed = `消费已满${this.totalConsumer}元, 可晋升为会员`;
+      }
+      
+    },
+
   },
   methods: {
     addFood(food, typeIndex) {
       this.$store.dispatch('ADD_FOOD', { food, typeIndex })
     },
-    showDetail(food,typeIndex) {
-      this.$router.push({name: 'FoodDetail'})
-      this.$store.commit('SET_FOOD_DETAIL',{ food, typeIndex })
+    showDetail(food, typeIndex) {
+      this.$router.push({ name: 'FoodDetail' })
+      this.$store.commit('SET_FOOD_DETAIL', { food, typeIndex })
     },
 
     removeFood(food, typeIndex) {
@@ -357,6 +360,7 @@ export default {
   }
 
   .deal-footer-container {
+    background-color: black;
     .left-area {
       flex: 1;
       display: flex;
@@ -430,14 +434,14 @@ export default {
       }
     }
   }
-  .remind-dialog{
-      position:fixed;
-      bottom:50px;
-      color:#f00;
-      background-color:rgba(239,239,239,0.8);
-      height:28px;
-      line-height:28px;
-      width:100%;
+  .remind-dialog {
+    position: fixed;
+    bottom: 50px;
+    color: #f00;
+    background-color: rgba(239, 239, 239, 0.8);
+    height: 28px;
+    line-height: 28px;
+    width: 100%;
   }
 }
 </style>
