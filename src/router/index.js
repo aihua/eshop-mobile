@@ -5,7 +5,6 @@ import store from '@/store/index'
 
 import Home from '@/views/Home'
 import DealMenu from '@/views/DealMenu'
-import Pay from '@/views/Pay'
 import Search from '@/views/Search'
 import ShopCart from '@/views/ShopCart'
 import PhoneVerify from '@/views/PhoneVerify'
@@ -39,11 +38,6 @@ const routes = [
     path: '/food-detail',
     name: 'FoodDetail',
     component: FoodDetail
-  },
-  {
-    path: '/pay',
-    name: 'Pay',
-    component: Pay
   },
   {
     path: '/search',

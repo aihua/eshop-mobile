@@ -6,8 +6,13 @@
   
     <deal-content>
       <div class="tip">
-        <i class="icon-fail"></i>
-        <span class="text">抱歉, 由于服务器原因, 下单失败了, 请重新下单</span>
+        <div class="fail">
+          <i class="icon-fail"></i>
+        </div>
+  
+        <div class="desc">
+          <span class="text">抱歉, 由于服务器原因, 下单失败了, 请重新下单</span>
+        </div>
       </div>
     </deal-content>
   
@@ -33,7 +38,7 @@ export default {
   },
   data() {
     return {
-      
+
     }
   },
   methods: {
@@ -54,17 +59,25 @@ export default {
 
     .tip {
       margin-top: 25px;
-      display: flex;
-      flex-direction: column;
       font-size: 1rem;
 
-      i {
-        color: red;
-        transform: scale(2);
+      .fail {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        i {
+          color: red;
+          transform: scale(2);
+        }
       }
 
-      .text {
-        margin-top: 20px;
+      .desc {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .text {
+          margin-top: 20px;
+        }
       }
     }
   }
@@ -72,9 +85,9 @@ export default {
   .deal-footer-container {
     .comment {
       flex: 1;
+      background: black;
     }
   }
-
 }
 </style>
 

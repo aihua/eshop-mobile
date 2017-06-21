@@ -9,7 +9,7 @@
     <deal-content>
       <div class="phone-info">
         <span class="label">手机号</span>
-        <span class="number">12345678901</span>
+        <span class="number">{{phoneNumber}}</span>
       </div>
   
       <div class="card-detail">
@@ -80,6 +80,7 @@ import DealContent from '@/components/DealContent'
 import DealFooter from '@/components/DealFooter'
 
 import DealDialog from '@/components/DealDialog'
+import storage from '@/util/storage'
 
 export default {
   name: 'OrderSuccess',
@@ -92,6 +93,7 @@ export default {
   data() {
     return {
       showDialog: false,
+      phoneNumber: ''
     }
   },
   methods: {
@@ -104,6 +106,9 @@ export default {
     okDialog() {
       this.showDialog = false
     }
+  },
+  created() {
+    this.phoneNumber = storage.get('phoneNumber')
   }
 }
 </script>
@@ -142,6 +147,7 @@ export default {
         .gift {
           display: flex;
           flex-direction: column;
+          align-items: center;
         }
 
         .points {

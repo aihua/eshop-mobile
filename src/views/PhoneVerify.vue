@@ -89,7 +89,6 @@ export default {
       }
     },
     fetchCode() {
-      console.log(this.$refs.phoneNumber.valid)
       if (this.phoneNumber && this.$refs.phoneNumber.valid) {
         this.disabled = true
 

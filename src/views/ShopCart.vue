@@ -338,6 +338,9 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+      span {
+        margin-left: 10px;
+      }
     }
 
     .left-area,

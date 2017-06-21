@@ -134,6 +134,7 @@ export default {
       .forth-line {
         display: flex;
         margin-top: 15px;
+        height: 33vw;
 
         .number {
           flex: 1;
@@ -153,6 +154,7 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+            color: white;
 
             font-size: 2rem;
 
