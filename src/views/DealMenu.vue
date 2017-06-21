@@ -148,22 +148,14 @@ export default {
         },
        deep:true
      },
-//     'consumed' :{
-//        handler:function(val,oldVal){
-//            if(val <= 0){
-//              this.remind = false;
-//            }
-//
-//        }
-//     }
   },
   methods: {
     addFood(food, typeIndex) {
       this.$store.dispatch('ADD_FOOD', { food, typeIndex })
     },
-    showDetail(food,typeIndex){
-      this.$router.push('/comment');
-      this.$store.dispatch('displayImage',{ food, typeIndex });
+    showDetail(food,typeIndex) {
+      this.$router.push({name: 'FoodDetail'})
+      this.$store.commit('SET_FOOD_DETAIL',{ food, typeIndex })
     },
 
     removeFood(food, typeIndex) {
@@ -211,11 +203,9 @@ export default {
     _initAllFoods() {
       this.$store.dispatch('FETCH_ALL_FOODS')
         .then(_ => {
-          this.$nextTick(() => {
-            this._initScroll()// 初始化scrollListener
-            this._calcHeight()// 初始化不同品种菜列表 的高度
-            this._initRectTop()// 初始化 菜品滚动区的视口top
-          })
+          this._initScroll()// 初始化scrollListener
+          this._calcHeight()// 初始化不同品种菜列表 的高度
+          this._initRectTop()// 初始化 菜品滚动区的视口top
         })
     },
     _initScroll() {
@@ -374,11 +364,14 @@ export default {
   .deal-footer-container {
     .left-area {
       flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       .food-count {
         position: absolute;
         left: 104px;
-        top: 7px;
+        top: 2px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -395,6 +388,9 @@ export default {
 
     .right-area {
       flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       .btn {
         display: inline-block;

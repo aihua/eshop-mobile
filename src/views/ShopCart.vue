@@ -1,11 +1,11 @@
 <template>
   <div class="shop-cart-container">
     <deal-header title="购物车">
-      <span class="add-more-food" slot="left">
-        <button class="btn" @click="addMoreFood">继续加菜</button>
+      <span class="back" slot="left">
+        <i class="icon-back" @click="$router.back()"></i>
       </span>
     </deal-header>
-
+  
     <deal-content>
       <div class="table-info">
         <span class="table-number">桌号: {{shopCart.tableId}}</span>
@@ -15,22 +15,38 @@
           <span>{{shopCart.totalPrice}}</span>
         </span>
       </div>
-
+  
       <div class="order-list">
         <template v-if="shopCart.foods.length">
-          <div class="order-item" v-for="item in shopCart.foods">
-            <div class="icon me" v-if="isMe(item.tableUser)">我</div>
-            <div class="icon" :class="['user-' + item.tableUserNumber]" v-else>{{item.tableUserNumber}}号</div>
-            <div class="item-detail">
-              <div class="food-name">{{item.name}}</div>
-              <div class="food-money">
-                <div class="food-price">{{item.price}} 元/{{item.unit}}</div>
-                <i v-if="isEditable" class="icon-sub" @click="removeFood(item)"></i>
-                <div class="food-count">{{item.num}}</div>
-                <i v-if="isEditable" class="icon-plus" @click="addFood(item)"></i>
-              </div>
+          <swipeout>
+            <div v-for="item in shopCart.foods">
+              <swipeout-item @on-close="handleEvents('on-close')" @on-open="handleEvents('on-open')" transition-mode="follow">
+                <div slot="right-menu">
+                  <swipeout-button @click.native="deleteFood(item)" type="warn">删除</swipeout-button>
+                </div>
+  
+                <div slot="content" class="order-item">
+                  <div class="icon me" v-if="isMe(item.tableUser)">我</div>
+                  <div class="icon" :class="['user-' + item.tableUserNumber]" v-else>{{item.tableUserNumber}}号</div>
+                  <div class="item-detail">
+                    <div class="food-name">{{item.name}}</div>
+                    <div class="food-money">
+                      <div class="food-price">{{item.price}} 元/{{item.unit}}</div>
+                      <template v-if="item.unit === '份'">
+                        <i v-if="isEditable" class="icon-sub" @click="removeFood(item)"></i>
+                        <div class="food-count">{{item.num}}</div>
+                        <i v-if="isEditable" class="icon-plus" @click="addFood(item)"></i>
+                      </template>
+                      <template v-else>
+                        <x-number style="flex: 5;" v-if="isEditable" v-model="item.num" @on-change="changeFood(item)" :step="0.1"></x-number>
+                        <div v-else class="food-count">{{item.num}}</div>
+                      </template>
+                    </div>
+                  </div>
+                </div>
+              </swipeout-item>
             </div>
-          </div>
+          </swipeout>
         </template>
         <template v-else>
           <div class="order-tip">
@@ -38,14 +54,14 @@
             <span class="text">您还未点菜哟 ：)</span>
           </div>
         </template>
-
+  
         <div class="remark">
           <textarea v-model="remark" rows="4" :placeholder="placeholder"></textarea>
         </div>
-
+  
       </div>
     </deal-content>
-
+  
     <deal-footer>
       <div class="left-area" @click="refreshOrder">
         <i class="icon-refresh"></i>
@@ -60,9 +76,13 @@
         <span class="text">确认下单</span>
       </div>
     </deal-footer>
+
+    
   </div>
 </template>
 <script>
+import { Swipeout, SwipeoutItem, SwipeoutButton, XNumber, Group } from 'vux'
+
 import DealHeader from '@/components/DealHeader'
 import DealContent from '@/components/DealContent'
 import DealFooter from '@/components/DealFooter'
@@ -72,23 +92,35 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'ShopCart',
   components: {
-    'deal-header': DealHeader,
-    'deal-content': DealContent,
-    'deal-footer': DealFooter
+    DealHeader,
+    DealContent,
+    DealFooter,
+    Swipeout,
+    SwipeoutItem,
+    SwipeoutButton,
+    XNumber,
+    Group
   },
   data() {
     return {
       isEditable: false,
       remark: '',
-      placeholder: ''
+      placeholder: '',
     }
   },
   computed: {
     ...mapGetters([
       'shopCart'
-      ])
+    ])
   },
   methods: {
+    
+    handleEvents(ev) {
+      console.log(ev)
+    },
+    onButtonClick(s) {
+      console.log(s)
+    },
     isMe(tableUser) {
       return localStorage.getItem('tableUser') === tableUser
     },
@@ -106,13 +138,19 @@ export default {
 
       this.$store.commit('SET_ORDER_REMARK', this.remark)
       if (phoneNumber) {
-        this.$router.push({name: 'PeopleNumber'})
+        this.$router.push({ name: 'PeopleNumber' })
       } else {
-        this.$router.push({name: 'PhoneVerify'})
+        this.$router.push({ name: 'PhoneVerify' })
       }
+    },
+    changeFood(food) {
+      this.$store.dispatch('SHOP_CART_CHANGE_FOOD', food)
     },
     removeFood(food) {
       this.$store.dispatch('SHOP_CART_REMOVE_FOOD', food)
+    },
+    deleteFood(food) {
+      this.$store.dispatch('SHOP_CART_DELETE_FOOD', food)
     },
     addFood(food) {
       this.$store.dispatch('SHOP_CART_ADD_FOOD', food)
@@ -120,6 +158,8 @@ export default {
   },
   mounted() {
     this.$store.dispatch('FETCH_SHOP_CART')
+
+    
   },
   created() {
     if (storage.get('consignee')) {
@@ -229,7 +269,7 @@ export default {
         }
 
         .item-detail {
-          flex: 3;
+          flex: 4;
           padding: 0 10px;
 
           .food-name {
@@ -238,12 +278,18 @@ export default {
 
           .food-money {
             display: flex;
-            margin-top: 20px;
+            margin-top: 14px;
             color: #c1d0be;
+            height: 27px;
 
-            .food-price,
+            .food-price {
+              flex: 3;
+            }
             .food-count {
               flex: 1;
+              display: flex;
+              justify-content: center;
+              align-items: center;
             }
 
             .food-price {
@@ -251,7 +297,11 @@ export default {
             }
 
             i {
+              flex: 2;
               color: #86b201;
+              display: flex;
+              justify-content: center;
+              align-items: center;
             }
           }
         }
@@ -285,6 +335,9 @@ export default {
     .center-area,
     .right-area {
       flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .left-area,
@@ -298,7 +351,6 @@ export default {
       background-color: #86b201;
     }
   }
-
 }
 </style>
 

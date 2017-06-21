@@ -18,7 +18,7 @@ import OrderFailed from '@/views/OrderFailed'
 import ShopComment from '@/views/ShopComment'
 import VIPCard from '@/views/VIPCard'
 import Alipay from '@/views/Alipay'
-import comment from '@/components/commentDetail'
+import FoodDetail from '@/views/FoodDetail'
 import ShopCommentView from '@/views/ShopCommentView'
 import Wechatpay from '@/views/Wechatpay'
 
@@ -36,9 +36,9 @@ const routes = [
     component: DealMenu,
   },
   {
-    path:'/comment',
-    name:'comment',
-    component:comment
+    path: '/food-detail',
+    name: 'FoodDetail',
+    component: FoodDetail
   },
   {
     path: '/pay',

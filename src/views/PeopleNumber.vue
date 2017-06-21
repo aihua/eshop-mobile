@@ -91,25 +91,14 @@ import { objFrom } from '@/util/index'
 import { mapGetters } from 'vuex'
 import storage from '@/util/storage'
 export default {
-  name: 'AlipayCallback',
+  name: 'PeopleNumber',
   components: {
     'deal-header': DealHeader,
     'deal-content': DealContent,
     'deal-footer': DealFooter,
   },
-  computed: {
-    ...mapGetters(['orderDetail'])
-  },
-  filters: {
-    // 格式化后台返回下单时间 只显示时间部分
-    time(v) {
-      return v && v.split(' ')[1]
-    }
-  },
   data() {
     return {
-      payTime: '',
-      tenantName: '',
       showContent: false
     }
   },
@@ -120,11 +109,6 @@ export default {
     }
   },
   created() {
-    this.tenantName = storage.get('tenantName')
-    const obj = objFrom(decodeURIComponent(location.search))
-    this.payTime = obj.timestamp
-
-    this.$store.dispatch('FETCH_ORDER', obj.out_trade_no)
   },
   mounted() {
     window.setTimeout(() => {

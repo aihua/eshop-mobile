@@ -56,7 +56,7 @@ export default {
     transition: all .3s ease;
     display: flex;
     align-items: center;
-    
+    text-align: center;
     .title {
       flex: 1;
     }

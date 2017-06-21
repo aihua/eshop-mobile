@@ -16,8 +16,14 @@ const state = {
   showMode: 'noPicMode',
   shopComments: '',
   // {
-  //   foodId1: foodCount1,
-  //   foodId2: foodCount2,
+  //   foodId1: {
+  //     num: 1,
+  //     remark: '备注'
+  //   },
+  //   foodId2: {
+  //     num: 2,
+  //     remark: '备注2'
+  //   },
   //   ...
   // }
   tempShopCart: {
@@ -59,42 +65,39 @@ const mutations = {
     })
     state.allFoods = foods
   },
-  ADD_FOOD(state, { food, typeIndex }) {
+  ADD_FOOD(state, { food, num = 1, remark = '', typeIndex }) {
+    debugger
     // 临时购物车 food 数量加一
-    if (Number.isInteger(state.tempShopCart[food.id])) {
-      state.tempShopCart[food.id] += 1
+    if (state.tempShopCart[food.id]) {
+      if (food.unit === '份') {
+        state.tempShopCart[food.id].num += 1
+        state.tempShopCart[food.id].remark = remark
+      } else if (food.unit === '斤') {
+        state.tempShopCart[food.id].num = num
+        state.tempShopCart[food.id].remark = remark
+      }
     } else {
-      Vue.set(state.tempShopCart, food.id, 1)
+      Vue.set(state.tempShopCart, food.id, {num, remark})
     }
     // foodTypes 里选中食物加一
     const foodType = state.allFoods[typeIndex]
 
     if (foodType.selectFoodCount) {
-      foodType.selectFoodCount += 1
+      if (food.unit === '份') {
+        foodType.selectFoodCount += 1
+      } else if (food.unit === '斤') {
+        // ignore
+      }
     } else {
       Vue.set(foodType, 'selectFoodCount', 1)
     }
   },
-  addForCart(state,{foodId,typeId}){
-    if (Number.isInteger(state.tempShopCart[foodId])) {
-      state.tempShopCart[foodId] += 1
-    } else {
-      Vue.set(state.tempShopCart, foodId, 1)
-    }
-    // foodTypes 里选中食物加一
-    const foodType = state.allFoods[typeId]
-
-    if (foodType.selectFoodCount) {
-      foodType.selectFoodCount += 1
-    } else {
-      Vue.set(foodType, 'selectFoodCount', 1)
-    }
-  },
-  REMOVE_FOOD(state, { food, typeIndex }) {
+  REMOVE_FOOD(state, { food, num = 1, typeIndex }) {
+    debugger
     // 临时购物车 food 数量减一
-    if (Number.isInteger(state.tempShopCart[food.id])) {
-      state.tempShopCart[food.id] -= 1
-      if (state.tempShopCart[food.id] === 0) {
+    if (state.tempShopCart[food.id]) {
+      state.tempShopCart[food.id].num -= 1
+      if (state.tempShopCart[food.id].num === 0) {
         Vue.delete(state.tempShopCart, food.id)
       }
     }
@@ -108,34 +111,7 @@ const mutations = {
       }
     }
   },
-  CHANGE_FOOD(state, { food, foodCount, typeIndex }) {
-    console.log(food, foodCount, typeIndex)
-    const foodType = state.allFoods[typeIndex]
 
-    if (foodCount === '') {
-      Vue.delete(state.tempShopCart, food.id)
-      if (foodType.selectFoodCount) {
-        foodType.selectFoodCount -= 1
-        if (foodType.selectFoodCount === 0) {
-          Vue.delete(foodType, 'selectFoodCount')
-        }
-      }
-
-    } else {
-      Vue.set(state.tempShopCart, food.id, foodCount)
-      if (foodType.selectFoodCount) {
-        foodType.selectFoodCount += 1
-      } else {
-        Vue.set(foodType, 'selectFoodCount', 1)
-      }
-    }
-
-    // commit('SET_FOOD_COUNT')
-  },
-  SET_FOOD_COUNT(state) {
-    // 根据临时购物车 tempShopCart 计算 selectFoodCount
-
-  },
   SHOW_LOADING(state, load) {
     if (load === true) {
       state.loading = load
@@ -184,9 +160,10 @@ const mutations = {
   DINERS_NUM(state, number) {
     state.dinersNum = number
   },
-  imageView(state,{ food, typeIndex }){
+  SET_FOOD_DETAIL(state, { food, typeIndex }) {
     state.foodDetail = { food, typeIndex }
   },
+
   SET_SHOP_COMMENT(state, ratings) {
     state.shopComments = ratings
   }
@@ -197,30 +174,27 @@ const actions = {
     commit('UPDATE_SHOW_MODE', mode)
   },
   FETCH_ALL_FOODS: ({ commit }) => {
-    return DealService.getAllFoods()
+    if (state.allFoods.length === 0) {
+      return DealService.getAllFoods()
       .then(data => {
         commit('SET_ALL_FOODS', data.goods.map(e => {
           Object.assign(e, {selectFoodCount: ''})
           return e
         }))
       })
+    } else {
+      return Promise.resolve(state.allFoods)
+    }
+    
   },
-  ADD_FOOD: ({ commit }, { food, typeIndex }) => {
-    commit('ADD_FOOD', { food, typeIndex })
+  ADD_FOOD: ({ commit }, { food, num, remark, typeIndex }) => {
+    commit('ADD_FOOD', { food, num, remark, typeIndex })
   },
-  REMOVE_FOOD: ({ commit }, { food, typeIndex }) => {
-    commit('REMOVE_FOOD', { food, typeIndex })
+  REMOVE_FOOD: ({ commit }, { food, num, remark, typeIndex }) => {
+    commit('REMOVE_FOOD', { food, num, remark, typeIndex })
   },
-
-  CHANGE_FOOD: ({ commit }, { food, foodCount, typeIndex }) => {
-    commit('CHANGE_FOOD', { food, foodCount, typeIndex })
-  },
-
   SET_QRCODE_INFO: ({ commit }, searchObj) => {
     commit('SET_QRCODE_INFO', searchObj)
-  },
-  displayImage:({commit},{ food, typeIndex }) => {
-    commit('imageView', { food, typeIndex })
   },
   cartAdd:({commit},{foodId,typeId}) => {
     commit('addForCart',{foodId,typeId})
@@ -230,7 +204,8 @@ const actions = {
     const foodArray = Object.keys(state.tempShopCart).map(foodId => {
       return {
         FoodId: Number(foodId),
-        num: state.tempShopCart[foodId]
+        num: state.tempShopCart[foodId].num,
+        remark: state.tempShopCart[foodId].remark
       }
     })
     // 如果临时购物车有菜
@@ -288,18 +263,41 @@ const actions = {
         commit('SHOW_LOADING', false)
       })
   },
+  SHOP_CART_CHANGE_FOOD: ({ commit, dispatch }, food) => {
+    commit('SHOW_LOADING', true)
+
+    const condition = {
+      FoodId: food.id,
+      addNum: 0, 
+      newNum: food.num,
+      tableUser: food.tableUser
+    }
+    return ShopCartService.editShopCart(condition, storage.get('consignee'))
+    .then(_ => dispatch('FETCH_SHOP_CART'))
+  },
   SHOP_CART_REMOVE_FOOD: ({ commit, dispatch }, food) => {
     commit('SHOW_LOADING', true)
 
     const condition = {
       FoodId: food.id,
-      addNum: -1,
+      addNum: -1, 
       tableUser: food.tableUser
     }
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
     .then(_ => dispatch('FETCH_SHOP_CART'))
   },
 
+  SHOP_CART_DELETE_FOOD: ({ commit, dispatch }, food) => {
+    commit('SHOW_LOADING', true)
+
+    const condition = {
+      FoodId: food.id,
+      addNum: 0,
+      tableUser: food.tableUser
+    }
+    return ShopCartService.editShopCart(condition, storage.get('consignee'))
+    .then(_ => dispatch('FETCH_SHOP_CART'))
+  },
   SHOP_CART_ADD_FOOD: ({ commit, dispatch }, food) => {
     commit('SHOW_LOADING', true)
 
@@ -449,9 +447,12 @@ const actions = {
 }
 
 const getters = {
+  tempShopCart(state) {
+    return state.tempShopCart
+  },
   tempShopCartFoodCount(state) {
     return Object.keys(state.tempShopCart).reduce((accu, curr) => {
-      return accu + state.tempShopCart[curr]
+      return accu + state.tempShopCart[curr].num
     }, 0)
   },
   tempShopCartFoodCost(state) {
@@ -461,7 +462,8 @@ const getters = {
       for (let type of state.allFoods) {
         for (let food of type.foods) {
           if (food.id === Number(foodId)) {
-            total += food.price * state.tempShopCart[foodId]
+            const temp = food.price * state.tempShopCart[foodId].num
+            total += Math.round((temp * 100))/100
           }
         }
       }

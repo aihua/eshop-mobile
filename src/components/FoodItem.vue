@@ -30,15 +30,9 @@
       </span>
     </div>
     <div class="food-action" v-else>
-      <input v-model.number="quantity" style="height: 30%; width: 100%;font-size: .9rem;" placeholder="斤数">
+      <span>请点击选择斤数/口味</span>
     </div>
 
-    <deal-dialog v-model="inputFlag">
-      <input v-model.number="quantity">
-      <div class="btn-group">
-        <span class="ok" @click="ok()">好了</span>
-      </div>
-    </deal-dialog>
   </li>
 </template>
 <script>
@@ -51,20 +45,7 @@ export default {
   data(){
       return{
           showModal:false,
-          inputFlag: false,
-          quantity: ''
       }
-  },
-  watch: {
-    quantity(newV, oldV) {
-      if (newV !==undefined) {
-        this.$store.dispatch('CHANGE_FOOD', {
-          food: this.food,
-          foodCount: this.quantity,
-          typeIndex: this.typeIndex
-        })
-      }
-    }
   },
   props: {
     food: {
@@ -93,23 +74,7 @@ export default {
     },
     showDetails() {
       this.$emit('show-detail')
-
     },
-    toInput() {
-      this.inputFlag = true
-    },
-    ok() {
-      this.inputFlag = false
-      this.$emit('change-food', this.quantity)
-    }
-//    showComment(food){
-//      this.$store.dispatch('displayImage',food);
-//      this.$router.push('/comment')
-//    },
-//    cartOfFood(food, typeIndex) {
-//      this.showModal = false;
-//      this.addFood(food, typeIndex);
-//    },
   },
   created() {
   }
