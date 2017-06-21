@@ -8,8 +8,8 @@
   
     <deal-content>
       <div class="food-info">
-        <div :style="{'background': `url(${foodDetail.food.image}) 50% 100%`, 'width': '100%', 'height': '280px'}">
-          <!--<img style="width:100%;height:300px;" :src="foodDetail.food.image" alt="">-->
+        <div>
+          <img style="width:100%;height:300px;" :src="foodDetail.food.image" alt="">
         </div>
         <div class="title">{{foodDetail.food.name}}</div>
         <div class="favorite">
@@ -34,30 +34,12 @@
       </div>
       <div class="food-comment">
         <h3>商品评价</h3>
-  
-        <div class="rating-item" v-for="(comment, index) in foodDetail.food.Ratings">
-          <div class="user-info">
-            <div class="avatar">
-              <img width="40px" :src="comment.avatar">
-            </div>
-            <div class="phone">
-              {{comment.username}}
-            </div>
-            <div class="time">{{comment.rateTime | time}}</div>
-          </div>
-  
-          <div class="info">
-            {{comment.text}}
-          </div>
-  
-          <div class="actions">
-            <div class="thumbs-up" @click="thumbsUp(index)">
-              <i class="icon-Zambia" :class="{selected: selectedIndexes.indexOf(index) >= 0}"></i>
-              <span>赞</span>
-            </div>
-          </div>
-        </div>
-  
+
+        <template v-if="foodDetail.food.Ratings.length">
+          <template v-for="(comment, index) in foodDetail.food.Ratings">
+            <comment-item :comment="comment" @change="changeThumbs($event, comment)"></comment-item>
+          </template>
+        </template>
         <div class="leave-message" v-if="hasPhoneNumber">
           <textarea class="text-area" v-model="commentText" placeholder="说两句话吧, 您的评价和建议, 将会为我们的改进, 提供很好的参考。"></textarea>
           <button class="btn" @click="commitComment">提交</button>
@@ -140,6 +122,8 @@ import DealHeader from '@/components/DealHeader'
 import DealContent from '@/components/DealContent'
 import DealFooter from '@/components/DealFooter'
 import DealDialog from '@/components/DealDialog'
+import CommentItem from '@//components/CommentItem'
+
 import { mapGetters } from 'vuex'
 import fecha from 'fecha'
 import storage from '@/util/storage'
@@ -150,12 +134,12 @@ export default {
     DealContent,
     DealFooter,
     DealDialog,
+    CommentItem,
     XButton,
     XNumber
   },
   data() {
     return {
-      selectedIndexes: [],
       hasPhoneNumber: false,
       showSelection: false,
       showDialog: false,
@@ -245,12 +229,6 @@ export default {
       }
     }
   },
-  filters: {
-    time(v) {
-      const date = new Date(v)
-      return fecha.format(date, 'YYYY-MM-DD HH:mm')
-    }
-  },
   methods: {
     toggleSelection() {
       this.showSelection = !this.showSelection
@@ -269,13 +247,8 @@ export default {
         this.$store.dispatch('ADD_SHOP_CART')
       }
     },
-    thumbsUp(index) {
-      const i = this.selectedIndexes.indexOf(index)
-      if (i >= 0) {
-        this.selectedIndexes.splice(i, 1)
-      } else {
-        this.selectedIndexes.push(index)
-      }
+    changeThumbs(ev, comment) {
+      console.log(ev, comment)
     },
     addShopCart() {
       const tasteText = this.tastes.reduce((accu, curr) => {
@@ -480,7 +453,7 @@ export default {
 
       .food-count {
         position: absolute;
-        left: 104px;
+        left: 26%;
         top: 2px;
         display: flex;
         justify-content: center;

@@ -370,7 +370,7 @@ export default {
 
       .food-count {
         position: absolute;
-        left: 104px;
+        left: 26%;
         top: 2px;
         display: flex;
         justify-content: center;

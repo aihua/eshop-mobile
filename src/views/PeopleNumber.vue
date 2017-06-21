@@ -7,73 +7,12 @@
     </deal-header>
   
     <deal-content>
-      <transition enter-active-class="animated zoomIn" leave-active-class="animated zoomOut">
+      <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
         <div v-if="showContent" class="people-number-content">
-          <div class="first-line">
-            <div class="number" @click="chooseNumber(1)">
+          <div class="line" v-for="subArr in numbers">
+            <div class="number" v-for="item in subArr" @click="chooseNumber(item)">
               <div class="text">
-                <span>1</span>
-              </div>
-            </div>
-            <div class="number" @click="chooseNumber(2)">
-              <div class="text">
-                <span>2</span>
-              </div>
-            </div>
-            <div class="number" @click="chooseNumber(3)">
-              <div class="text">
-                <span>3</span>
-              </div>
-            </div>
-          </div>
-          <div class="second-line">
-            <div class="number" @click="chooseNumber(4)">
-              <div class="text">
-                <span>4</span>
-              </div>
-            </div>
-            <div class="number" @click="chooseNumber(5)">
-              <div class="text">
-                <span>5</span>
-              </div>
-            </div>
-            <div class="number" @click="chooseNumber(6)">
-              <div class="text">
-                <span>6</span>
-              </div>
-            </div>
-          </div>
-          <div class="third-line">
-            <div class="number" @click="chooseNumber(7)">
-              <div class="text">
-                <span>7</span>
-              </div>
-            </div>
-            <div class="number" @click="chooseNumber(8)">
-              <div class="text">
-                <span>8</span>
-              </div>
-            </div>
-            <div class="number" @click="chooseNumber(9)">
-              <div class="text">
-                <span>9</span>
-              </div>
-            </div>
-          </div>
-          <div class="forth-line">
-            <div class="number" @click="chooseNumber(10)">
-              <div class="text">
-                <span>10</span>
-              </div>
-            </div>
-            <div class="number" @click="chooseNumber(11)">
-              <div class="text">
-                <span>11</span>
-              </div>
-            </div>
-            <div class="number" @click="chooseNumber(12)">
-              <div class="text">
-                <span>12</span>
+                <span>{{item}}</span>
               </div>
             </div>
           </div>
@@ -99,7 +38,13 @@ export default {
   },
   data() {
     return {
-      showContent: false
+      showContent: false,
+      numbers: [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+        [10, 11, 12]
+      ]
     }
   },
   methods: {
@@ -128,10 +73,7 @@ export default {
 
     .people-number-content {
 
-      .first-line,
-      .second-line,
-      .third-line,
-      .forth-line {
+      .line {
         display: flex;
         margin-top: 15px;
         height: 33vw;
