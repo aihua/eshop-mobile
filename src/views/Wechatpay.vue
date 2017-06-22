@@ -5,7 +5,7 @@
       </span>
     </deal-header>
   
-    <deal-content>
+    <deal-content v-if="payEnd">
       <div class="bill-content">
         <div class="bill-header">
           <div class="bill-inner-header">
@@ -43,7 +43,7 @@
               <span class="text">{{orderDetail.totalPrice}}</span>
             </div>
             <div class="bill-mode">
-              <span>支付宝：</span>
+              <span>微信：</span>
               <span class="text">{{orderDetail.totalPrice}}</span>
             </div>
           </div>
@@ -81,8 +81,6 @@ import { objFrom } from '@/util/index'
 import { mapGetters } from 'vuex'
 import storage from '@/util/storage'
 
-
-
 export default {
   name: 'WechatCallback',
   components: {
@@ -102,7 +100,8 @@ export default {
   data() {
     return {
       payTime: '',
-      tenantName: ''
+      tenantName: '',
+      payEnd: false
     }
   },
   created() {
@@ -130,6 +129,7 @@ export default {
                 // alert('zhifu ok')
 
                 window.alert(JSON.stringify(res, null, 2))
+                this.payEnd = true
               }
               if (res.err_msg === 'get_brand_wcpay_request:cancel') {
                 // alert('zhifu cancel')
@@ -152,6 +152,7 @@ export default {
               // alert('zhifu ok')
 
               window.alert(JSON.stringify(res, null, 2))
+              this.payEnd = true
             }
             if (res.err_msg === 'get_brand_wcpay_request:cancel') {
               // alert('zhifu cancel')
