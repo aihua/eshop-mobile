@@ -8,8 +8,8 @@
   
     <deal-content>
       <div class="food-info">
-        <div>
-          <img style="width:100%;height:300px;" :src="foodDetail.food.image" alt="">
+        <div :style="{'width': '100%', 'height': '250px', 'background': `url(${foodDetail.food.image})`, 'background-size': 'contain'}">
+          <!--<img style="width:100%;height:300px;" :src="foodDetail.food.image" alt="">-->
         </div>
         <div class="title">{{foodDetail.food.name}}</div>
         <div class="favorite">
