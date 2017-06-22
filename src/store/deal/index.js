@@ -153,12 +153,18 @@ const actions = {
   },
   FETCH_ALL_FOODS: ({ commit }) => {
     if (state.allFoods.length === 0) {
+      commit('SHOW_LOADING', true)
       return DealService.getAllFoods()
       .then(data => {
+        commit('SHOW_LOADING', false)
         commit('SET_ALL_FOODS', data.foods.map(e => {
           Object.assign(e, {selectFoodCount: 0})
           return e
         }))
+      })
+      .catch(err => {
+        commit('SHOW_LOADING', false)
+        console.error(err)
       })
     } else {
       return Promise.resolve(state.allFoods)

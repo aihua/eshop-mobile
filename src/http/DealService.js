@@ -8,6 +8,7 @@ const getAllFoods = function () {
   })
   .catch(err => {
     console.error(err)
+    return Promise.reject(err)
   })
 }
 

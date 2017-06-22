@@ -9,6 +9,9 @@ function getWapParams(amount) {
     .then(resp => {
       return resp.data
     })
+    .catch(err => {
+      return Promise.reject(err)
+    })
 }
 
 export {

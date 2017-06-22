@@ -8,6 +8,7 @@ const getShopComment = function () {
   })
   .catch(err => {
     console.error(err)
+    return Promise.reject(err)
   })
 }
 
@@ -18,6 +19,7 @@ const addShopComment = function (params) {
   })
   .catch(err => {
     console.error(err)
+    return Promise.reject(err)
   })
 }
 
@@ -28,6 +30,7 @@ const addFoodComment = function (params) {
   })
   .catch(err => {
     console.error(err)
+    return Promise.reject(err)
   })
 }
 

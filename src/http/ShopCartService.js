@@ -10,6 +10,10 @@ const addShopCart = function (foods, consignee) {
   .then(resp => {
     return resp.data
   })
+  .catch(err => {
+    console.error(err)
+    return Promise.reject(err)
+  })
 }
 
 const editShopCart = function (condition, consignee) {
@@ -21,12 +25,20 @@ const editShopCart = function (condition, consignee) {
   .then(resp => {
     return resp.data
   })
+  .catch(err => {
+    console.error(err)
+    return Promise.reject(err)
+  })
 }
 
 const getShopCart = function () {
   return axios.get(`http://deal.xiaovbao.cn/api/v1/user/foodShoppingCart/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`)
   .then(resp => {
     return resp.data
+  })
+  .catch(err => {
+    console.error(err)
+    return Promise.reject(err)
   })
 }
 

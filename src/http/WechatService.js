@@ -8,6 +8,7 @@ function redirect() {
   })
   .catch(err => {
     console.error(err)
+    return Promise.reject(err)
   })
 }
 
@@ -23,6 +24,7 @@ function getWechatPayParams(code) {
 	})
 	.catch(err => {
 		console.error(err)
+    return Promise.reject(err)
 	})
 }
 
