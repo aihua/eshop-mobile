@@ -273,7 +273,7 @@ export default {
       })
 
       this.$vux.toast.show({
-        text: '已添加购物车',
+        text: '已添加购物车 : )',
         type: 'text',
       })
 
@@ -289,6 +289,10 @@ export default {
       this.$store.dispatch('COMMIT_FOOD_COMMENT', params)
         .then(_ => {
           this.commentText = ''
+          this.$vux.toast.show({
+            text: '感谢评论 : )',
+            type: 'text',
+          })
         })
     }
   }
