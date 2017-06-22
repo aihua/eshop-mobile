@@ -93,6 +93,7 @@ export default {
   margin-top: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #aaa;
+  height: 110px;
 
   .food-img {
     flex: 1;
