@@ -116,11 +116,15 @@ export default {
 
     WechatService.getWechatPayParams(code)
       .then(data => {
+        window.alert(JSON.stringify(payParams, null, 2))
+
+        const tradeNo = data.trade_no
         data.timeStamp = data.timestamp
         delete data.timestamp
-        payParams = data
+        delete data.trade_no
 
-        JSON.stringify(payParams, null, 2)
+        payParams = data
+        
         if (typeof WeixinJSBridge !== 'undefined') {
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest', payParams,
@@ -129,7 +133,7 @@ export default {
               if (res.err_msg == "get_brand_wcpay_request:ok") {
                 // alert('zhifu ok')
 
-                this.$store.dispatch('FETCH_ORDER', obj.out_trade_no)
+                this.$store.dispatch('FETCH_ORDER', tradeNo)
                   .then(() => {
                     this.payEnd = true
                   })
