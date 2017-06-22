@@ -55,23 +55,6 @@
     </deal-footer>
   
     <back-top></back-top>
-  
-    <deal-dialog v-model="showDialog">
-      <div class="content">购物车还是空的呢 :)</div>
-      <div class="btn-group">
-        <span class="ok" @click="showDialog=false">我知道了</span>
-      </div>
-    </deal-dialog>
-  
-    <deal-dialog v-model="remind">
-      <div class="content" style="color: red;">
-        <span>{{consumed}} : )</span>
-      </div>
-      <div class="btn-group">
-        <span class="ok" @click="remind=false">我知道了</span>
-      </div>
-    </deal-dialog>
-  
   </div>
 </template>
 <script>
@@ -93,13 +76,12 @@ import { createSteps } from '@/util/index'
 export default {
   name: 'DealMenu',
   components: {
-    'deal-dialog': DealDialog,
-    'deal-header': DealHeader,
-    'deal-content': DealContent,
-    'deal-footer': DealFooter,
-
-    'food-item': FoodItem,
-    'back-top': BackTop,
+    DealDialog,
+    DealHeader,
+    DealContent,
+    DealFooter,
+    FoodItem,
+    BackTop,
     XButton
   },
   data() {
@@ -108,11 +90,8 @@ export default {
       listHeight: [],// 菜单右边菜品子列表的高度
       foodsScrollY: 0,// 菜单右边滚动区的 滚动y轴偏差
       menuCurrentIndex: 0,// 菜单左边 当前选中索引,
-      showDialog: false,// 是否显示 还没有点菜弹出框
-      remind: false,// 提示框 是否满会员门槛
       totalConsumer: 100, // 会员门槛金额
       ratio: 0.8, // 快满会员金额 比率
-      consumed: '', // 会员门槛 提示信息
       hasPromptAlmostVip: false, // 是否已经提示 快满会员
       hasPromptVip: false // 是否已经提示 可以成为会员
     }
@@ -142,15 +121,25 @@ export default {
     },
     'tempShopCartFoodCost': function (val, oldVal) {
       if (!this.hasPromptAlmostVip && val > this.totalConsumer * this.ratio) {
-        this.remind = true
         this.hasPromptAlmostVip = true
-        this.consumed = `还差${(this.totalConsumer - val).toFixed(2)}元可成为会员, 享受会员价`
+        const text = `还差${(this.totalConsumer - val).toFixed(2)}元可成为会员, 享受会员价 : )`
+
+        this.$vux.alert.show({
+          title: '提示',
+          content: text,
+          buttonText: '我知道了'
+        })
       }
 
       if (!this.hasPromptVip && val >= this.totalConsumer) {
-        this.remind = true
         this.hasPromptVip = true
-        this.consumed = `消费已满${this.totalConsumer}元, 可晋升为会员`;
+        const text = `消费已满${this.totalConsumer}元, 可晋升为会员`
+
+        this.$vux.alert.show({
+          title: '提示',
+          content: text,
+          buttonText: '我知道了'
+        })
       }
       
     },
@@ -184,7 +173,17 @@ export default {
     toShopCart() {
       // 如果临时购物车和购物车 都没有 则提示 还没有点菜
       if (this.tempShopCartFoodCost === 0 && this.shopCart.totalPrice === 0) {
-        this.showDialog = true
+        this.$vux.alert.show({
+          title: '提示',
+          content: '购物车还是空的呢 : )',
+          buttonText: '我知道了',
+          onShow () {
+            console.log('Plugin: I\'m showing')
+          },
+          onHide () {
+            console.log('Plugin: I\'m hiding')
+          }
+        })
       } else {
         this.$store.dispatch('ADD_SHOP_CART')
       }
@@ -399,37 +398,6 @@ export default {
         width: 80%;
       }
     }
-  }
-
-  .deal-dialog-container {
-    .content {
-      height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .btn-group {
-      height: 50px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-
-      .cancel,
-      .ok {
-        flex: 1;
-        color: #86b201;
-      }
-    }
-  }
-  .remind-dialog {
-    position: fixed;
-    bottom: 50px;
-    color: #f00;
-    background-color: rgba(239, 239, 239, 0.8);
-    height: 28px;
-    line-height: 28px;
-    width: 100%;
   }
 }
 </style>

@@ -10,38 +10,44 @@
       <div class="total-ratings">
         <rating :title="totalTitle" v-model="totalRating"></rating>
       </div>
-
+  
       <div class="ratings-list">
         <div class="title">
           <span>全部评价</span>
         </div>
-
+  
         <div class="content">
-          <div class="rating-item" v-for="(comment, index) in shopComments">
-            <div class="user-info">
-              <div class="avatar">
-                <img width="40px" :src="comment.avatar">
+          <template v-if="shopComments.length">
+            <div class="rating-item" v-for="(comment, index) in shopComments">
+              <div class="user-info">
+                <div class="avatar">
+                  <img width="40px" :src="comment.avatar">
+                </div>
+                <div class="phone">
+                  {{comment.userName}}
+                </div>
+                <div class="rating">
+                  <i class="icon-star" v-for="(item, index) in 5" :class="{'on': index <= comment.averageScore}"></i>
+                </div>
+                <div class="time">{{comment.createdAt | time}}</div>
               </div>
-              <div class="phone">
-                {{comment.userName}}
+  
+              <div class="info">
+                {{comment.text}}
               </div>
-              <div class="rating">
-                <i class="icon-star" v-for="(item, index) in 5" :class="{'on': index <= comment.averageScore}"></i>
+  
+              <div class="actions">
+                <div class="thumbs-up" @click="thumbsUp(index)">
+                  <i class="icon-Zambia" :class="{selected: selectedIndexes.indexOf(index) >= 0}"></i>
+                  <span>赞</span>
+                </div>
               </div>
-              <div class="time">{{comment.createdAt | time}}</div>
             </div>
+          </template>
+          <template v-else>
+            <p>还没有商家评价呢 ：)</p>
+          </template>
 
-            <div class="info">
-              {{comment.text}}
-            </div>
-
-            <div class="actions">
-              <div class="thumbs-up" @click="thumbsUp(index)">
-                <i class="icon-Zambia" :class="{selected: selectedIndexes.indexOf(index) >= 0}"></i>
-                <span>赞</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </deal-content>
@@ -136,7 +142,9 @@ export default {
             .avatar {
               width: 40px;
             }
-            .phone,.rating,.time {
+            .phone,
+            .rating,
+            .time {
               flex: 1;
             }
 
@@ -176,9 +184,7 @@ export default {
           }
         }
       }
-
     }
-
   }
 }
 </style>

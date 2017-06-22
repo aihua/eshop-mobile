@@ -5,7 +5,7 @@
         <i class="icon-back" @click="$router.back()"></i>
       </span>
     </deal-header>
-
+  
     <deal-content>
       <div class="bill-cost">
         <i class="icon-money"></i>
@@ -26,7 +26,7 @@
         </div>
         <div class="item" v-for="item in orderDetail.foods" :key="item.id">
           <div class="name">{{item.name}}</div>
-
+  
           <div class="money">
             <span class="price">{{item.price}}元/份</span>
             <span class="count">
@@ -35,29 +35,17 @@
             </span>
           </div>
         </div>
-
+  
       </div>
     </deal-content>
-
+  
     <deal-footer>
       <div class="ensure-btn" @click="ensure">
         <i class="icon-money"></i>
         <span>确认买单</span>
       </div>
     </deal-footer>
-
-    <deal-dialog v-model="showDialog">
-      <div class="content">
-        请选择支付方式
-      </div>
-    </deal-dialog>
-
-    <deal-dialog v-model="wechatPrompt">
-      <div class="content">
-        您的微信版本过低, 不支持支付功能 ：)
-      </div>
-    </deal-dialog>
-
+  
     <div class="deal-mask" v-show="showIframe"></div>
   </div>
 </template>
@@ -93,19 +81,27 @@ export default {
   },
   methods: {
     ensure() {
-        const ua = navigator.userAgent;
-        const match = ua.match(/micromessenger\/(\d)/i)
-        if(match){
-          if (Number(match[1]) >= 5) {
-            this.$store.dispatch('FETCH_WECHATPAY_URL')
-          } else {
-            this.wechatPrompt = true
-          }
-        } else if(ua.indexOf('AlipayClient') >= 0) {
-          this.$store.dispatch('FETCH_ALIPAY_URL')
+      const ua = navigator.userAgent;
+      const match = ua.match(/micromessenger\/(\d)/i)
+      if (match) {
+        if (Number(match[1]) >= 7) {
+          this.$store.dispatch('FETCH_WECHATPAY_URL')
         } else {
-          this.showDialog = true
+          this.$vux.alert.show({
+            title: '提示',
+            content: '您的微信版本过低, 不支持支付功能, 请升级微信版本 ：)',
+            buttonText: '我知道了'
+          })
         }
+      } else if (ua.indexOf('AlipayClient') >= 0) {
+        this.$store.dispatch('FETCH_ALIPAY_URL')
+      } else {
+        this.$vux.alert.show({
+          title: '提示',
+          content: '请选择微信或支付宝扫描支付',
+          buttonText: '我知道了'
+        })
+      }
     }
   }
 }
@@ -144,7 +140,7 @@ export default {
       height: 40px;
       padding: 0 10px;
       display: flex;
-	    justify-content: space-between;
+      justify-content: space-between;
       align-items: center;
       background-color: #fff;
       .text {
@@ -213,15 +209,6 @@ export default {
     bottom: 0;
     transform: translateX(-50%);
     z-index: 2000;
-  }
-
-  .deal-dialog-container {
-    .content {
-      height: 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
   }
 
   .deal-mask {

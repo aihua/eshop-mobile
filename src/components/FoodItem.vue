@@ -37,12 +37,8 @@
   </li>
 </template>
 <script>
-import DealDialog from '@/components/DealDialog'
 export default {
   name: 'FoodItem',
-  components:{
-    'deal-dialog' : DealDialog
-  },
   data(){
       return{
           showModal:false,

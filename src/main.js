@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import FastClick from 'fastclick'
-import { ToastPlugin } from 'vux'
+import { ToastPlugin, AlertPlugin } from 'vux'
 import 'normalize.css'
 import 'animate.css'
 import './assets/iconfont/iconfont.css'
@@ -15,6 +15,7 @@ import '@/util/polyfill.js'
 
 FastClick.attach(document.body)
 Vue.use(ToastPlugin)
+Vue.use(AlertPlugin)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

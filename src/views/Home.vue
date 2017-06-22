@@ -58,7 +58,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .home-container {
   position: absolute;
   top: 0;
@@ -78,13 +78,22 @@ export default {
   text-align: center;
   padding: 5px 0;
   background-color: #f5f5f5;
+
+  display: flex;
 }
 
 .home-container .footer a {
   display: inline-block;
-  width: 48%;
+  flex: 1;
   text-decoration: none;
   color: #282828;
+
+  &:first-child {
+    border-right: 1px solid black;
+  }
+  &:last-child {
+    border-left: 1px solid black;
+  }
 }
 </style>
 
