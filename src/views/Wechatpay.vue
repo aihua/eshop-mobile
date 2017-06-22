@@ -106,6 +106,7 @@ export default {
   },
   created() {
     let payParams = null
+    let tradeNo
     this.tenantName = storage.get('tenantName')
     const obj = objFrom(decodeURIComponent(location.search))
     this.payTime = obj.timestamp
@@ -116,9 +117,9 @@ export default {
 
     WechatService.getWechatPayParams(code)
       .then(data => {
-        window.alert(JSON.stringify(payParams, null, 2))
+        window.alert(JSON.stringify(data, null, 2))
 
-        const tradeNo = data.trade_no
+        tradeNo = data.trade_no
         data.timeStamp = data.timestamp
         delete data.timestamp
         delete data.trade_no
@@ -159,7 +160,7 @@ export default {
             if (res.err_msg == "get_brand_wcpay_request:ok") {
               // alert('zhifu ok')
 
-              this.$store.dispatch('FETCH_ORDER', obj.out_trade_no)
+              this.$store.dispatch('FETCH_ORDER', tradeNo)
                 .then(() => {
                   this.payEnd = true
                 })
