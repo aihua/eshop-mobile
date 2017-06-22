@@ -78,28 +78,26 @@
         <span class="text">VIP</span>
       </div>
     </deal-footer>
-  
-    <deal-dialog v-model="promptBill">
-      <div class="content">e代售提醒您请先买单, 谢谢！</div>
-    </deal-dialog>
+
+    <toast v-model="showPrompt" type="text" width="15em">e代售提醒您请先买单, 谢谢！</toast>
   </div>
 </template>
 <script>
+import { Toast } from 'vux'
 import DealHeader from '@/components/DealHeader'
 import DealContent from '@/components/DealContent'
 import DealFooter from '@/components/DealFooter'
 
-import DealDialog from '@/components/DealDialog'
 import { mapGetters } from 'vuex'
 import storage from '@/util/storage'
 
 export default {
   name: 'OrderSuccess',
   components: {
-    'deal-header': DealHeader,
-    'deal-content': DealContent,
-    'deal-footer': DealFooter,
-    'deal-dialog': DealDialog
+    DealHeader,
+    DealContent,
+    DealFooter,
+    Toast
   },
   computed: {
     ...mapGetters(['orderDetail'])
@@ -107,7 +105,7 @@ export default {
   data() {
     return {
       remark: '',
-      promptBill: false
+      showPrompt: false
     }
   },
   filters: {
@@ -149,10 +147,7 @@ export default {
   },
   mounted() {
     if (storage.get('consignee')) {
-      this.promptBill = true
-      window.setTimeout(() => {
-        this.promptBill = false
-      }, 3e3)
+      this.showPrompt = true
     }
     this.$store.dispatch('FETCH_ORDER')
   }
@@ -261,30 +256,6 @@ export default {
 
       span {
         margin-left: 5px;
-      }
-    }
-  }
-
-  .deal-dialog-container {
-    .deal-dialog {
-      .content {
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .btn-group {
-        height: 50px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-
-        .cancel,
-        .ok {
-          flex: 1;
-          color: #86b201;
-        }
       }
     }
   }
