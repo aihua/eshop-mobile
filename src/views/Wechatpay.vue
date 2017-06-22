@@ -110,7 +110,6 @@ export default {
     const obj = objFrom(decodeURIComponent(location.search))
     this.payTime = obj.timestamp
 
-    window.alert(JSON.stringify(obj, null, 2))
     // this.$store.dispatch('FETCH_ORDER', obj.out_trade_no)
 
     const code = obj.code
@@ -121,6 +120,7 @@ export default {
         delete data.timestamp
         payParams = data
 
+        JSON.stringify(payParams, null, 2)
         if (typeof WeixinJSBridge !== 'undefined') {
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest', payParams,
