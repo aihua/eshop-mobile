@@ -124,7 +124,7 @@ export default {
         delete data.trade_no
 
         payParams = data
-        
+
         if (typeof WeixinJSBridge !== 'undefined') {
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest', payParams,
@@ -149,7 +149,6 @@ export default {
 
     function onBridgeReady() {
       if (payParams) {
-        window.alert(`tradeNo: ${tradeNo}`)
         WeixinJSBridge.invoke(
           'getBrandWCPayRequest', payParams,
           function (res) {
