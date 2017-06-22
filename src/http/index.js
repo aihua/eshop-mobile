@@ -7,6 +7,8 @@ import * as TableService from './TableService'
 import * as CommentService from './CommentService'
 import * as WechatService from './WechatService'
 
+import './interceptors'
+
 export {
   DealService,
   AlipayService,

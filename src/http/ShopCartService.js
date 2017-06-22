@@ -1,9 +1,8 @@
 import axios from 'axios'
 import storage from '@/util/storage'
-import { host } from './domain.js'
 
 const addShopCart = function (foods, consignee) {
-  let url = `${host}/user/foodShoppingCart/add/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
+  let url = `/user/foodShoppingCart/add/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
   if (consignee) {
     url += `&consignee=${consignee}`
   }
@@ -18,7 +17,7 @@ const addShopCart = function (foods, consignee) {
 }
 
 const editShopCart = function (condition, consignee) {
-  let url = `${host}/user/foodShoppingCart/edit/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
+  let url = `/user/foodShoppingCart/edit/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
   if (consignee) {
     url += `&consignee=${consignee}`
   }
@@ -33,7 +32,7 @@ const editShopCart = function (condition, consignee) {
 }
 
 const getShopCart = function () {
-  return axios.get(`${host}/user/foodShoppingCart/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`)
+  return axios.get(`/user/foodShoppingCart/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`)
   .then(resp => {
     return resp.data
   })

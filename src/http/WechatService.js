@@ -1,9 +1,8 @@
 import axios from 'axios'
 import storage from '@/util/storage'
-import { host } from './domain.js'
 
 function redirect() {
-  return axios.get(`${host}/oauth`)
+  return axios.get(`/oauth`)
   .then(resp => {
     return resp.data
   })
@@ -14,7 +13,7 @@ function redirect() {
 }
 
 function getWechatPayParams(code) {
-  let url = `${host}/wechatPayInfo?code=${code}&tableId=${storage.get('tableId')}&tenantId=${storage.get('tenantId')}`
+  let url = `/wechatPayInfo?code=${code}&tableId=${storage.get('tableId')}&tenantId=${storage.get('tenantId')}`
   if (storage.get('consignee')) {
     url += `&consignee=${storage.get('consignee')}`
   }

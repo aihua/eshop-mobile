@@ -1,11 +1,10 @@
 import axios from 'axios'
 import storage from '@/util/storage'
-import { host } from './domain.js'
 
 const getShopComment = function () {
   const query = `?tenantId=${storage.get('tenantId')}`
 
-  return axios.get(`${host}/user/merchantRatings/${query}`)
+  return axios.get(`/user/merchantRatings/${query}`)
   .then(resp => {
     return resp.data
   })
@@ -17,7 +16,7 @@ const getShopComment = function () {
 
 const addShopComment = function (params) {
 
-  return axios.post(`${host}/user/merchantRatings`, params)
+  return axios.post(`/user/merchantRatings`, params)
   .then(resp => {
     return resp.data
   })
@@ -29,7 +28,7 @@ const addShopComment = function (params) {
 
 const addFoodComment = function (params) {
   
-  return axios.post(`${host}/user/rating`, params)
+  return axios.post(`/user/rating`, params)
   .then(resp => {
     return resp.data
   })
