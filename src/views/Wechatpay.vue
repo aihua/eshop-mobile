@@ -118,8 +118,6 @@ export default {
 
     WechatService.getWechatPayParams(code)
       .then(data => {
-        
-
         tradeNo = data.trade_no
         data.timeStamp = data.timestamp
         delete data.timestamp
@@ -128,13 +126,11 @@ export default {
         payParams = data
         
         if (typeof WeixinJSBridge !== 'undefined') {
-          window.alert(`tradeNo: ${tradeNo}`)
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest', payParams,
             function (res) {
               // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
               if (res.err_msg == "get_brand_wcpay_request:ok") {
-                alert('zhifu ok')
 
                 self.$store.dispatch('FETCH_ORDER', tradeNo)
                   .then(() => {
@@ -143,10 +139,8 @@ export default {
 
               }
               if (res.err_msg === 'get_brand_wcpay_request:cancel') {
-                alert('zhifu cancel')
               }
               if (res.err_msg === 'get_brand_wcpay_request:fail') {
-                alert('zhifu fail')
               }
             }
           );
@@ -161,18 +155,14 @@ export default {
           function (res) {
             // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
             if (res.err_msg == "get_brand_wcpay_request:ok") {
-              alert('zhifu ok')
-
               self.$store.dispatch('FETCH_ORDER', tradeNo)
                 .then(() => {
                   self.payEnd = true
                 })
             }
             if (res.err_msg === 'get_brand_wcpay_request:cancel') {
-              alert('zhifu cancel')
             }
             if (res.err_msg === 'get_brand_wcpay_request:fail') {
-              alert('zhifu fail')
             }
           }
         );
