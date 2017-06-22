@@ -57,7 +57,7 @@
     <back-top></back-top>
   
     <deal-dialog v-model="showDialog">
-      <div class="content">您还没有点菜哟 :)</div>
+      <div class="content">购物车还是空的呢 :)</div>
       <div class="btn-group">
         <span class="ok" @click="showDialog=false">我知道了</span>
       </div>
