@@ -1,8 +1,9 @@
 import axios from 'axios'
 import storage from '@/util/storage'
+import { host } from './domain.js'
 
 function redirect() {
-  return axios.get(`http://deal.xiaovbao.cn/api/v1/oauth`)
+  return axios.get(`${host}/oauth`)
   .then(resp => {
     return resp.data
   })
@@ -13,7 +14,7 @@ function redirect() {
 }
 
 function getWechatPayParams(code) {
-  let url = `http://deal.xiaovbao.cn/api/v1/wechatPayInfo?code=${code}&tableId=${storage.get('tableId')}&tenantId=${storage.get('tenantId')}`
+  let url = `${host}/wechatPayInfo?code=${code}&tableId=${storage.get('tableId')}&tenantId=${storage.get('tenantId')}`
   if (storage.get('consignee')) {
     url += `&consignee=${storage.get('consignee')}`
   }

@@ -1,8 +1,9 @@
 import axios from 'axios'
 import storage from '@/util/storage'
+import { host } from './domain.js'
 
 const getAllFoods = function () {
-  return axios.get(`http://deal.xiaovbao.cn/api/v1/user/Menus/?tenantId=${storage.get('tenantId')}&consignee=${storage.get('consignee')}`)
+  return axios.get(`${host}/user/Menus/?tenantId=${storage.get('tenantId')}&consignee=${storage.get('consignee')}`)
   .then(resp => {
     return resp.data
   })

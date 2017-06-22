@@ -1,8 +1,9 @@
 import axios from 'axios'
 import storage from '@/util/storage'
+import { host } from './domain.js'
 
 const addOrder = function (params, consignee) {
-  let url = `http://deal.xiaovbao.cn/api/v1/user/foodOrder/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
+  let url = `${host}/user/foodOrder/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
   if (consignee) {
     url += `&consignee=${consignee}`
   }
@@ -17,7 +18,7 @@ const addOrder = function (params, consignee) {
 }
 
 const getOrder = function (tradeNo) {
-  const prefixUrl = `http://deal.xiaovbao.cn/api/v1/user/foodOrder/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
+  const prefixUrl = `${host}/user/foodOrder/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
   const search = tradeNo ? `&trade_no=${tradeNo}` : ''
 
   return axios.get(prefixUrl + search)

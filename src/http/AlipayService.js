@@ -1,8 +1,9 @@
 import axios from 'axios'
 import storage from '@/util/storage'
+import { host } from './domain.js'
 
 function getWapParams(amount) {
-  return axios.get(`http://deal.xiaovbao.cn/api/v1/user/alipayInfo/${amount}/${storage.get('tableId')}
+  return axios.get(`${host}/user/alipayInfo/${amount}/${storage.get('tableId')}
   ?consignee=${storage.get('consignee')}
   &tenantId=${storage.get('tenantId')}
   `)
