@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
 import store from '@/store/index'
 
 import Home from '@/views/Home'

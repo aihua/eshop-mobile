@@ -7,7 +7,7 @@
       </router-link>
       <router-link to="/shop-comment-view">
         <i class="icon-comment"></i>
-        <div class="text">商家评论({{shopComments.length}})</div>
+        <div class="text">商家评价({{shopComments.length}})</div>
       </router-link>
     </footer>
   </div>
@@ -51,10 +51,22 @@ export default {
 
       store.dispatch('FETCH_SHOP_COMMENT')
     }
+    // 从 首页进来 判断桌状态来路由到其他页面
+    // 从 其他页面后退进来 不判断桌状态 让其直接进入home页
     if (from.path === '/') {
-      store.dispatch('FETCH_TABLE_STATUS')
+      next(vm => {
+        store.dispatch('FETCH_TABLE_STATUS')
+          .catch(err => {
+            vm.$vux.alert.show({
+              title: '提示',
+              content: err,
+              buttonText: '我知道了'
+            })
+          })
+      })
+    } else {
+      next()
     }
-    next()
   }
 }
 </script>

@@ -374,7 +374,7 @@ const actions = {
   },
 
   FETCH_WECHATPAY_URL: ({ commit }) => {
-    WechatService.redirect()
+    return WechatService.redirect()
     .then(data => {
       window.location.href = data.url
     })
@@ -382,7 +382,7 @@ const actions = {
 
   FETCH_TABLE_STATUS: ({ commit, state }) => {
     const tableId = storage.get('tableId')
-    TableService.getStatus(tableId)
+    return TableService.getStatus(tableId)
     .then(data => {
       if (data.tableStatus === 0) {// 空桌
         router.push({name: 'Home'})
@@ -396,12 +396,13 @@ const actions = {
     })
     .catch(err => {
       console.error(err)
+      return Promise.reject(err)
     })
 
   },
 
   FETCH_SHOP_COMMENT: ({ commit }) => {
-    CommentService.getShopComment()
+    return CommentService.getShopComment()
     .then(data => {
       commit('SET_SHOP_COMMENT', data.merchantRatings.sort((a, b) => {
         const milliSecondsA = new Date(a.time).getTime()
@@ -412,7 +413,7 @@ const actions = {
   },
 
   COMMIT_COMMENT: ({ commit }, params) => {
-    CommentService.addShopComment(params)
+    return CommentService.addShopComment(params)
     .then(data => {
       console.log(data)
       router.push({name: 'OrderSuccess'})

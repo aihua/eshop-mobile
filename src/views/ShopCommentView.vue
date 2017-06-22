@@ -42,7 +42,7 @@
             </div>
           </template>
           <template v-else>
-            <p>还没有商家评价呢 ：)</p>
+            <p>还没有客户评价呢 ：)</p>
           </template>
 
         </div>
@@ -71,7 +71,7 @@ export default {
   computed: {
     ...mapGetters(['shopComments']),
     title() {
-      return '餐厅评价(' + this.shopComments.length + ')'
+      return '商家评价(' + this.shopComments.length + ')'
     }
   },
   filters: {
