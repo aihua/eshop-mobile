@@ -110,6 +110,7 @@ export default {
     const obj = objFrom(decodeURIComponent(location.search))
     this.payTime = obj.timestamp
 
+    window.alert(JSON.stringify(obj, null, 2))
     // this.$store.dispatch('FETCH_ORDER', obj.out_trade_no)
 
     const code = obj.code
