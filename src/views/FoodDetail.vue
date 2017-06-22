@@ -40,6 +40,11 @@
             <comment-item :comment="comment" @change="changeThumbs($event, comment)"></comment-item>
           </template>
         </template>
+
+        <template v-else>
+          <p>这个商品还没有评论呢</p>
+        </template>
+
         <div class="leave-message" v-if="hasPhoneNumber">
           <textarea class="text-area" v-model="commentText" placeholder="说两句话吧, 您的评价和建议, 将会为我们的改进, 提供很好的参考。"></textarea>
           <button class="btn" @click="commitComment">提交</button>
@@ -299,6 +304,7 @@ export default {
   }
 
   .deal-content-container {
+    overflow: auto;
     .food-info {
       position: relative;
 
