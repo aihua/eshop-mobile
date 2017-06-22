@@ -25,7 +25,7 @@
           <div class="name">{{item.name}}</div>
   
           <div class="money">
-            <span class="price">{{item.price}}元/份</span>
+            <span class="price">{{item.price}}元/{{item.unit}}</span>
             <span class="count">
               <span>x</span>
               <span>{{item.num}}</span>
@@ -63,8 +63,6 @@ export default {
   },
   data() {
     return {
-      showDialog: false,
-      wechatPrompt: false
     }
   },
   computed: {
@@ -79,12 +77,12 @@ export default {
       const ua = navigator.userAgent;
       const match = ua.match(/micromessenger\/(\d)/i)
       if (match) {
-        if (Number(match[1]) >= 5) { // 微信版本大于5 才支持支付功能
+        if (Number(match[1]) >= 5) { // 微信版本大于等于5 才支持支付功能
           this.$store.dispatch('FETCH_WECHATPAY_URL')
         } else {
           this.$vux.alert.show({
             title: '提示',
-            content: '您的微信版本过低, 不支持支付功能, 请升级微信版本 ：)',
+            content: '您的微信版本过低, 不支持支付功能, 请升级微信版本 : )',
             buttonText: '我知道了'
           })
         }
@@ -93,7 +91,7 @@ export default {
       } else {
         this.$vux.alert.show({
           title: '提示',
-          content: '请选择微信或支付宝扫描支付',
+          content: '请选择微信或支付宝扫描支付 : )',
           buttonText: '我知道了'
         })
       }

@@ -356,9 +356,6 @@ const actions = {
     })
   },
   FETCH_ALIPAY_URL: ({ commit }) => {
-    // commit('SHOW_IFRAME', true)
-    // commit('SET_ALIPAY_URL', 'https://www.baidu.com')
-
     router.push({name: 'Alipay'})
 
     return AlipayService.getWapParams(state.orderDetail.totalPrice || state.orderDetail.totalVipPrice)
