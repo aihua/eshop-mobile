@@ -1,1 +1,1 @@
-export const host = 'http://deal.xiaovbao.cn/api/v1'
+export const host = 'http://deal.xiaovbao.cn/api/v2'
