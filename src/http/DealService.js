@@ -3,7 +3,9 @@ import storage from '@/util/storage'
 import { host } from './domain.js'
 
 const getAllFoods = function () {
-  return axios.get(`${host}/user/Menus/?tenantId=${storage.get('tenantId')}&consignee=${storage.get('consignee')}`)
+  const query = `?tenantId=${storage.get('tenantId')}&consignee=${storage.get('consignee')}`
+  
+  return axios.get(`${host}/user/Menus/${query}`)
   .then(resp => {
     return resp.data
   })

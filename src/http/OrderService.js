@@ -3,6 +3,7 @@ import storage from '@/util/storage'
 import { host } from './domain.js'
 
 const addOrder = function (params, consignee) {
+
   let url = `${host}/user/foodOrder/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
   if (consignee) {
     url += `&consignee=${consignee}`

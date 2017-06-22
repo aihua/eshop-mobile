@@ -3,10 +3,9 @@ import storage from '@/util/storage'
 import { host } from './domain.js'
 
 function getWapParams(amount) {
-  return axios.get(`${host}/user/alipayInfo/${amount}/${storage.get('tableId')}
-  ?consignee=${storage.get('consignee')}
-  &tenantId=${storage.get('tenantId')}
-  `)
+  const query = `?consignee=${storage.get('consignee')}&tenantId=${storage.get('tenantId')}`
+  
+  return axios.get(`${host}/user/alipayInfo/${amount}/${storage.get('tableId')}${query}`)
     .then(resp => {
       return resp.data
     })
