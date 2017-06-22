@@ -6,7 +6,7 @@
         <div class="text">去点菜</div>
       </router-link>
       <router-link to="/shop-comment-view">
-        <i class="icon-pay"></i>
+        <i class="icon-comment"></i>
         <div class="text">商家评论({{shopComments.length}})</div>
       </router-link>
     </footer>
