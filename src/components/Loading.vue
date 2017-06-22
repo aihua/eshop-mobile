@@ -7,11 +7,10 @@
 </template>
 
 <script>
-  export default {
-      name: 'Loading'
-  }
+export default {
+  name: 'Loading'
+}
 </script>
-
 <style lang="scss" scoped>
 .mask {
   position: fixed;

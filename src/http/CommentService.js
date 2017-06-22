@@ -1,10 +1,10 @@
-import axios from 'axios'
+import { http } from './interceptors'
 import storage from '@/util/storage'
 
 const getShopComment = function () {
   const query = `?tenantId=${storage.get('tenantId')}`
 
-  return axios.get(`/user/merchantRatings/${query}`)
+  return http.get(`/user/merchantRatings/${query}`)
   .then(resp => {
     return resp.data
   })
@@ -16,7 +16,7 @@ const getShopComment = function () {
 
 const addShopComment = function (params) {
 
-  return axios.post(`/user/merchantRatings`, params)
+  return http.post(`/user/merchantRatings`, params)
   .then(resp => {
     return resp.data
   })
@@ -28,7 +28,7 @@ const addShopComment = function (params) {
 
 const addFoodComment = function (params) {
   
-  return axios.post(`/user/rating`, params)
+  return http.post(`/user/rating`, params)
   .then(resp => {
     return resp.data
   })

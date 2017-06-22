@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { http } from './interceptors'
 import storage from '@/util/storage'
 
 const addShopCart = function (foods, consignee) {
@@ -6,7 +6,7 @@ const addShopCart = function (foods, consignee) {
   if (consignee) {
     url += `&consignee=${consignee}`
   }
-  return axios.post(url, foods)
+  return http.post(url, foods)
   .then(resp => {
     return resp.data
   })
@@ -21,7 +21,7 @@ const editShopCart = function (condition, consignee) {
   if (consignee) {
     url += `&consignee=${consignee}`
   }
-  return axios.post(url, condition)
+  return http.post(url, condition)
   .then(resp => {
     return resp.data
   })
@@ -32,7 +32,7 @@ const editShopCart = function (condition, consignee) {
 }
 
 const getShopCart = function () {
-  return axios.get(`/user/foodShoppingCart/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`)
+  return http.get(`/user/foodShoppingCart/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`)
   .then(resp => {
     return resp.data
   })

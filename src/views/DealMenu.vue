@@ -43,15 +43,7 @@
     </deal-content>
   
     <deal-footer>
-      <div class="left-area">
-        <span>{{isAddMoreFood ? '新增' : ''}}菜品</span>
-        <div class="food-count">{{tempShopCartFoodCount}}</div>
-        <i class="icon-money"></i>
-        <span>{{tempShopCartFoodCost}}</span>
-      </div>
-      <div class="right-area">
-        <x-button class="btn" type="primary" @click.native="toShopCart">购物车</x-button>
-      </div>
+      <shop-cart-bar :add-more="isAddMoreFood" :food-cost="tempShopCartFoodCost" :food-count="tempShopCartFoodCount" @go-shopcart="toShopCart"></shop-cart-bar>
     </deal-footer>
   
     <back-top></back-top>
@@ -63,9 +55,9 @@ import DealDialog from '@/components/DealDialog'
 import DealHeader from '@/components/DealHeader'
 import DealContent from '@/components/DealContent'
 import DealFooter from '@/components/DealFooter'
-
 import BackTop from '@/components/BackTop'
 import FoodItem from '@/components/FoodItem'
+import ShopCartBar from '@/components/ShopCartBar'
 
 import { DealService, AlipayService, ShopCartService } from '@/http/index'
 import { mapGetters } from 'vuex'
@@ -81,6 +73,7 @@ export default {
     DealContent,
     DealFooter,
     FoodItem,
+    ShopCartBar,
     BackTop,
     XButton
   },
@@ -176,13 +169,7 @@ export default {
         this.$vux.alert.show({
           title: '提示',
           content: '购物车还是空的呢 : )',
-          buttonText: '我知道了',
-          onShow () {
-            console.log('Plugin: I\'m showing')
-          },
-          onHide () {
-            console.log('Plugin: I\'m hiding')
-          }
+          buttonText: '我知道了'
         })
       } else {
         this.$store.dispatch('ADD_SHOP_CART')
@@ -364,40 +351,6 @@ export default {
 
   .deal-footer-container {
     background-color: black;
-    .left-area {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .food-count {
-        position: absolute;
-        left: 26%;
-        top: 2px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        line-height: 14px;
-        padding: 1px 0;
-        background-color: #da4553;
-        text-align: center;
-        border-radius: 50%;
-        font-size: 12px;
-        width: 18px;
-        height: 18px;
-      }
-    }
-
-    .right-area {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .btn {
-        width: 80%;
-      }
-    }
   }
 }
 </style>

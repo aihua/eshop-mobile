@@ -109,13 +109,11 @@ export default {
     let payParams = null
     this.tenantName = storage.get('tenantName')
     const obj = objFrom(decodeURIComponent(location.search))
-
-    window.alert(JSON.stringify(obj, null, 2))
     this.payTime = obj.timestamp
 
     // this.$store.dispatch('FETCH_ORDER', obj.out_trade_no)
 
-    const { code } = objFrom(location.search)
+    const code = obj.code
 
     WechatService.getWechatPayParams(code)
       .then(data => {
@@ -130,6 +128,8 @@ export default {
               // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
               if (res.err_msg == "get_brand_wcpay_request:ok") {
                 // alert('zhifu ok')
+
+                window.alert(JSON.stringify(res, null, 2))
               }
               if (res.err_msg === 'get_brand_wcpay_request:cancel') {
                 // alert('zhifu cancel')
@@ -150,6 +150,8 @@ export default {
             // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
             if (res.err_msg == "get_brand_wcpay_request:ok") {
               // alert('zhifu ok')
+
+              window.alert(JSON.stringify(res, null, 2))
             }
             if (res.err_msg === 'get_brand_wcpay_request:cancel') {
               // alert('zhifu cancel')
@@ -188,8 +190,7 @@ export default {
 .wechat-callback-container {
   height: 100%;
   background-color: #eee;
-  .deal-header-container {
-  }
+  .deal-header-container {}
 
   .deal-content-container {
     padding: 10px;

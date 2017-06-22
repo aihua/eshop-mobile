@@ -1,10 +1,10 @@
-import axios from 'axios'
+import { http } from './interceptors'
 import storage from '@/util/storage'
 
 const getAllFoods = function () {
   const query = `?tenantId=${storage.get('tenantId')}&consignee=${storage.get('consignee')}`
   
-  return axios.get(`/user/Menus/${query}`)
+  return http.get(`/user/Menus/${query}`)
   .then(resp => {
     return resp.data
   })

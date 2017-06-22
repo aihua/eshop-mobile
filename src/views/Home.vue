@@ -59,7 +59,7 @@ export default {
           .catch(err => {
             vm.$vux.alert.show({
               title: '提示',
-              content: err,
+              content: err.message,
               buttonText: '我知道了'
             })
           })

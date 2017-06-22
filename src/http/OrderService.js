@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { http } from './interceptors'
 import storage from '@/util/storage'
 
 const addOrder = function (params, consignee) {
@@ -7,7 +7,7 @@ const addOrder = function (params, consignee) {
   if (consignee) {
     url += `&consignee=${consignee}`
   }
-  return axios.post(url, params)
+  return http.post(url, params)
     .then(resp => {
       return resp.data
     })
@@ -21,7 +21,7 @@ const getOrder = function (tradeNo) {
   const prefixUrl = `/user/foodOrder/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
   const search = tradeNo ? `&trade_no=${tradeNo}` : ''
 
-  return axios.get(prefixUrl + search)
+  return http.get(prefixUrl + search)
     .then(resp => {
       return resp.data.result
     })

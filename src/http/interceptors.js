@@ -1,9 +1,13 @@
 import axios from 'axios'
-import host from './domain.js'
+import host from './host.js'
+
+const http = axios.create({
+  baseURL: host[process.env.NODE_ENV],
+  timeout: 3000,
+})
 
 //https://github.com/mzabriskie/axios#interceptor
-axios.interceptors.request.use(function (config) {
-  config.url = host[process.env.NODE_ENV] + config.url
+http.interceptors.request.use(function (config) {
   return config
 }, function (error) {
   console.error(error)
@@ -11,8 +15,7 @@ axios.interceptors.request.use(function (config) {
 })
 
 // TODO 根据返回格式 处理错误
-axios.interceptors.response.use(function (resp) {
-  console.log(resp)
+http.interceptors.response.use(function (resp) {
 
   if (resp.data.result === '桌号不存在') {
     return Promise.reject(resp.data.result)
@@ -23,3 +26,7 @@ axios.interceptors.response.use(function (resp) {
   console.error(error)
   return Promise.reject(error)
 })
+
+export {
+  http
+}

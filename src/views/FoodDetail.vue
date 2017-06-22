@@ -50,23 +50,8 @@
     </deal-content>
   
     <deal-footer>
-      <div class="left-area">
-        <span>{{isAddMoreFood ? '新增' : ''}}菜品</span>
-        <div class="food-count">{{tempShopCartFoodCount}}</div>
-        <i class="icon-money"></i>
-        <span>{{tempShopCartFoodCost}}</span>
-      </div>
-      <div class="right-area">
-        <x-button class="btn" type="primary" @click.native="toShopCart">购物车</x-button>
-      </div>
+      <shop-cart-bar :add-more="isAddMoreFood" :food-cost="tempShopCartFoodCost" :food-count="tempShopCartFoodCount" @go-shopcart="toShopCart"></shop-cart-bar>
     </deal-footer>
-  
-    <deal-dialog v-model="showDialog">
-      <div class="content">购物车还是空的呢 :)</div>
-      <div class="btn-group">
-        <span class="ok" @click="showDialog=false">我知道了</span>
-      </div>
-    </deal-dialog>
   
     <transition enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
       <div class="select-area" v-if="showSelection">
@@ -125,6 +110,7 @@ import DealContent from '@/components/DealContent'
 import DealFooter from '@/components/DealFooter'
 import DealDialog from '@/components/DealDialog'
 import CommentItem from '@//components/CommentItem'
+import ShopCartBar from '@/components/ShopCartBar'
 
 import { mapGetters } from 'vuex'
 import fecha from 'fecha'
@@ -138,13 +124,13 @@ export default {
     DealDialog,
     CommentItem,
     XButton,
-    XNumber
+    XNumber,
+    ShopCartBar
   },
   data() {
     return {
       hasPhoneNumber: false,
       showSelection: false,
-      showDialog: false,
       commentText: '',
       food: {
         quantity: 1,
@@ -245,7 +231,11 @@ export default {
     toShopCart() {
       // 如果临时购物车和购物车 都没有 则提示 还没有点菜
       if (this.tempShopCartFoodCost === 0 && this.shopCart.totalPrice === 0) {
-        this.showDialog = true
+        this.$vux.alert.show({
+          title: '提示',
+          content: '购物车还是空的呢 : )',
+          buttonText: '我知道了'
+        })
       } else {
         this.$store.dispatch('ADD_SHOP_CART')
       }
@@ -450,40 +440,6 @@ export default {
 
   .deal-footer-container {
     background-color: black;
-    .left-area {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .food-count {
-        position: absolute;
-        left: 26%;
-        top: 2px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        line-height: 14px;
-        padding: 1px 0;
-        background-color: #da4553;
-        text-align: center;
-        border-radius: 50%;
-        font-size: 12px;
-        width: 18px;
-        height: 18px;
-      }
-    }
-
-    .right-area {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .btn {
-        width: 80%;
-      }
-    }
   }
 
   .deal-dialog-container {

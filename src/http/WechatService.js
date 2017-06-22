@@ -1,8 +1,8 @@
-import axios from 'axios'
+import { http } from './interceptors'
 import storage from '@/util/storage'
 
 function redirect() {
-  return axios.get(`/oauth`)
+  return http.get(`/oauth`)
   .then(resp => {
     return resp.data
   })
@@ -17,7 +17,7 @@ function getWechatPayParams(code) {
   if (storage.get('consignee')) {
     url += `&consignee=${storage.get('consignee')}`
   }
-	return axios.get(url)
+	return http.get(url)
 	.then(resp => {
 		console.log(resp.data)
 		return resp.data

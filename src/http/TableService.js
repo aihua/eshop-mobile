@@ -1,8 +1,8 @@
-import axios from 'axios'
+import { http } from './interceptors'
 import storage from '@/util/storage'
 
 const getStatus = function () {
-  return axios.get(`/user/table/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`)
+  return http.get(`/user/table/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`)
   .then(resp => resp.data)
   .catch(err => {
     console.error(err)

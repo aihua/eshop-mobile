@@ -110,7 +110,7 @@ const routes = [
 
 const router = new Router({
   mode: 'history',
-  routes
+  routes,
 })
 
 // 路由切换动画
