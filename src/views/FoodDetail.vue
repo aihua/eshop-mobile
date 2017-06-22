@@ -34,7 +34,7 @@
       </div>
       <div class="food-comment">
         <h3>商品评价</h3>
-
+  
         <template v-if="foodDetail.food.Ratings.length">
           <template v-for="(comment, index) in foodDetail.food.Ratings">
             <comment-item :comment="comment" @change="changeThumbs($event, comment)"></comment-item>
@@ -201,6 +201,7 @@ export default {
       'tempShopCartFoodCount',
       'tempShopCartFoodCost',
       'isAddMoreFood',
+      'shopCart'
     ])
   },
   created() {
@@ -234,9 +235,9 @@ export default {
       this.showSelection = !this.showSelection
     },
     addFood() {
-      this.$store.dispatch('ADD_FOOD', { 
-        food: this.foodDetail.food, 
-        typeIndex: this.foodDetail.typeIndex 
+      this.$store.dispatch('ADD_FOOD', {
+        food: this.foodDetail.food,
+        typeIndex: this.foodDetail.typeIndex
       })
     },
     toShopCart() {
@@ -477,6 +478,28 @@ export default {
 
       .btn {
         width: 80%;
+      }
+    }
+  }
+
+  .deal-dialog-container {
+    .content {
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn-group {
+      height: 50px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .cancel,
+      .ok {
+        flex: 1;
+        color: #86b201;
       }
     }
   }

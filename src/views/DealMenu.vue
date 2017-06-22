@@ -194,7 +194,7 @@ export default {
       this._scrollFoods(index)
     },
     _scrollFoods(index) {
-      clearInterval(this._timer)
+      // clearInterval(this._timer)
       // const steps = createSteps(this.foodsScrollY, this.listHeight[index], 10)
 
       // this._timer = setInterval(() => {
