@@ -11,11 +11,10 @@
           <i class="icon-point"></i>
           <span>若退出, 再扫二维码, 即可加菜或买单</span>
         </div>
-        <div class="line">
+        <!--<div class="line">
           <i class="icon-point"></i>
           <span>加菜码为下单验证手机号的后四位哦</span>
-  
-        </div>
+        </div>-->
       </div>
       <div class="order-info">
         <div class="table-number">
@@ -80,14 +79,6 @@
       </div>
     </deal-footer>
   
-    <deal-dialog v-model="showDialog">
-      <div class="content">是否用餐完毕, 现在去买单?</div>
-      <div class="btn-group">
-        <span class="cancel" @click="cancelDialog">取消</span>
-        <span class="ok" @click="okDialog">确认</span>
-      </div>
-    </deal-dialog>
-  
     <deal-dialog v-model="promptBill">
       <div class="content">e代售提醒您请先买单, 谢谢！</div>
     </deal-dialog>
@@ -115,7 +106,6 @@ export default {
   },
   data() {
     return {
-      showDialog: false,
       remark: '',
       promptBill: false
     }
@@ -134,13 +124,20 @@ export default {
       this.$store.dispatch('ADD_MORE_FOOD')
     },
     toPay() {
+      const self = this
       const durationFromOrdering = Date.now() - new Date(this.orderDetail.time).getTime()
       const twoMinutes = 2 * 60 * 1000
       if (storage.get('consignee')) {
         this.$router.push({ name: 'BillDetail' })
       } else {
         if (durationFromOrdering < twoMinutes) {// 如果刚下单 提醒客户是否直接买单
-          this.showDialog = true
+          this.$vux.confirm.show({
+            title: '提示',
+            content: '是否用餐完毕, 现在去买单?',
+            onConfirm() {
+              self.$router.push({ name: 'BillDetail' })
+            }
+          })
         } else {
           this.$router.push({ name: 'BillDetail' })
         }
@@ -149,13 +146,6 @@ export default {
     toVIPCard() {
       this.$router.push({ name: 'VIPCard' })
     },
-    cancelDialog() {
-      this.showDialog = false
-    },
-    okDialog() {
-      this.showDialog = false
-      this.$router.push({ name: 'BillDetail' })
-    }
   },
   mounted() {
     if (storage.get('consignee')) {
