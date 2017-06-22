@@ -129,8 +129,11 @@ export default {
               if (res.err_msg == "get_brand_wcpay_request:ok") {
                 // alert('zhifu ok')
 
-                window.alert(JSON.stringify(res, null, 2))
-                this.payEnd = true
+                this.$store.dispatch('FETCH_ORDER', obj.out_trade_no)
+                  .then(() => {
+                    this.payEnd = true
+                  })
+
               }
               if (res.err_msg === 'get_brand_wcpay_request:cancel') {
                 // alert('zhifu cancel')
@@ -152,8 +155,10 @@ export default {
             if (res.err_msg == "get_brand_wcpay_request:ok") {
               // alert('zhifu ok')
 
-              window.alert(JSON.stringify(res, null, 2))
-              this.payEnd = true
+              this.$store.dispatch('FETCH_ORDER', obj.out_trade_no)
+                .then(() => {
+                  this.payEnd = true
+                })
             }
             if (res.err_msg === 'get_brand_wcpay_request:cancel') {
               // alert('zhifu cancel')
