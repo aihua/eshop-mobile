@@ -107,6 +107,7 @@ export default {
   created() {
     let payParams = null
     let tradeNo
+    const self = this
     this.tenantName = storage.get('tenantName')
     const obj = objFrom(decodeURIComponent(location.search))
     this.payTime = obj.timestamp
@@ -135,9 +136,9 @@ export default {
               if (res.err_msg == "get_brand_wcpay_request:ok") {
                 alert('zhifu ok')
 
-                this.$store.dispatch('FETCH_ORDER', tradeNo)
+                self.$store.dispatch('FETCH_ORDER', tradeNo)
                   .then(() => {
-                    this.payEnd = true
+                    self.payEnd = true
                   })
 
               }
@@ -162,9 +163,9 @@ export default {
             if (res.err_msg == "get_brand_wcpay_request:ok") {
               alert('zhifu ok')
 
-              this.$store.dispatch('FETCH_ORDER', tradeNo)
+              self.$store.dispatch('FETCH_ORDER', tradeNo)
                 .then(() => {
-                  this.payEnd = true
+                  self.payEnd = true
                 })
             }
             if (res.err_msg === 'get_brand_wcpay_request:cancel') {
