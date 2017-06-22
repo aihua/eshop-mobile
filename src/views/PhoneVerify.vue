@@ -11,10 +11,9 @@
           <x-input title="手机号码" ref="phoneNumber" v-model="phoneNumber" name="mobile" placeholder="请输入手机号码" keyboard="number" is-type="china-mobile"></x-input>
         </div>
         <div class="verify-input">
-
   
           <x-input title="验证码" class="weui-vcode" v-model="verifyCode">
-            <x-button slot="right" type="primary" mini @click.native="fetchCode" :disabled="disabled" style="width: 100px;">{{btnText}}</x-button>
+            <x-button slot="right" type="primary" mini @click.native="fetchCode" :disabled="btnDisabled" style="width: 100px;">{{btnText}}</x-button>
           </x-input>
         </div>
       </div>
@@ -24,21 +23,16 @@
       <x-button type="primary" @click.native="ensure" class="button">确认</x-button>
     </deal-footer>
   
-    <deal-dialog v-model="showDialog">
-      <div class="content">{{errorMsg}}</div>
-      <div class="btn-group">
-        <span class="ok" @click="ensureFail">我知道了</span>
-      </div>
-    </deal-dialog>
+    <alert v-model="showAlert" title="提示" :content="errorMsg" @on-hide="onHide">
+    </alert>
+  
   </div>
 </template>
 <script>
-import { XButton, XInput } from 'vux'
+import { XButton, XInput, Alert } from 'vux'
 import DealHeader from '@/components/DealHeader'
 import DealContent from '@/components/DealContent'
 import DealFooter from '@/components/DealFooter'
-
-import DealDialog from '@/components/DealDialog'
 
 import storage from '@/util/storage'
 
@@ -48,25 +42,24 @@ export default {
     'deal-header': DealHeader,
     'deal-content': DealContent,
     'deal-footer': DealFooter,
-    'deal-dialog': DealDialog,
     XButton,
-    XInput
+    XInput,
+    Alert
   },
   data() {
     return {
-      phoneNumber: '',
-      verifyCode: '',
-      showDialog: false,
-      disabled: false,
-      btnText: '发送验证码',
-      restSeconds: 60,
-      timeId: null,
-      errorMsg: '',
+      phoneNumber: '', // 输入的电话号码
+      verifyCode: '', // 输入的 验证码
+      btnDisabled: false, // 是否禁用 发送验证码 按钮
+      btnText: '发送验证码', // 发送验证码按钮 文字
+      restSeconds: 60, // 可再次发送验证码 剩余秒数
+      timeId: null, // 倒数剩余秒数的 定时器
+      errorMsg: '', // 验证码 验证错误提示
+      showAlert: false // 是否显示 验证码错误 提示框
     }
   },
   methods: {
     ensure() {
-      debugger
       if (this.phoneNumber && this.verifyCode && this.$refs.phoneNumber.valid) {
         this.$store.dispatch('VERIFY_SMS_CODE', {
           phoneNumber: this.phoneNumber,
@@ -76,22 +69,16 @@ export default {
             if (data.result === 'success') {
               storage.set('phoneNumber', this.phoneNumber)
               this.$router.push({ name: 'PeopleNumber' })
-            } else if (data.result === '验证码不正确') {
-              this.showDialog = true
-              this.errorMsg = '验证码输入错误, 请重新输入验证码。'
-            } else if (data.result === '验证码已超时') {
-              this.showDialog = true
-              this.errorMsg = '验证码超时, 请重新输入验证码。'
             } else {
-              this.showDialog = true
-              this.errorMsg = '验证码未知错误, 请重新输入验证码。'
+              this.showAlert = true
+              this.errorMsg = data.result || '验证码未知错误'
             }
           })
       }
     },
     fetchCode() {
       if (this.phoneNumber && this.$refs.phoneNumber.valid) {
-        this.disabled = true
+        this.btnDisabled = true
 
         this.timeId = window.setInterval(() => {
           this.restSeconds -= 1
@@ -100,7 +87,7 @@ export default {
           if (this.restSeconds === 0) {
             window.clearInterval(this.timeId)
             this.btnText = '发送验证码'
-            this.disabled = false
+            this.btnDisabled = false
             this.restSeconds = 60
           }
         }, 1e3)
@@ -108,14 +95,13 @@ export default {
         this.$store.dispatch('FETCH_SMS_CODE', this.phoneNumber)
           .then(reason => {
             if (reason !== '') {
-              this.showDialog = true
+              this.showAlert = true
               this.errorMsg = reason
             }
           })
       }
     },
-    ensureFail() {
-      this.showDialog = false
+    onHide() {
       this.verifyCode = ''
     }
   }

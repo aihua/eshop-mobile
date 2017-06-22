@@ -50,7 +50,6 @@
 import DealHeader from '@/components/DealHeader'
 import DealContent from '@/components/DealContent'
 import DealFooter from '@/components/DealFooter'
-import DealDialog from '@/components/DealDialog'
 
 import storage from '@/util/storage'
 import { mapGetters } from 'vuex'
@@ -58,10 +57,9 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'PhoneVerify',
   components: {
-    'deal-header': DealHeader,
-    'deal-content': DealContent,
-    'deal-footer': DealFooter,
-    'deal-dialog': DealDialog
+    DealHeader,
+    DealContent,
+    DealFooter,
   },
   data() {
     return {

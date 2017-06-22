@@ -108,7 +108,6 @@ import { XButton, XNumber } from 'vux'
 import DealHeader from '@/components/DealHeader'
 import DealContent from '@/components/DealContent'
 import DealFooter from '@/components/DealFooter'
-import DealDialog from '@/components/DealDialog'
 import CommentItem from '@//components/CommentItem'
 import ShopCartBar from '@/components/ShopCartBar'
 
@@ -121,7 +120,6 @@ export default {
     DealHeader,
     DealContent,
     DealFooter,
-    DealDialog,
     CommentItem,
     XButton,
     XNumber,
@@ -329,17 +327,7 @@ export default {
         display: flex;
         position: absolute;
         right: 20px;
-        bottom: -5px; // button {
-        //   background-color: #86b201;
-        //   color: #fff;
-        //   padding: 0;
-        //   border: 0;
-        //   width: 80px;
-        //   height: 28px;
-        //   font-size: 12px;
-        //   letter-spacing: 2px;
-        //   border-radius: 15px;
-        // }
+        bottom: -5px; 
       }
     }
 
@@ -440,28 +428,6 @@ export default {
 
   .deal-footer-container {
     background-color: black;
-  }
-
-  .deal-dialog-container {
-    .content {
-      height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .btn-group {
-      height: 50px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-
-      .cancel,
-      .ok {
-        flex: 1;
-        color: #86b201;
-      }
-    }
   }
 
   .select-area {
