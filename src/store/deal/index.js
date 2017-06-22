@@ -508,12 +508,3 @@ export {
   getters
 }
 
-function getFood(allFoods, foodId) {
-  for (let typeFoods of allFoods) {
-    for (let food of typeFoods) {
-      if (food.id === foodId) {
-        return food
-      }
-    }
-  }
-}
