@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container">
+  <div class="home-container" :style="homeStyle">
     <footer class="footer">
       <router-link to="/deal-menu">
         <i class="icon-edit"></i>
@@ -24,8 +24,25 @@ export default {
   computed: {
     ...mapGetters(['shopComments'])
   },
+  data() {
+    return {
+      homeStyle: {}
+    }
+  },
   created() {
     document.title = storage.get('tenantName')
+
+    if (storage.get('tenantId') === '68d473e77f459833bb06c60f9a8f4800') {
+      this.homeStyle = {
+        'background': `url(${require('../assets/images/xuehuabing-home.jpg')}) no-repeat`,
+        'background-size': '100% 100%'
+      }
+    } else if (storage.get('tenantId') === '2cc4642a61354e4ed585390efce007f1') {
+      this.homeStyle = {
+        'background': `url(${require('../assets/images/lashangyin-home1.png')}) no-repeat`,
+        'background-size': '100% 100%'
+      }
+    }
   },
   beforeRouteEnter(to, from, next) {
     if (window.location.search) {
@@ -49,8 +66,8 @@ export default {
   left: 0;
   right: 0;
 
-  background: url(../assets/images/lashangyin-home1.png) no-repeat;
-  background-size: 100% 93%;
+  /*background: url(../assets/images/lashangyin-home1.png) no-repeat;
+  background-size: 100% 93%;*/
 }
 
 .home-container .footer {
