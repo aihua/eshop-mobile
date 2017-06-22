@@ -1,9 +1,6 @@
 <template>
   <div class="alipay-callback-container">
     <deal-header title="结账单">
-      <span class="bill-title" slot="left">
-        <i class="icon-back" @click="$router.back()"></i>
-      </span>
     </deal-header>
   
     <deal-content>
@@ -116,9 +113,7 @@ export default {
   height: 100%;
   background-color: #eee;
   .deal-header-container {
-    .bill-title {
-      width: 40px;
-    }
+    
   }
 
   .deal-content-container {

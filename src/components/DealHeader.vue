@@ -2,9 +2,13 @@
   <div class="deal-header-container">
     <header class="deal-header">
       <slot name="left">
+        <span class="header-left">
+          <i class="icon-back" @click="$router.back()"></i>
+        </span>
       </slot>
       <span class="title">{{title}}</span>
       <slot name="right">
+        <div class="header-right"></div>
       </slot>
     </header>
   </div>
@@ -57,8 +61,14 @@ export default {
     display: flex;
     align-items: center;
     text-align: center;
+
     .title {
       flex: 1;
+    }
+
+    .header-left,
+    .header-right {
+       width: 40px;
     }
   }
 }

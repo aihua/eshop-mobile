@@ -1,7 +1,8 @@
 <template>
   <div class="order-success-container">
     <deal-header title="下单成功">
-  
+      <span class="empty" slot="left" style="width: 40px;">
+      </span>
     </deal-header>
   
     <deal-content>

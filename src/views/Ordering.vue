@@ -1,6 +1,8 @@
 <template>
   <div class="ordering-container">
     <deal-header title="正在下单">
+      <span class="empty" slot="left" style="width: 40px;">
+      </span>
     </deal-header>
     
     <deal-content>

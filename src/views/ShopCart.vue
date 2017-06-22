@@ -1,9 +1,6 @@
 <template>
   <div class="shop-cart-container">
     <deal-header title="购物车">
-      <span class="back" slot="left">
-        <i class="icon-back" @click="$router.back()"></i>
-      </span>
     </deal-header>
   
     <deal-content>
@@ -174,18 +171,6 @@ export default {
 .shop-cart-container {
   height: 100%;
   .deal-header-container {
-    .add-more-food {
-      .btn {
-        position: absolute;
-        left: 10px;
-        top: 6px;
-        padding: 3px 10px 2px 10px;
-        color: #86b201;
-        border: 1px solid #86b201;
-        line-height: 20px;
-        border-radius: 5px;
-      }
-    }
   }
 
   .deal-content-container {

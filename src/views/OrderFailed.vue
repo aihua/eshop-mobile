@@ -1,7 +1,8 @@
 <template>
   <div class="order-failed-container">
     <deal-header title="下单失败">
-  
+      <span class="empty" slot="left" style="width: 40px;">
+      </span>
     </deal-header>
   
     <deal-content>

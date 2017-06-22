@@ -1,9 +1,6 @@
 <template>
   <div class="shop-comment-view-container">
     <deal-header :title="title">
-      <span class="back" slot="left">
-        <i class="icon-back" @click="$router.back()"></i>
-      </span>
     </deal-header>
   
     <deal-content>

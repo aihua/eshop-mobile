@@ -1,9 +1,6 @@
 <template>
   <div class="vip-card-container">
     <deal-header title="会员卡">
-      <span slot="left">
-        <i class="icon-back" @click="$router.back()"></i>
-      </span>
     </deal-header>
   
     <deal-content>

@@ -1,9 +1,6 @@
 <template>
   <div class="bill-detail-container">
     <deal-header title="账单">
-      <span class="detail-title" slot="left">
-        <i class="icon-back" @click="$router.back()"></i>
-      </span>
     </deal-header>
   
     <deal-content>
@@ -111,9 +108,6 @@ export default {
 .bill-detail-container {
   height: 100%;
   .deal-header-container {
-    .detail-title {
-      width: 40px;
-    }
   }
 
   .deal-content-container {

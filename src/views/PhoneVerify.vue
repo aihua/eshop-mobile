@@ -1,7 +1,8 @@
 <template>
   <div class="phone-verify-container">
     <deal-header title="验证手机号码">
-  
+      <span class="empty" slot="left" style="width: 40px;">
+      </span>
     </deal-header>
   
     <deal-content>

@@ -1,9 +1,6 @@
 <template>
   <div class="food-detail-container">
     <deal-header title="详情">
-      <span class="back" slot="left">
-        <i class="icon-back" @click="$router.back()"></i>
-      </span>
     </deal-header>
   
     <deal-content>
@@ -302,9 +299,6 @@ export default {
 .food-detail-container {
   height: 100%;
   .deal-header-container {
-    .back {
-      width: 40px;
-    }
   }
 
   .deal-content-container {

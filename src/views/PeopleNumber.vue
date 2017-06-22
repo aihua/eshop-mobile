@@ -1,9 +1,6 @@
 <template>
   <div class="people-number-container">
     <deal-header title="选择就餐人数">
-      <span class="people-number-title" slot="left">
-        <i class="icon-back" @click="$router.back()"></i>
-      </span>
     </deal-header>
   
     <deal-content>

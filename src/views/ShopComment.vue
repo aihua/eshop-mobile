@@ -1,9 +1,6 @@
 <template>
   <div class="shop-comment-container">
     <deal-header title="餐厅评价">
-      <span class="back" slot="left">
-        <i class="icon-back" @click="$router.back()"></i>
-      </span>
     </deal-header>
   
     <deal-content>
