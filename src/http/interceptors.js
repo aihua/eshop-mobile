@@ -3,7 +3,7 @@ import host from './host.js'
 
 const http = axios.create({
   baseURL: host[process.env.NODE_ENV],
-  timeout: 5000,
+  timeout: 15000,
 })
 
 //https://github.com/mzabriskie/axios#interceptor

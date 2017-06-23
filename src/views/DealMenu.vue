@@ -90,7 +90,6 @@ export default {
     }
   },
   computed: {
-
     ...mapGetters([
       'allFoods',
       'tempShopCartFoodCount',
