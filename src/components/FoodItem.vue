@@ -95,7 +95,7 @@ export default {
     flex: 1;
     // background: url(../assets/images/default.jpg);
     // background-size: 100% 100%;
-
+    height: 100%;
     .img {
       width: 100%;
       height: 100%;
