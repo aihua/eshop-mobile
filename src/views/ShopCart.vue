@@ -22,25 +22,33 @@
                   <swipeout-button @click.native="deleteFood(item)" type="warn">删除</swipeout-button>
                 </div>
   
-                <div slot="content" class="order-item">
-                  <div class="icon me" v-if="isMe(item.tableUser)">我</div>
-                  <div class="icon" :class="['user-' + item.tableUserNumber]" v-else>{{item.tableUserNumber}}号</div>
-                  <div class="item-detail">
-                    <div class="food-name">{{item.name}}</div>
-                    <div class="food-money">
-                      <div class="food-price">{{item.price}} 元/{{item.unit}}</div>
-                      <template v-if="item.unit === '份'">
-                        <i v-if="isEditable" class="icon-sub" @click="removeFood(item)"></i>
-                        <div class="food-count">{{item.num}}</div>
-                        <i v-if="isEditable" class="icon-plus" @click="addFood(item)"></i>
-                      </template>
-                      <template v-else>
-                        <x-number style="flex: 5;" v-if="isEditable" v-model="item.num" @on-change="changeFood(item)" :min="0.1" :step="0.1"></x-number>
-                        <div v-else class="food-count">{{item.num}}</div>
-                      </template>
+                <div slot="content">
+  
+                  <div class="order-item">
+                    <div class="icon me" v-if="isMe(item.tableUser)">我</div>
+                    <div class="icon" :class="['user-' + item.tableUserNumber]" v-else>{{item.tableUserNumber}}号</div>
+                    <div class="item-detail">
+                      <div class="food-name">{{item.name}}</div>
+                      <div class="food-money">
+                        <div class="food-price">{{item.price}} 元/{{item.unit}}</div>
+                        <template v-if="item.unit === '份'">
+                          <i v-if="isEditable" class="icon-sub" @click="removeFood(item)"></i>
+                          <div class="food-count">{{item.num}}</div>
+                          <i v-if="isEditable" class="icon-plus" @click="addFood(item)"></i>
+                        </template>
+                        <template v-else>
+                          <x-number style="flex: 5;" v-if="isEditable" v-model="item.num" @on-change="changeFood(item)" :min="0.1" :step="0.1"></x-number>
+                          <div v-else class="food-count">{{item.num}}</div>
+                        </template>
+                      </div>
                     </div>
                   </div>
+                  <div class="food-remark" v-if="item.unit === '斤'" style="padding: 10px;">
+                    <p>备注： {{item.remark}}</p>
+                  </div>
+  
                 </div>
+  
               </swipeout-item>
             </div>
           </swipeout>
@@ -73,8 +81,7 @@
         <span class="text">确认下单</span>
       </div>
     </deal-footer>
-
-    
+  
   </div>
 </template>
 <script>
@@ -161,8 +168,7 @@ export default {
 <style lang="scss" scoped>
 .shop-cart-container {
   height: 100%;
-  .deal-header-container {
-  }
+  .deal-header-container {}
 
   .deal-content-container {
     padding: 10px;

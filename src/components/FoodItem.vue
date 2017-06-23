@@ -4,7 +4,7 @@
       <img class="img" :src="food.image" alt="">
     </div>
 
-    <div class="food-info" @click="showDetails" >
+    <div class="food-info" @click="showDetails">
       <div class="title">{{food.name}}</div>
       <div class="favorite">
         <i class="icon-like"></i>
@@ -29,7 +29,7 @@
         <i class="icon-plus" @click="addFood"></i>
       </span>
     </div>
-    <div class="food-action" v-else>
+    <div class="food-action" v-else @click="showDetails">
       <span v-if="hasChoose">已点</span>
       <span v-else>请点击选择斤数/口味</span>
     </div>
