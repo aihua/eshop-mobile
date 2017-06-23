@@ -93,8 +93,8 @@ export default {
 
   .food-img {
     flex: 1;
-    background: url(../assets/images/default.jpg);
-    background-size: 100% 100%;
+    // background: url(../assets/images/default.jpg);
+    // background-size: 100% 100%;
 
     .img {
       width: 100%;
