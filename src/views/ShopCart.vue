@@ -35,7 +35,7 @@
                         <i v-if="isEditable" class="icon-plus" @click="addFood(item)"></i>
                       </template>
                       <template v-else>
-                        <x-number style="flex: 5;" v-if="isEditable" v-model="item.num" @on-change="changeFood(item)" :step="0.1"></x-number>
+                        <x-number style="flex: 5;" v-if="isEditable" v-model="item.num" @on-change="changeFood(item)" :min="0.1" :step="0.1"></x-number>
                         <div v-else class="food-count">{{item.num}}</div>
                       </template>
                     </div>
