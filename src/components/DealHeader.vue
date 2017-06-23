@@ -8,7 +8,7 @@
       </slot>
       <span class="title">{{title}}</span>
       <slot name="right">
-        <div class="header-right"></div>
+        <span class="header-right"></span>
       </slot>
     </header>
   </div>

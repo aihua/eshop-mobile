@@ -17,7 +17,7 @@
         <template v-if="shopCart.foods.length">
           <swipeout>
             <div v-for="item in shopCart.foods">
-              <swipeout-item @on-close="handleEvents('on-close')" @on-open="handleEvents('on-open')" transition-mode="follow">
+              <swipeout-item transition-mode="follow">
                 <div slot="right-menu">
                   <swipeout-button @click.native="deleteFood(item)" type="warn">删除</swipeout-button>
                 </div>
@@ -111,13 +111,6 @@ export default {
     ])
   },
   methods: {
-    
-    handleEvents(ev) {
-      console.log(ev)
-    },
-    onButtonClick(s) {
-      console.log(s)
-    },
     isMe(tableUser) {
       return localStorage.getItem('tableUser') === tableUser
     },
@@ -155,8 +148,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch('FETCH_SHOP_CART')
-
-    
   },
   created() {
     if (storage.get('consignee')) {
