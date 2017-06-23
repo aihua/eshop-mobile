@@ -53,7 +53,7 @@
             <div class="order-item" v-for="item in orderDetail.foods">
               <span>{{item.name}}</span>
               <span>x {{item.num}}</span>
-              <span>{{item.price}}元/份</span>
+              <span>{{item.price}}元/{{item.unit}}</span>
             </div>
             <div class="order-total">
               <span>总计</span>

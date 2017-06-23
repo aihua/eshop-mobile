@@ -47,7 +47,7 @@
           <div class="name">{{item.name}}</div>
   
           <div class="money">
-            <span class="price">{{item.price}}元/份</span>
+            <span class="price">{{item.price}}元/{{item.unit}}</span>
             <span class="count">
               <span>x</span>
               <span>{{item.num}}</span>
