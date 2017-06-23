@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import store from '@/store/index'
 
 import Home from '@/views/Home'
+import ShopClose from '@/views/ShopClose'
 import DealMenu from '@/views/DealMenu'
 import Search from '@/views/Search'
 import ShopCart from '@/views/ShopCart'
@@ -27,6 +28,11 @@ const routes = [
     path: '',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/shop-close',
+    name: 'ShopClose',
+    component: ShopClose
   },
   {
     path: '/deal-menu',

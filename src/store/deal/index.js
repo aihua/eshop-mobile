@@ -388,7 +388,8 @@ const actions = {
       } else if (data.tableStatus === 2) {// 已下单
         router.push({name: 'OrderSuccess'})
       } else {
-        console.error(`unknown table status; status: `, data.tableStatus)
+        console.error(`Unknown table status; status: `, data.tableStatus)
+        router.push({name: 'ShopClose'})
       }
     })
     .catch(err => {
