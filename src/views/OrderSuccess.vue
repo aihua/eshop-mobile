@@ -48,6 +48,7 @@
   
           <div class="money">
             <span class="price">{{item.price}}元/{{item.unit}}</span>
+            <span v-if="item.unit === '斤'" class="food-remark">{{item.remark}}</span>
             <span class="count">
               <span>x</span>
               <span>{{item.num}}</span>
@@ -233,7 +234,15 @@ export default {
           margin-left: 30px;
           margin-right: 30px;
 
+          .price {
+            flex: 1;
+          }
+          .food-remark {
+            flex: 2;
+            text-overflow: ellipsis;
+          }
           .count {
+            flex: 1;
             transform: scale(1.3);
           }
         }
