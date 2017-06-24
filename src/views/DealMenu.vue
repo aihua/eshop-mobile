@@ -243,7 +243,8 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+// 不加scoped 因为需要覆盖 deal-dialog组件的style
 @import '../assets/css/main.scss';
 
 .deal-menu-container {
