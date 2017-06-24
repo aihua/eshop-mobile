@@ -136,7 +136,7 @@ export default {
     XNumber
   },
   computed: {
-    ...mapGetters(['orderDetail'])
+    ...mapGetters(['orderDetail', 'hasPromptEShop'])
   },
   data() {
     return {
@@ -215,8 +215,10 @@ export default {
   },
   created() {
     if (storage.has('consignee')) {
-      this.showPrompt = true
+      this.showPrompt = !this.hasPromptEShop
       this.canEditOrder = true
+
+      this.$store.commit('ENSURE_ESHOP_PROMPT')
     }
     this.$store.dispatch('FETCH_ORDER')
     .catch(err => {

@@ -54,7 +54,9 @@ const state = {
   // 点击进入食物详情页面
   foodDetail: {},
   // 就餐人数
-  dinersNum: 1
+  dinersNum: 1,
+  // 是否已经 提示e代售买单信息
+  hasPromptEShop: false
 }
 
 const mutations = {
@@ -147,6 +149,9 @@ const mutations = {
 
   SET_SHOP_COMMENT(state, ratings) {
     state.shopComments = ratings
+  },
+  ENSURE_ESHOP_PROMPT(state) {
+    state.hasPromptEShop = true
   }
 }
 
@@ -594,6 +599,9 @@ const getters = {
   },
   showIframe(state) {
     return state.showIframe
+  },
+  hasPromptEShop(state) {
+    return state.hasPromptEShop
   }
 }
 
