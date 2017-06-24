@@ -31,8 +31,8 @@ export default {
   },
   created() {
     document.title = storage.get('tenantName')
-
-    if (storage.get('tenantId') === '68d473e77f459833bb06c60f9a8f4800') {
+                                        
+    if (storage.get('tenantId') === '68d473e77f459833bb06c60f9a8f4809') {
       this.homeStyle = {
         'background': `url(${require('../assets/images/xuehuabing-home.jpg')}) no-repeat`,
         'background-size': '100% 100%'
