@@ -80,6 +80,7 @@ import { WechatService } from '@/http/index'
 import { objFrom } from '@/util/index'
 import { mapGetters } from 'vuex'
 import storage from '@/util/storage'
+import fecha from 'fecha'
 
 export default {
   name: 'WechatCallback',
@@ -143,8 +144,7 @@ export default {
         this.tradeNo = data.trade_no
         data.timeStamp = data.timestamp
 
-        window.alert(JSON.stringify(data, null, 2))
-        // this.payTime = new Date(data.timestamp)
+        this.payTime = fecha.format(new Date(data.timestamp), 'YYYY-MM-DD HH:mm:ss')
         delete data.timestamp
         delete data.trade_no
         this.payParams = data
