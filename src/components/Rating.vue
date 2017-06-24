@@ -68,7 +68,8 @@ export default {
     justify-content: space-around;
     .icon-star {
       transform: scale(2);
-
+      color: #aaa;
+      
       &.on {
         color: #86b201;
       }

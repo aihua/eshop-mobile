@@ -124,6 +124,7 @@ export default {
       }
 
       .content {
+        
 
         .rating-item {
           margin-top: 5px;
