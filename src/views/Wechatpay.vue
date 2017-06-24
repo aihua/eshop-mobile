@@ -137,7 +137,7 @@ export default {
   created() {
     this.tenantName = storage.get('tenantName')
     const obj = objFrom(decodeURIComponent(location.search))
-    this.payTime = obj.timestamp
+    this.payTime = new Date(obj.timestamp)
 
     const code = obj.code
 
