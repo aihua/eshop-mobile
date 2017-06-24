@@ -101,24 +101,25 @@ export default {
     return {
       payTime: '',
       tenantName: '',
-      payEnd: false
+      payEnd: false,  // 是否支付完成
+      payParams: null, // 请求支付参数
+      tradeNo: null // 当前订单号
     }
   },
 
   methods: {
     invokePay() {
-      const self = this
       WeixinJSBridge.invoke(
-        'getBrandWCPayRequest', payParams,
-        function (res) {
+        'getBrandWCPayRequest', this.payParams,
+        (res) => {
           // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
           if (res.err_msg == "get_brand_wcpay_request:ok") {
-            self.$store.dispatch('FETCH_ORDER', tradeNo)
+            this.$store.dispatch('FETCH_ORDER', this.tradeNo)
               .then(() => {
-                self.payEnd = true
+                this.payEnd = true
               })
               .catch(err => {
-                self.$vux.alert.show({
+                this.$vux.alert.show({
                   title: '提示',
                   content: '获取订单失败',
                   buttonText: '我知道了'
@@ -134,9 +135,6 @@ export default {
     }
   },
   created() {
-    let payParams = null
-    let tradeNo
-    const self = this
     this.tenantName = storage.get('tenantName')
     const obj = objFrom(decodeURIComponent(location.search))
     this.payTime = obj.timestamp
@@ -145,11 +143,11 @@ export default {
 
     WechatService.getWechatPayParams(code)
       .then(data => {
-        tradeNo = data.trade_no
+        this.tradeNo = data.trade_no
         data.timeStamp = data.timestamp
         delete data.timestamp
         delete data.trade_no
-        payParams = data
+        this.payParams = data
 
         if (typeof WeixinJSBridge !== 'undefined') {
           this.invokePay()
@@ -157,20 +155,20 @@ export default {
       })
 
     function onBridgeReady() {
-      if (payParams) {
-        self.invokePay()
+      if (this.payParams) {
+        this.invokePay()
       }
 
     }
     if (typeof WeixinJSBridge == "undefined") {
       if (document.addEventListener) {
-        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady.bind(this), false)
       } else if (document.attachEvent) {
-        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        document.attachEvent('WeixinJSBridgeReady', onBridgeReady.bind(this))
+        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady.bind(this))
       }
     } else {
-      onBridgeReady();
+      onBridgeReady()
     }
 
     // {
