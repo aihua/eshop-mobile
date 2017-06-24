@@ -244,11 +244,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-// @import 'style/main.scss';
+@import '../assets/css/main.scss';
 
 .deal-menu-container {
   height: 100%;
-  // background-color: $main;
   .deal-dialog-container.menu-dialog {
 
     .deal-dialog {
@@ -322,7 +321,7 @@ export default {
             line-height: 14px;
             padding: 1px 0;
             color: #111;
-            background-color: #86b201;
+            background-color: #1AAD19;
             text-align: center;
             border-radius: 50%;
             font-size: 12px;
@@ -331,7 +330,7 @@ export default {
           }
 
           &.selected {
-            color: #86b201;
+            color: #1AAD19;
           }
         }
       }

@@ -160,6 +160,17 @@ const actions = {
       return DealService.getAllFoods()
         .then(data => {
           commit('SHOW_LOADING', false)
+
+          data.foods.forEach(e => {
+            e.foods.forEach(f => {
+              f.Ratings.sort((a, b) => {
+                const milliSecondsA = new Date(a.rateTime).getTime()
+                const milliSecondsB = new Date(b.rateTime).getTime()
+                return milliSecondsB - milliSecondsA
+              })
+            })
+          })
+
           commit('SET_ALL_FOODS', data.foods.map(e => {
             Object.assign(e, { selectFoodCount: 0 })
             return e
@@ -270,7 +281,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_SHOP_CART'))
+      .then(_ => dispatch('FETCH_SHOP_CART'))
   },
   // 直接删除食物
   SHOP_CART_DELETE_FOOD: ({ commit, dispatch }, food) => {
@@ -282,7 +293,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_SHOP_CART'))
+      .then(_ => dispatch('FETCH_SHOP_CART'))
   },
   // 增加 食物的 份数
   SHOP_CART_ADD_FOOD: ({ commit, dispatch }, food) => {
@@ -294,7 +305,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_SHOP_CART'))
+      .then(_ => dispatch('FETCH_SHOP_CART'))
   },
 
   // 更改 食物的 斤数
@@ -308,7 +319,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return OrderService.editOrder(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_SHOP_CART'))
+      .then(_ => dispatch('FETCH_SHOP_CART'))
   },
   // 减少 食物的 份数
   ORDER_REMOVE_FOOD: ({ commit, dispatch }, food) => {
@@ -321,7 +332,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return OrderService.editOrder(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_ORDER'))
+      .then(_ => dispatch('FETCH_ORDER'))
   },
   // 直接删除食物
   ORDER_DELETE_FOOD: ({ commit, dispatch }, food) => {
@@ -334,7 +345,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return OrderService.editOrder(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_ORDER'))
+      .then(_ => dispatch('FETCH_ORDER'))
   },
   // 增加 食物的 份数
   ORDER_ADD_FOOD: ({ commit, dispatch }, food) => {
@@ -347,16 +358,20 @@ const actions = {
       tableUser: food.tableUser
     }
     return OrderService.editOrder(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_ORDER'))
+      .then(_ => dispatch('FETCH_ORDER'))
   },
   // 删除订单
   CANCEL_ORDER: ({ commit, dispatch }) => {
     commit('SHOW_LOADING', true)
 
-    return OrderService.delOrder(state.orderDetail.foodsOrderId)
-    .then(_ => {
-      commit('SHOW_LOADING', false)
-    })
+    return OrderService.delOrder()
+      .then(_ => {
+        commit('SHOW_LOADING', false)
+      })
+      .catch(err => {
+        commit('SHOW_LOADING', false)
+        return Promise.reject(err)
+      })
   },
 
   ADD_MORE_FOOD: ({ commit }) => {
@@ -478,8 +493,8 @@ const actions = {
     return CommentService.getShopComment()
       .then(data => {
         commit('SET_SHOP_COMMENT', data.merchantRatings.sort((a, b) => {
-          const milliSecondsA = new Date(a.time).getTime()
-          const milliSecondsB = new Date(b.time).getTime()
+          const milliSecondsA = new Date(a.createdAt).getTime()
+          const milliSecondsB = new Date(b.createdAt).getTime()
           return milliSecondsB - milliSecondsA
         }))
       })
@@ -487,13 +502,23 @@ const actions = {
 
   COMMIT_COMMENT: ({ commit }, params) => {
     return CommentService.addShopComment(params)
-      
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => {
+        console.error(err)
+        return Promise.reject(err)
+      })
   },
 
   COMMIT_FOOD_COMMENT: ({ commit }, params) => {
     return CommentService.addFoodComment(params)
       .then(data => {
         console.log(data)
+      })
+      .catch(err => {
+        console.error(err)
+        return Promise.reject(err)
       })
   }
 }

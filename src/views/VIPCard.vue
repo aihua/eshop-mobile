@@ -110,6 +110,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/css/main.scss';@import '../assets/css/main.scss';
+
 .vip-card-container {
   height: 100%;
   .deal-header-container {}
@@ -149,7 +151,7 @@ export default {
 
         .points {
           .number {
-            color: #86b201;
+            color: #1AAD19;
             transform: scale(1.5);
             margin-bottom: 10px;
           }
@@ -157,7 +159,7 @@ export default {
 
         .bag {
           i {
-            color: #86b201;
+            color: #1AAD19;
             transform: scale(1.5);
             margin-bottom: 10px;
           }
@@ -165,7 +167,7 @@ export default {
 
         .gift {
           i {
-            color: #86b201;
+            color: #1AAD19;
             transform: scale(1.5);
             margin-bottom: 10px;
           }
@@ -216,7 +218,7 @@ export default {
       .cancel,
       .ok {
         flex: 1;
-        color: #86b201;
+        color: #1AAD19;
       }
     }
   }

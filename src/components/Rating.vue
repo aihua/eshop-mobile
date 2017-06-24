@@ -50,6 +50,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/css/main.scss';
+
 .rating-container {
   height: 40px;
   margin: 0 20px;
@@ -69,9 +71,9 @@ export default {
     .icon-star {
       transform: scale(2);
       color: #aaa;
-      
+
       &.on {
-        color: #86b201;
+        color: #1AAD19;
       }
       
     }

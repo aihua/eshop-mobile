@@ -116,6 +116,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/css/main.scss';
+
 .alipay-callback-container {
   height: 100%;
   background-color: #eee;
@@ -207,7 +209,7 @@ export default {
 
           .bill-money {
             .text {
-              color: #86b201;
+              color: #1AAD19;
             }
           }
         }

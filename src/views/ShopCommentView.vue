@@ -102,6 +102,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/css/main.scss';
+
 .shop-comment-view-container {
   height: 100%;
   .deal-header-container {}

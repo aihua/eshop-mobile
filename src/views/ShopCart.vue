@@ -1,7 +1,7 @@
 <template>
   <div class="shop-cart-container">
     <deal-header title="购物车">
-      <x-button slot="left" @click.native="addMoreFood" :mini="true" type="primary">加菜</x-button>
+      <x-button slot="left" @click.native="addMoreFood" :mini="true" type="primary">继续加菜</x-button>
     </deal-header>
   
     <deal-content>
@@ -180,6 +180,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/css/main.scss';
+
 .shop-cart-container {
   height: 100%;
   .deal-header-container {}
@@ -204,7 +206,7 @@ export default {
       }
 
       .food-cost {
-        color: #86b201;
+        color: #1AAD19;
       }
     }
 
@@ -294,7 +296,7 @@ export default {
 
             i {
               flex: 2;
-              color: #86b201;
+              color: #1AAD19;
               display: flex;
               justify-content: center;
               align-items: center;
@@ -312,7 +314,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #86b201;
+        color: #1AAD19;
         background-color: #fff;
         height: 200px;
         border-radius: 5px;
@@ -348,7 +350,7 @@ export default {
 
     .right-area {
       color: #fff;
-      background-color: #86b201;
+      background-color: #1AAD19;
     }
   }
 }

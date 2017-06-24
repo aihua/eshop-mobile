@@ -60,6 +60,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/css/main.scss';
+
 .people-number-container {
   height: 100%;
   background-color: #eee;
@@ -89,7 +91,7 @@ export default {
             height: 0;
             padding-bottom: 80%;
             border-radius: 50%;
-            background-color: #86b201;
+            background-color: #1AAD19;
             display: flex;
             justify-content: center;
             align-items: center;

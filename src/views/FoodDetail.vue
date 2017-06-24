@@ -284,6 +284,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/css/main.scss';
+
 .food-detail-container {
   height: 100%;
   .deal-header-container {
@@ -307,11 +309,11 @@ export default {
         align-items: center;
 
         .icon-like {
-          color: #86b201;
+          color: #1AAD19;
         }
         .text {
           margin-left: 5px;
-          color: #86b201;
+          color: #1AAD19;
         }
       }
       .price {
@@ -371,7 +373,7 @@ export default {
 
           .icon-star {
             &.on {
-              color: #86b201;
+              color: #1AAD19;
             }
           }
         }
@@ -399,7 +401,7 @@ export default {
             font-size: 1rem;
 
             .selected {
-              color: #86b201;
+              color: #1AAD19;
             }
           }
         }
@@ -541,7 +543,7 @@ export default {
                 }
 
                 &.selected {
-                  background-color: #86b201;
+                  background-color: #1AAD19;
                   color: white;
                 }
               }
@@ -568,7 +570,7 @@ export default {
       position: absolute;
       width: 100%;
       height: 40px;
-      background-color: #86b201;
+      background-color: #1AAD19;
       color: white;
       text-align: center;
       line-height: 40px;

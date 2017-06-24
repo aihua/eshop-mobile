@@ -46,8 +46,8 @@ const editOrder = function (condition, consignee) {
     })
 }
 
-const delOrder = function (orderId) {
-  let url = `/admin/foodOrder/${orderId}?tableId=${storage.get('tableId')}&tenantId=${storage.get('tenantId')}`
+const delOrder = function () {
+  let url = `/admin/foodOrder/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
 
   if (storage.has('consignee')) {
     url += `&consignee=${storage.get('consignee')}`

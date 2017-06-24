@@ -116,6 +116,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/css/main.scss';
+
 .phone-verify-container {
   height: 100%;
   .deal-header-container {}
@@ -175,7 +177,7 @@ export default {
 
         .ok {
           flex: 1;
-          color: #86b201;
+          color: #1AAD19;
         }
       }
     }

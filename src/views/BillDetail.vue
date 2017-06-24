@@ -101,6 +101,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/css/main.scss';
+
 .bill-detail-container {
   height: 100%;
   .deal-header-container {
@@ -135,7 +137,7 @@ export default {
       align-items: center;
       background-color: #fff;
       .text {
-        color: #86b201;
+        color: #1AAD19;
       }
     }
 
@@ -152,7 +154,7 @@ export default {
         background-color: #fff;
 
         .total-cost {
-          color: #86b201;
+          color: #1AAD19;
         }
       }
 
@@ -188,7 +190,7 @@ export default {
   .deal-footer-container {
     .ensure-btn {
       flex: 1;
-      background-color: #86b201;
+      background-color: #1AAD19;
     }
   }
 

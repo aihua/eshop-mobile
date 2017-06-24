@@ -84,6 +84,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/css/main.scss';
+
 .food-item {
   display: flex;
   margin-top: 10px;
@@ -124,11 +126,11 @@ export default {
       align-items: center;
 
       .icon-like {
-        color: #86b201;
+        color: #1AAD19;
       }
       .text {
         margin-left: 5px;
-        color: #86b201;
+        color: #1AAD19;
       }
     }
 
@@ -161,7 +163,7 @@ export default {
     }
 
     .icon-plus, .icon-sub {
-      color: #86b201;
+      color: #1AAD19;
       font-size: 1.3rem;
     }
 
@@ -172,7 +174,7 @@ export default {
     right:10px;
     bottom:5px;
     button{
-      background-color:#86b201;
+      background-color:#1AAD19;
       color:#fff;
       padding:0;
       border:0;

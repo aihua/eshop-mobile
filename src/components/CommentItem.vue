@@ -39,7 +39,7 @@ export default {
   filters: {
     time(v) {
       const date = new Date(v)
-      return fecha.format(date, 'YYYY-MM-DD HH:mm')
+      return fecha.format(date, 'YYYY-MM-DD HH:mm:ss')
     }
   },
   methods: {
@@ -51,6 +51,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/css/main.scss';
+
 .comment-item {
   margin-top: 5px;
   border-bottom: 1px solid #eee;
@@ -75,7 +77,7 @@ export default {
 
     .icon-star {
       &.on {
-        color: #86b201;
+        color: #1AAD19;
       }
     }
   }
@@ -104,7 +106,7 @@ export default {
 
       &.selected {
         color: white;
-        background-color: #86b201;
+        background-color: #1AAD19;
       }
     }
   }

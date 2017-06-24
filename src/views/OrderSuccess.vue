@@ -230,6 +230,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../assets/css/main.scss';
+
 .order-success-container {
   height: 100%;
   .deal-header-container {}
@@ -300,7 +302,7 @@ export default {
         background-color: #fff;
 
         .total-cost {
-          color: #86b201;
+          color: #1AAD19;
         }
       }
 
@@ -345,7 +347,7 @@ export default {
 
               i {
                 flex: 2;
-                color: #86b201;
+                color: #1AAD19;
                 display: flex;
                 justify-content: center;
                 align-items: center;
