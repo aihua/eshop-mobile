@@ -1,6 +1,7 @@
 <template>
   <div class="shop-cart-container">
     <deal-header title="购物车">
+      <x-button slot="left" @click.native="addMoreFood" :mini="true" type="primary">加菜</x-button>
     </deal-header>
   
     <deal-content>
@@ -85,7 +86,7 @@
   </div>
 </template>
 <script>
-import { Swipeout, SwipeoutItem, SwipeoutButton, XNumber, Group } from 'vux'
+import { Swipeout, SwipeoutItem, SwipeoutButton, XNumber, Group, XButton } from 'vux'
 
 import DealHeader from '@/components/DealHeader'
 import DealContent from '@/components/DealContent'
@@ -103,7 +104,8 @@ export default {
     SwipeoutItem,
     SwipeoutButton,
     XNumber,
-    Group
+    Group,
+    XButton
   },
   data() {
     return {
