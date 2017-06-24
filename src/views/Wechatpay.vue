@@ -137,14 +137,12 @@ export default {
   created() {
     this.tenantName = storage.get('tenantName')
     const obj = objFrom(decodeURIComponent(location.search))
-    this.payTime = new Date(obj.timestamp)
 
-    const code = obj.code
-
-    WechatService.getWechatPayParams(code)
+    WechatService.getWechatPayParams(obj.code)
       .then(data => {
         this.tradeNo = data.trade_no
         data.timeStamp = data.timestamp
+        this.payTime = new Date(data.timestamp)
         delete data.timestamp
         delete data.trade_no
         this.payParams = data
