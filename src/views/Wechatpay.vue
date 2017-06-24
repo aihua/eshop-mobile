@@ -142,7 +142,9 @@ export default {
       .then(data => {
         this.tradeNo = data.trade_no
         data.timeStamp = data.timestamp
-        this.payTime = new Date(data.timestamp)
+
+        window.alert(JSON.stringify(data, null, 2))
+        // this.payTime = new Date(data.timestamp)
         delete data.timestamp
         delete data.trade_no
         this.payParams = data
