@@ -54,9 +54,9 @@
             <span>已优惠 {{orderDetail.discount}}</span>
           </span>
         </div>
-        <swipeout :disabled="true">
+        <swipeout>
           <div v-for="item in orderDetail.foods" :key="item.id">
-            <swipeout-item transition-mode="follow">
+            <swipeout-item transition-mode="follow" :disabled="true">
               <div slot="right-menu">
                 <swipeout-button @click.native="deleteFood(item)" type="warn">删除</swipeout-button>
               </div>
