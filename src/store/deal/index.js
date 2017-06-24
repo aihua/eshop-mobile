@@ -51,7 +51,10 @@ const state = {
   // 订单详情
   orderDetail: {},
   showIframe: false,
-  foodDetail:{}
+  // 点击进入食物详情页面
+  foodDetail:{},
+  // 就餐人数
+  dinersNum: 1
 }
 
 const mutations = {
@@ -244,6 +247,7 @@ const actions = {
         commit('SHOW_LOADING', false)
       })
   },
+  // 更改 食物的 斤数
   SHOP_CART_CHANGE_FOOD: ({ commit, dispatch }, food) => {
     commit('SHOW_LOADING', true)
 
@@ -256,6 +260,7 @@ const actions = {
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
     .then(_ => dispatch('FETCH_SHOP_CART'))
   },
+  // 减少 食物的 份数
   SHOP_CART_REMOVE_FOOD: ({ commit, dispatch }, food) => {
     commit('SHOW_LOADING', true)
 
@@ -267,7 +272,7 @@ const actions = {
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
     .then(_ => dispatch('FETCH_SHOP_CART'))
   },
-
+  // 直接删除食物
   SHOP_CART_DELETE_FOOD: ({ commit, dispatch }, food) => {
     commit('SHOW_LOADING', true)
 
@@ -279,6 +284,7 @@ const actions = {
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
     .then(_ => dispatch('FETCH_SHOP_CART'))
   },
+  // 增加 食物的 份数
   SHOP_CART_ADD_FOOD: ({ commit, dispatch }, food) => {
     commit('SHOW_LOADING', true)
 
@@ -289,6 +295,72 @@ const actions = {
     }
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
     .then(_ => dispatch('FETCH_SHOP_CART'))
+  },
+
+  // 更改 食物的 斤数
+  ORDER_CHANGE_FOOD: ({ commit, dispatch }, food) => {
+    commit('SHOW_LOADING', true)
+
+    const condition = {
+      FoodId: food.id,
+      addNum: 0, 
+      newNum: food.num,
+      tableUser: food.tableUser
+    }
+    return OrderService.editOrder(condition, storage.get('consignee'))
+    .then(_ => dispatch('FETCH_SHOP_CART'))
+  },
+  // 减少 食物的 份数
+  ORDER_REMOVE_FOOD: ({ commit, dispatch }, food) => {
+    commit('SHOW_LOADING', true)
+
+    const condition = {
+      FoodId: food.id,
+      addNum: 0, 
+      newNum: food.num,
+      tableUser: food.tableUser
+    }
+    return OrderService.editOrder(condition, storage.get('consignee'))
+    .then(_ => dispatch('FETCH_ORDER'))
+  },
+  // 直接删除食物
+  ORDER_DELETE_FOOD: ({ commit, dispatch }, food) => {
+    commit('SHOW_LOADING', true)
+
+    const condition = {
+      FoodId: food.id,
+      addNum: 0, 
+      newNum: food.num,
+      tableUser: food.tableUser
+    }
+    return OrderService.editOrder(condition, storage.get('consignee'))
+    .then(_ => dispatch('FETCH_ORDER'))
+  },
+  // 增加 食物的 份数
+  ORDER_ADD_FOOD: ({ commit, dispatch }, food) => {
+    commit('SHOW_LOADING', true)
+
+    const condition = {
+      FoodId: food.id,
+      addNum: 0, 
+      newNum: food.num,
+      tableUser: food.tableUser
+    }
+    return OrderService.editOrder(condition, storage.get('consignee'))
+    .then(_ => dispatch('FETCH_ORDER'))
+  },
+  // 删除订单
+  CANCEL_ORDER: ({ commit }) => {
+    commit('SHOW_LOADING', true)
+
+    const condition = {
+      FoodId: food.id,
+      addNum: 0, 
+      newNum: food.num,
+      tableUser: food.tableUser
+    }
+    return OrderService.delOrder(condition, storage.get('consignee'))
+    .then(_ => dispatch('FETCH_ORDER'))
   },
 
   ADD_MORE_FOOD: ({ commit }) => {

@@ -31,7 +31,40 @@ const getOrder = function (tradeNo) {
     })
 }
 
+const editOrder = function (condition, consignee) {
+  let url = `/user/foodShoppingCart/edit/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
+  if (consignee) {
+    url += `&consignee=${consignee}`
+  }
+  return http.post(url, condition)
+    .then(resp => {
+      return resp.data
+    })
+    .catch(err => {
+      console.error(err)
+      return Promise.reject(err)
+    })
+}
+
+const delOrder = function () {
+  let url = `/user/foodShoppingCart/edit/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
+  if (consignee) {
+    url += `&consignee=${consignee}`
+  }
+  return http.post(url, condition)
+    .then(resp => {
+      return resp.data
+    })
+    .catch(err => {
+      console.error(err)
+      return Promise.reject(err)
+    })
+}
+
+
 export {
   addOrder,
-  getOrder
+  getOrder,
+  editOrder,
+  delOrder
 }

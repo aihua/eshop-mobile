@@ -63,6 +63,7 @@ import { DealService, AlipayService, ShopCartService } from '@/http/index'
 import { mapGetters } from 'vuex'
 
 import { createSteps } from '@/util/index'
+import storage from '@/util/storage'
 
 
 export default {
@@ -171,7 +172,17 @@ export default {
           buttonText: '我知道了'
         })
       } else {
-        this.$store.dispatch('ADD_SHOP_CART')
+        // 如果是代售 则需先提供手机号码
+        if (storage.has('consignee')) {
+          if (storage.has('phoneNumber')) {
+            this.$store.dispatch('ADD_SHOP_CART')
+          } else {
+            this.$router.push({name: 'PhoneVerify'})
+          }
+        } else {
+          this.$store.dispatch('ADD_SHOP_CART')
+        }
+        
       }
     },
     selectFoodType(foodType, index) {

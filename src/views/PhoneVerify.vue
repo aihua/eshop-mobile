@@ -66,7 +66,13 @@ export default {
           .then(data => {
             if (data.result === 'success') {
               storage.set('phoneNumber', this.phoneNumber)
-              this.$router.push({ name: 'PeopleNumber' })
+
+              if (storage.has('consignee')) {
+                this.$store.dispatch('ADD_SHOP_CART')
+              } else {
+                this.$router.push({ name: 'PeopleNumber' })
+              }
+
             } else {
               this.showAlert = true
               this.errorMsg = data.result || '验证码未知错误'

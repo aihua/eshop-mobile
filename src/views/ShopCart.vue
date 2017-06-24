@@ -131,14 +131,18 @@ export default {
       this.isEditable = !this.isEditable
     },
     ensureOrder() {
-      const phoneNumber = storage.get('phoneNumber')
-
       this.$store.commit('SET_ORDER_REMARK', this.remark)
-      if (phoneNumber) {
-        this.$router.push({ name: 'PeopleNumber' })
+
+      if (storage.has('consignee')) {
+        this.$store.dispatch('ADD_ORDER')
       } else {
-        this.$router.push({ name: 'PhoneVerify' })
+        if (storage.has('phoneNumber')) {
+          this.$router.push({ name: 'PeopleNumber' })
+        } else {
+          this.$router.push({ name: 'PhoneVerify' })
+        }
       }
+
     },
     changeFood(food) {
       this.$store.dispatch('SHOP_CART_CHANGE_FOOD', food)
@@ -157,7 +161,7 @@ export default {
     this.$store.dispatch('FETCH_SHOP_CART')
   },
   created() {
-    if (storage.get('consignee')) {
+    if (storage.has('consignee')) {
       this.placeholder = '该订单为代售商品，如收货地址变更，请填写具体地址，默认为本二维码所在地址'
     } else {
       this.placeholder = '填写备注'

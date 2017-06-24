@@ -31,7 +31,7 @@ function remove(key) {
 }
 
 function has(key) {
-  return Object.keys(localStorage).includes(key)
+  return Object.keys(localStorage).indexOf(key) >= 0
 }
 
 export default {

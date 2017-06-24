@@ -23,6 +23,13 @@ import Wechatpay from '@/views/Wechatpay'
 
 Vue.use(Router)
 
+// 分为两类流程 点餐 和 代售(通过二维码中consignee字段判断 有则为代售 无则为点餐)
+// 流程中 ? 表示 可选步骤
+// 点餐流程
+// DealMenu(菜单) => ShopCart(购物车) => PhoneVerify(?验证手机号码) => PeopleNumber(选择人数) => OrderSuccess(下订单) => BillDetail(订单详情) => (Wechat/Ali)pay(支付)
+
+// 代售流程
+// DealMenu(菜单) => PhoneVerify(?验证手机号码) => ShopCart(购物车) => OrderSuccess(下订单) => BillDetail(订单详情) => (Wechat/Ali)pay(支付)
 const routes = [
   {
     path: '',
