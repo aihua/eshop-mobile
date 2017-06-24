@@ -135,6 +135,14 @@ export default {
     ensureOrder() {
       this.$store.commit('SET_ORDER_REMARK', this.remark)
 
+      if (this.shopCart.foods.length === 0) {
+        return this.$vux.alert.show({
+          title: '提示',
+          content: '购物车为空呢 : )',
+          buttonText: '我知道了'
+        })
+      }
+
       if (storage.has('consignee')) {
         this.$store.dispatch('ADD_ORDER')
       } else {

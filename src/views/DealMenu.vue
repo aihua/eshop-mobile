@@ -243,10 +243,12 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+// @import 'style/main.scss';
+
 .deal-menu-container {
   height: 100%;
-
+  // background-color: $main;
   .deal-dialog-container.menu-dialog {
 
     .deal-dialog {
