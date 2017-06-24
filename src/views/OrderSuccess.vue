@@ -54,7 +54,7 @@
             <span>已优惠 {{orderDetail.discount}}</span>
           </span>
         </div>
-        <swipeout>
+        <swipeout :disabled="true">
           <div v-for="item in orderDetail.foods" :key="item.id">
             <swipeout-item transition-mode="follow">
               <div slot="right-menu">
