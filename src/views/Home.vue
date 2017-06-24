@@ -7,7 +7,7 @@
       </router-link>
       <router-link to="/shop-comment-view">
         <i class="icon-comment"></i>
-        <div class="text">商家评价({{shopComments.length}})</div>
+        <div class="text">商家评价</div>
       </router-link>
     </footer>
   </div>
@@ -48,8 +48,6 @@ export default {
     if (window.location.search) {
       const searchObj = objFrom(decodeURIComponent(window.location.search))
       store.commit('SET_QRCODE_INFO', searchObj)
-
-      store.dispatch('FETCH_SHOP_COMMENT')
     }
     // 从 首页进来 判断桌状态来路由到其他页面
     // 从 其他页面后退进来 不判断桌状态 让其直接进入home页

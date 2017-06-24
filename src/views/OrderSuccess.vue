@@ -13,9 +13,9 @@
         </div>
         <div class="line" v-if="canEditOrder">
           <div class="btn-group">
-            <div class="edit-btn">
+            <!--<div class="edit-btn">
               <x-button type="primary" @click.native="editOrder">修改</x-button>
-            </div>
+            </div>-->
             <div class="cancel-btn" style="margin-left: 10px;">
               <x-button type="primary" @click.native="cancelOrder">取消</x-button>
             </div>
@@ -193,7 +193,7 @@ export default {
       const self = this
       const durationFromOrdering = Date.now() - new Date(this.orderDetail.time).getTime()
       const twoMinutes = 2 * 60 * 1000
-      if (storage.get('consignee')) {
+      if (storage.has('consignee')) {
         this.$router.push({ name: 'BillDetail' })
       } else {
         if (durationFromOrdering < twoMinutes) {// 如果刚下单 提醒客户是否直接买单

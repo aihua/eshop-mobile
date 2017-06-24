@@ -354,6 +354,9 @@ const actions = {
     commit('SHOW_LOADING', true)
 
     return OrderService.delOrder(state.orderDetail.foodsOrderId)
+    .then(_ => {
+      commit('SHOW_LOADING', false)
+    })
   },
 
   ADD_MORE_FOOD: ({ commit }) => {
@@ -484,10 +487,7 @@ const actions = {
 
   COMMIT_COMMENT: ({ commit }, params) => {
     return CommentService.addShopComment(params)
-      .then(data => {
-        console.log(data)
-        router.push({ name: 'OrderSuccess' })
-      })
+      
   },
 
   COMMIT_FOOD_COMMENT: ({ commit }, params) => {

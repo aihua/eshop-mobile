@@ -17,14 +17,12 @@
           <template v-if="shopComments.length">
             <div class="rating-item" v-for="(comment, index) in shopComments">
               <div class="user-info">
-                <div class="avatar">
-                  <img width="40px" :src="comment.avatar">
+                <div class="avatar" :style="{'background': `url(${comment.avatar}) 100% 100% no-repeat`}">
+                  <!--<img width="40px" :src="comment.avatar">-->
                 </div>
                 <div class="phone">
-                  {{comment.userName}}
-                </div>
-                <div class="rating">
-                  <i class="icon-star" v-for="(item, index) in 5" :class="{'on': index <= comment.averageScore}"></i>
+                  <span>{{comment.userName}}</span>
+                  <i class="icon-star" v-for="(item, starIndex) in 5" :class="{'on': starIndex < comment.averageScore}"></i>
                 </div>
                 <div class="time">{{comment.createdAt | time}}</div>
               </div>
@@ -34,8 +32,8 @@
               </div>
   
               <div class="actions">
-                <div class="thumbs-up" @click="thumbsUp(index)">
-                  <i class="icon-Zambia" :class="{selected: selectedIndexes.indexOf(index) >= 0}"></i>
+                <div class="thumbs-up" @click="thumbsUp(index)" :class="{selected: selectedIndexes.indexOf(index) >= 0}">
+                  <i class="icon-Zambia"></i>
                   <span>赞</span>
                 </div>
               </div>
@@ -77,7 +75,7 @@ export default {
   filters: {
     time(v) {
       const date = new Date(v)
-      return fecha.format(date, 'YYYY-MM-DD')
+      return fecha.format(date, 'YYYY-MM-DD HH:mm')
     }
   },
   data() {
@@ -99,6 +97,7 @@ export default {
   },
   created() {
     // 计算 totalRating
+    this.$store.dispatch('FETCH_SHOP_COMMENT')
   }
 }
 </script>
@@ -125,7 +124,6 @@ export default {
       }
 
       .content {
-        padding: 10px 0;
 
         .rating-item {
           margin-top: 5px;
@@ -138,14 +136,18 @@ export default {
 
             .avatar {
               width: 40px;
+              height: 40px;
+              background-size: 100% !important;
+              border-radius: 50%;
+              margin-right: 20px;
             }
             .phone,
-            .rating,
             .time {
               flex: 1;
             }
 
             .icon-star {
+              color: #aaa;
               &.on {
                 color: #86b201;
               }
@@ -174,8 +176,9 @@ export default {
               align-items: center;
               font-size: 1rem;
 
-              .selected {
-                color: #86b201;
+              &.selected {
+                background-color: #86b201;
+                color: white;
               }
             }
           }

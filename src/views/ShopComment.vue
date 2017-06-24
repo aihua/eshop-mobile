@@ -71,6 +71,16 @@ export default {
       }
 
       this.$store.dispatch('COMMIT_COMMENT', params)
+      .then(data => {
+        console.log(data)
+        this.$vux.toast.show({
+          text: '感谢评论 : )',
+          type: 'text',
+        })
+        window.setTimeout(() => {
+          this.$router.push({ name: 'OrderSuccess' })
+        }, 2e3)
+      })
     }
   }
 }
