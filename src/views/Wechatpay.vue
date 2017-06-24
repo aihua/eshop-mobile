@@ -128,8 +128,18 @@ export default {
               })
           }
           if (res.err_msg === 'get_brand_wcpay_request:cancel') {
+            this.$vux.alert.show({
+              title: '提示',
+              content: '支付取消',
+              buttonText: '我知道了'
+            })
           }
           if (res.err_msg === 'get_brand_wcpay_request:fail') {
+            this.$vux.alert.show({
+              title: '提示',
+              content: '支付失败',
+              buttonText: '我知道了'
+            })
           }
         }
       )
@@ -143,7 +153,6 @@ export default {
       .then(data => {
         this.tradeNo = data.trade_no
         data.timeStamp = data.timestamp
-        window.alert(JSON.stringify(data, null, 2))
         this.payTime = fecha.format(new Date(data.timestamp * 1000), 'YYYY-MM-DD HH:mm:ss')
         delete data.timestamp
         delete data.trade_no
