@@ -89,11 +89,13 @@ export default {
       } else if (ua.indexOf('AlipayClient') >= 0) {
         this.$store.dispatch('FETCH_ALIPAY_URL')
       } else {
-        this.$vux.alert.show({
-          title: '提示',
-          content: '请选择微信或支付宝扫描支付 : )',
-          buttonText: '我知道了'
-        })
+        // this.$vux.alert.show({
+        //   title: '提示',
+        //   content: '请选择微信或支付宝扫描支付 : )',
+        //   buttonText: '我知道了'
+        // })
+
+        this.$store.dispatch('FETCH_ALIPAY_URL')
       }
 
     }
