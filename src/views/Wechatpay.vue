@@ -143,8 +143,8 @@ export default {
       .then(data => {
         this.tradeNo = data.trade_no
         data.timeStamp = data.timestamp
-
-        this.payTime = fecha.format(new Date(data.timestamp), 'YYYY-MM-DD HH:mm:ss')
+        window.alert(JSON.stringify(data, null, 2))
+        this.payTime = fecha.format(new Date(data.timestamp * 1000), 'YYYY-MM-DD HH:mm:ss')
         delete data.timestamp
         delete data.trade_no
         this.payParams = data
