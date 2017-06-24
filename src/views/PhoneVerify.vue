@@ -103,6 +103,10 @@ export default {
               this.errorMsg = reason
             }
           })
+          .catch(err => {
+            this.showAlert = true
+            this.errorMsg = '服务器异常'
+          })
       }
     },
     onHide() {

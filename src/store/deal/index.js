@@ -8,7 +8,7 @@ import {
   TableService,
   CommentService,
   WechatService
- } from '@/http/index'
+} from '@/http/index'
 import storage from '@/util/storage'
 import router from '@/router/index'
 
@@ -52,7 +52,7 @@ const state = {
   orderDetail: {},
   showIframe: false,
   // 点击进入食物详情页面
-  foodDetail:{},
+  foodDetail: {},
   // 就餐人数
   dinersNum: 1
 }
@@ -79,7 +79,7 @@ const mutations = {
         state.tempShopCart[food.id].remark = remark
       }
     } else {
-      Vue.set(state.tempShopCart, food.id, {num, remark})
+      Vue.set(state.tempShopCart, food.id, { num, remark })
     }
   },
   REMOVE_FOOD(state, { food, num = 1, typeIndex }) {
@@ -138,7 +138,7 @@ const mutations = {
   SET_ORDER_REMARK(state, remark) {
     state.remark = remark
   },
-  DINERS_NUM(state, number) {
+  SET_DINERS_NUM(state, number) {
     state.dinersNum = number
   },
   SET_FOOD_DETAIL(state, { food, typeIndex }) {
@@ -158,21 +158,21 @@ const actions = {
     if (state.allFoods.length === 0) {
       commit('SHOW_LOADING', true)
       return DealService.getAllFoods()
-      .then(data => {
-        commit('SHOW_LOADING', false)
-        commit('SET_ALL_FOODS', data.foods.map(e => {
-          Object.assign(e, {selectFoodCount: 0})
-          return e
-        }))
-      })
-      .catch(err => {
-        commit('SHOW_LOADING', false)
-        console.error(err)
-      })
+        .then(data => {
+          commit('SHOW_LOADING', false)
+          commit('SET_ALL_FOODS', data.foods.map(e => {
+            Object.assign(e, { selectFoodCount: 0 })
+            return e
+          }))
+        })
+        .catch(err => {
+          commit('SHOW_LOADING', false)
+          console.error(err)
+        })
     } else {
       return Promise.resolve(state.allFoods)
     }
-    
+
   },
   ADD_FOOD: ({ commit }, { food, num, remark, typeIndex }) => {
     commit('ADD_FOOD', { food, num, remark, typeIndex })
@@ -213,10 +213,10 @@ const actions = {
         })
     } else {// 如果临时购物车没有菜(处于加菜状态)
       return Promise.resolve()
-      .then(_ => {
-        commit('SHOW_LOADING', false)
-        router.push({ name: 'ShopCart' })
-      })
+        .then(_ => {
+          commit('SHOW_LOADING', false)
+          router.push({ name: 'ShopCart' })
+        })
     }
 
   },
@@ -253,12 +253,12 @@ const actions = {
 
     const condition = {
       FoodId: food.id,
-      addNum: 0, 
+      addNum: 0,
       newNum: food.num,
       tableUser: food.tableUser
     }
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_SHOP_CART'))
+      .then(_ => dispatch('FETCH_SHOP_CART'))
   },
   // 减少 食物的 份数
   SHOP_CART_REMOVE_FOOD: ({ commit, dispatch }, food) => {
@@ -266,11 +266,11 @@ const actions = {
 
     const condition = {
       FoodId: food.id,
-      addNum: -1, 
+      addNum: -1,
       tableUser: food.tableUser
     }
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_SHOP_CART'))
+      .then(_ => dispatch('FETCH_SHOP_CART'))
   },
   // 直接删除食物
   SHOP_CART_DELETE_FOOD: ({ commit, dispatch }, food) => {
@@ -282,7 +282,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_SHOP_CART'))
+      .then(_ => dispatch('FETCH_SHOP_CART'))
   },
   // 增加 食物的 份数
   SHOP_CART_ADD_FOOD: ({ commit, dispatch }, food) => {
@@ -294,7 +294,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_SHOP_CART'))
+      .then(_ => dispatch('FETCH_SHOP_CART'))
   },
 
   // 更改 食物的 斤数
@@ -303,12 +303,12 @@ const actions = {
 
     const condition = {
       FoodId: food.id,
-      addNum: 0, 
+      addNum: 0,
       newNum: food.num,
       tableUser: food.tableUser
     }
     return OrderService.editOrder(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_SHOP_CART'))
+      .then(_ => dispatch('FETCH_SHOP_CART'))
   },
   // 减少 食物的 份数
   ORDER_REMOVE_FOOD: ({ commit, dispatch }, food) => {
@@ -316,12 +316,12 @@ const actions = {
 
     const condition = {
       FoodId: food.id,
-      addNum: 0, 
+      addNum: 0,
       newNum: food.num,
       tableUser: food.tableUser
     }
     return OrderService.editOrder(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_ORDER'))
+      .then(_ => dispatch('FETCH_ORDER'))
   },
   // 直接删除食物
   ORDER_DELETE_FOOD: ({ commit, dispatch }, food) => {
@@ -329,12 +329,12 @@ const actions = {
 
     const condition = {
       FoodId: food.id,
-      addNum: 0, 
+      addNum: 0,
       newNum: food.num,
       tableUser: food.tableUser
     }
     return OrderService.editOrder(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_ORDER'))
+      .then(_ => dispatch('FETCH_ORDER'))
   },
   // 增加 食物的 份数
   ORDER_ADD_FOOD: ({ commit, dispatch }, food) => {
@@ -342,12 +342,12 @@ const actions = {
 
     const condition = {
       FoodId: food.id,
-      addNum: 0, 
+      addNum: 0,
       newNum: food.num,
       tableUser: food.tableUser
     }
     return OrderService.editOrder(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_ORDER'))
+      .then(_ => dispatch('FETCH_ORDER'))
   },
   // 删除订单
   CANCEL_ORDER: ({ commit }) => {
@@ -355,12 +355,12 @@ const actions = {
 
     const condition = {
       FoodId: food.id,
-      addNum: 0, 
+      addNum: 0,
       newNum: food.num,
       tableUser: food.tableUser
     }
     return OrderService.delOrder(condition, storage.get('consignee'))
-    .then(_ => dispatch('FETCH_ORDER'))
+      .then(_ => dispatch('FETCH_ORDER'))
   },
 
   ADD_MORE_FOOD: ({ commit }) => {
@@ -368,67 +368,69 @@ const actions = {
     router.push({ name: 'DealMenu' })
   },
   CHOOSE_PEOPLE_NUMBER: ({ commit, dispatch }, number) => {
-    commit('DINERS_NUM', number)
+    commit('SET_DINERS_NUM', number)
     return dispatch('ADD_ORDER')
   },
 
   ADD_ORDER: ({ commit }) => {
-    router.push({name: 'Ordering'})
+    router.push({ name: 'Ordering' })
     const params = {
       phone: storage.get('phoneNumber'),
       info: state.remark,
       dinersNum: state.dinersNum
     }
     return OrderService.addOrder(params, storage.get('consignee'))
-    .then(data => {
-      commit('ORDERING_SUCCESS')
-    })
-    .catch(err => {
-      console.error(err)
-      router.push({name: 'OrderFailed'})
-    })
+      .then(data => {
+        commit('ORDERING_SUCCESS')
+      })
+      .catch(err => {
+        console.error(err)
+        router.push({ name: 'OrderFailed' })
+      })
   },
   FETCH_ORDER: ({ commit }, tradeNo) => {
     return OrderService.getOrder(tradeNo)
-    .then(data => {
-      commit('SET_ORDER_DETAIL', data)
-      // 将相同id的food合并
-      data.foods = data.foods.reduce((accu, curr) => {
-        const exisit = accu.find(e => e.id === curr.id)
-        if (exisit) {
-          exisit.num += curr.num
-        } else {
-          accu.push(curr)
-        }
-        return accu
-      }, [])
+      .then(data => {
+        commit('SET_ORDER_DETAIL', data)
+        // 将相同id的food合并
+        data.foods = data.foods.reduce((accu, curr) => {
+          const exisit = accu.find(e => e.id === curr.id)
+          if (exisit) {
+            exisit.num += curr.num
+          } else {
+            accu.push(curr)
+          }
+          return accu
+        }, [])
 
-    })
-    .catch(err => {
-      console.error(err)
-    })
+      })
+      .catch(err => {
+        console.error(err)
+        return Promise.reject(err)
+      })
   },
   FETCH_SMS_CODE: ({ commit }, phoneNumber) => {
     return SMSService.getCode(phoneNumber)
-    .then(data => {
-      console.log(data)
-      return data.reason
-    })
-    .catch(err => {
-      console.log(err)
-    })
+      .then(data => {
+        console.log(data)
+        return data.reason
+      })
+      .catch(err => {
+        console.error(err)
+        return Promise.reject(err)
+      })
   },
-  VERIFY_SMS_CODE: ({ commit }, {phoneNumber, verifyCode}) => {
+  VERIFY_SMS_CODE: ({ commit }, { phoneNumber, verifyCode }) => {
     return SMSService.verifyCode(phoneNumber, verifyCode)
-    .then(data => {
-      return data
-    })
-    .catch(err => {
-      console.log(err)
-    })
+      .then(data => {
+        return data
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
   FETCH_ALIPAY_URL: ({ commit }) => {
-    router.push({name: 'Alipay'})
+    router.push({ name: 'Alipay' })
 
     return AlipayService.getWapParams(state.orderDetail.totalPrice || state.orderDetail.totalVipPrice)
       .then(data => {
@@ -444,57 +446,57 @@ const actions = {
 
   FETCH_WECHATPAY_URL: ({ commit }) => {
     return WechatService.redirect()
-    .then(data => {
-      window.location.href = data.url
-    })
+      .then(data => {
+        window.location.href = data.url
+      })
   },
 
   FETCH_TABLE_STATUS: ({ commit, state }) => {
     const tableId = storage.get('tableId')
     return TableService.getStatus(tableId)
-    .then(data => {
-      if (data.tableStatus === 0) {// 空桌
-        router.push({name: 'Home'})
-      } else if (data.tableStatus === 1) {// 已下购物车
-        router.push({name: 'ShopCart'})
-      } else if (data.tableStatus === 2) {// 已下单
-        router.push({name: 'OrderSuccess'})
-      } else {
-        console.error(`Unknown table status; status: `, data.tableStatus)
-        router.push({name: 'ShopClose'})
-      }
-    })
-    .catch(err => {
-      console.error(err)
-      return Promise.reject(err)
-    })
+      .then(data => {
+        if (data.tableStatus === 0) {// 空桌
+          router.push({ name: 'Home' })
+        } else if (data.tableStatus === 1) {// 已下购物车
+          router.push({ name: 'ShopCart' })
+        } else if (data.tableStatus === 2) {// 已下单
+          router.push({ name: 'OrderSuccess' })
+        } else {
+          console.error(`Unknown table status; status: `, data.tableStatus)
+          router.push({ name: 'ShopClose' })
+        }
+      })
+      .catch(err => {
+        console.error(err)
+        return Promise.reject(err)
+      })
 
   },
 
   FETCH_SHOP_COMMENT: ({ commit }) => {
     return CommentService.getShopComment()
-    .then(data => {
-      commit('SET_SHOP_COMMENT', data.merchantRatings.sort((a, b) => {
-        const milliSecondsA = new Date(a.time).getTime()
-        const milliSecondsB = new Date(b.time).getTime()
-        return milliSecondsB - milliSecondsA
-      }))
-    })
+      .then(data => {
+        commit('SET_SHOP_COMMENT', data.merchantRatings.sort((a, b) => {
+          const milliSecondsA = new Date(a.time).getTime()
+          const milliSecondsB = new Date(b.time).getTime()
+          return milliSecondsB - milliSecondsA
+        }))
+      })
   },
 
   COMMIT_COMMENT: ({ commit }, params) => {
     return CommentService.addShopComment(params)
-    .then(data => {
-      console.log(data)
-      router.push({name: 'OrderSuccess'})
-    })
+      .then(data => {
+        console.log(data)
+        router.push({ name: 'OrderSuccess' })
+      })
   },
 
   COMMIT_FOOD_COMMENT: ({ commit }, params) => {
     return CommentService.addFoodComment(params)
-    .then(data => {
-      console.log(data)
-    })
+      .then(data => {
+        console.log(data)
+      })
   }
 }
 
@@ -515,7 +517,7 @@ const getters = {
         for (let food of type.foods) {
           if (food.id === Number(foodId)) {
             const temp = food.price * state.tempShopCart[foodId].num
-            total += Math.round((temp * 100))/100
+            total += Math.round((temp * 100)) / 100
           }
         }
       }
@@ -536,7 +538,7 @@ const getters = {
     // 确定 allFoods 里 临时购物车里选中食物的 types
     for (let typeFoods of state.allFoods) {
       typeFoods.selectFoodCount = 0
-      
+
       Object.keys(state.tempShopCart).forEach(e => {
         if (typeFoods.foods.find(food => food.id === Number(e))) {
           typeFoods.selectFoodCount += state.tempShopCart[e].num

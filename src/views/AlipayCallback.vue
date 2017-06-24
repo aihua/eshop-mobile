@@ -105,6 +105,13 @@ export default {
     this.payTime = obj.timestamp
 
     this.$store.dispatch('FETCH_ORDER', obj.out_trade_no)
+    .catch(err => {
+      this.$vux.alert.show({
+        title: '提示',
+        content: '获取订单失败',
+        buttonText: '我知道了'
+      })
+    })
   }
 }
 </script>

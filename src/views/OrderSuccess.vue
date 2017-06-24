@@ -231,6 +231,13 @@ export default {
       this.canEditOrder = true
     }
     this.$store.dispatch('FETCH_ORDER')
+    .catch(err => {
+      this.$vux.alert.show({
+        title: '提示',
+        content: '获取订单失败',
+        buttonText: '我知道了'
+      })
+    })
   }
 }
 </script>

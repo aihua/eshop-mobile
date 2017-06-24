@@ -104,6 +104,35 @@ export default {
       payEnd: false
     }
   },
+
+  methods: {
+    invokePay() {
+      const self = this
+      WeixinJSBridge.invoke(
+        'getBrandWCPayRequest', payParams,
+        function (res) {
+          // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
+          if (res.err_msg == "get_brand_wcpay_request:ok") {
+            self.$store.dispatch('FETCH_ORDER', tradeNo)
+              .then(() => {
+                self.payEnd = true
+              })
+              .catch(err => {
+                self.$vux.alert.show({
+                  title: '提示',
+                  content: '获取订单失败',
+                  buttonText: '我知道了'
+                })
+              })
+          }
+          if (res.err_msg === 'get_brand_wcpay_request:cancel') {
+          }
+          if (res.err_msg === 'get_brand_wcpay_request:fail') {
+          }
+        }
+      )
+    }
+  },
   created() {
     let payParams = null
     let tradeNo
@@ -111,8 +140,6 @@ export default {
     this.tenantName = storage.get('tenantName')
     const obj = objFrom(decodeURIComponent(location.search))
     this.payTime = obj.timestamp
-
-    // this.$store.dispatch('FETCH_ORDER', obj.out_trade_no)
 
     const code = obj.code
 
@@ -122,49 +149,16 @@ export default {
         data.timeStamp = data.timestamp
         delete data.timestamp
         delete data.trade_no
-
         payParams = data
 
         if (typeof WeixinJSBridge !== 'undefined') {
-          WeixinJSBridge.invoke(
-            'getBrandWCPayRequest', payParams,
-            function (res) {
-              // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-              if (res.err_msg == "get_brand_wcpay_request:ok") {
-
-                self.$store.dispatch('FETCH_ORDER', tradeNo)
-                  .then(() => {
-                    self.payEnd = true
-                  })
-
-              }
-              if (res.err_msg === 'get_brand_wcpay_request:cancel') {
-              }
-              if (res.err_msg === 'get_brand_wcpay_request:fail') {
-              }
-            }
-          );
+          this.invokePay()
         }
       })
 
     function onBridgeReady() {
       if (payParams) {
-        WeixinJSBridge.invoke(
-          'getBrandWCPayRequest', payParams,
-          function (res) {
-            // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-            if (res.err_msg == "get_brand_wcpay_request:ok") {
-              self.$store.dispatch('FETCH_ORDER', tradeNo)
-                .then(() => {
-                  self.payEnd = true
-                })
-            }
-            if (res.err_msg === 'get_brand_wcpay_request:cancel') {
-            }
-            if (res.err_msg === 'get_brand_wcpay_request:fail') {
-            }
-          }
-        );
+        self.invokePay()
       }
 
     }
