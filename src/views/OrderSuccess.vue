@@ -110,7 +110,7 @@
       </div>
     </deal-footer>
   
-    <toast v-model="showPrompt" type="text" width="15em">e代售提醒您请先买单, 谢谢！</toast>
+    <toast v-model="showPrompt" type="text" width="15em" :time="7000">e代售提醒您先买单, 订单10分钟后失效, 谢谢！</toast>
   </div>
 </template>
 <script>
