@@ -32,7 +32,7 @@ const getOrder = function (tradeNo) {
 }
 
 const editOrder = function (condition, consignee) {
-  let url = `/user/foodShoppingCart/edit/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
+  let url = `/user/foodOrder/edit/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
   if (consignee) {
     url += `&consignee=${consignee}`
   }
@@ -46,12 +46,13 @@ const editOrder = function (condition, consignee) {
     })
 }
 
-const delOrder = function () {
-  let url = `/user/foodShoppingCart/edit/${storage.get('tableId')}?tenantId=${storage.get('tenantId')}`
-  if (consignee) {
-    url += `&consignee=${consignee}`
+const delOrder = function (orderId) {
+  let url = `/admin/foodOrder/${orderId}?tableId=${storage.get('tableId')}&tenantId=${storage.get('tenantId')}`
+
+  if (storage.has('consignee')) {
+    url += `&consignee=${storage.get('consignee')}`
   }
-  return http.post(url, condition)
+  return http.delete(url)
     .then(resp => {
       return resp.data
     })

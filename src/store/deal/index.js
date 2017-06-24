@@ -270,7 +270,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
-      .then(_ => dispatch('FETCH_SHOP_CART'))
+    .then(_ => dispatch('FETCH_SHOP_CART'))
   },
   // 直接删除食物
   SHOP_CART_DELETE_FOOD: ({ commit, dispatch }, food) => {
@@ -282,7 +282,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
-      .then(_ => dispatch('FETCH_SHOP_CART'))
+    .then(_ => dispatch('FETCH_SHOP_CART'))
   },
   // 增加 食物的 份数
   SHOP_CART_ADD_FOOD: ({ commit, dispatch }, food) => {
@@ -294,7 +294,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return ShopCartService.editShopCart(condition, storage.get('consignee'))
-      .then(_ => dispatch('FETCH_SHOP_CART'))
+    .then(_ => dispatch('FETCH_SHOP_CART'))
   },
 
   // 更改 食物的 斤数
@@ -308,7 +308,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return OrderService.editOrder(condition, storage.get('consignee'))
-      .then(_ => dispatch('FETCH_SHOP_CART'))
+    .then(_ => dispatch('FETCH_SHOP_CART'))
   },
   // 减少 食物的 份数
   ORDER_REMOVE_FOOD: ({ commit, dispatch }, food) => {
@@ -321,7 +321,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return OrderService.editOrder(condition, storage.get('consignee'))
-      .then(_ => dispatch('FETCH_ORDER'))
+    .then(_ => dispatch('FETCH_ORDER'))
   },
   // 直接删除食物
   ORDER_DELETE_FOOD: ({ commit, dispatch }, food) => {
@@ -334,7 +334,7 @@ const actions = {
       tableUser: food.tableUser
     }
     return OrderService.editOrder(condition, storage.get('consignee'))
-      .then(_ => dispatch('FETCH_ORDER'))
+    .then(_ => dispatch('FETCH_ORDER'))
   },
   // 增加 食物的 份数
   ORDER_ADD_FOOD: ({ commit, dispatch }, food) => {
@@ -347,20 +347,13 @@ const actions = {
       tableUser: food.tableUser
     }
     return OrderService.editOrder(condition, storage.get('consignee'))
-      .then(_ => dispatch('FETCH_ORDER'))
+    .then(_ => dispatch('FETCH_ORDER'))
   },
   // 删除订单
-  CANCEL_ORDER: ({ commit }) => {
+  CANCEL_ORDER: ({ commit, dispatch }) => {
     commit('SHOW_LOADING', true)
 
-    const condition = {
-      FoodId: food.id,
-      addNum: 0,
-      newNum: food.num,
-      tableUser: food.tableUser
-    }
-    return OrderService.delOrder(condition, storage.get('consignee'))
-      .then(_ => dispatch('FETCH_ORDER'))
+    return OrderService.delOrder(state.orderDetail.foodsOrderId)
   },
 
   ADD_MORE_FOOD: ({ commit }) => {
@@ -389,8 +382,12 @@ const actions = {
       })
   },
   FETCH_ORDER: ({ commit }, tradeNo) => {
+    commit('SHOW_LOADING', true)
+
     return OrderService.getOrder(tradeNo)
       .then(data => {
+        commit('SHOW_LOADING', false)
+
         commit('SET_ORDER_DETAIL', data)
         // 将相同id的food合并
         data.foods = data.foods.reduce((accu, curr) => {
@@ -406,6 +403,7 @@ const actions = {
       })
       .catch(err => {
         console.error(err)
+        commit('SHOW_LOADING', false)
         return Promise.reject(err)
       })
   },

@@ -55,28 +55,13 @@
           </span>
         </div>
         <swipeout>
-          <div class="item" v-for="item in orderDetail.foods" :key="item.id">
-            <!--<div class="name">{{item.name}}</div>
-            
-                    <div class="money">
-                      <span class="price">{{item.price}}元/{{item.unit}}</span>
-                      <span v-if="item.unit === '斤'" class="food-remark">{{item.remark}}</span>
-                      <span class="count">
-                        <span>x</span>
-                        <span>{{item.num}}</span>
-                      </span>
-                    </div>-->
-  
+          <div v-for="item in orderDetail.foods" :key="item.id">
             <swipeout-item transition-mode="follow">
               <div slot="right-menu">
                 <swipeout-button @click.native="deleteFood(item)" type="warn">删除</swipeout-button>
               </div>
-  
               <div slot="content">
-  
                 <div class="order-item">
-                  <!--<div class="icon me" v-if="isMe(item.tableUser)">我</div>
-                        <div class="icon" :class="['user-' + item.tableUserNumber]" v-else>{{item.tableUserNumber}}号</div>-->
                   <div class="item-detail">
                     <div class="food-name">{{item.name}}</div>
                     <div class="food-money">
@@ -96,11 +81,8 @@
                 <div class="food-remark" v-if="item.unit === '斤'" style="padding: 10px;">
                   <p>备注： {{item.remark}}</p>
                 </div>
-  
               </div>
-  
             </swipeout-item>
-  
           </div>
         </swipeout>
       </div>
@@ -186,6 +168,12 @@ export default {
         content: '确定取消订单?',
         onConfirm() {
           self.$store.dispatch('CANCEL_ORDER')
+          .then(_ => {
+            self.$router.push({ name: 'DealMenu' })
+          })
+          .catch(_ => {
+            self.$router.push({ name: 'DealMenu' })
+          })
         }
       })
     },
@@ -316,11 +304,11 @@ export default {
         }
       }
 
-      .item {
-        margin-top: 2px;
-        height: 100px;
-        background-color: #fff;
+        
         .order-item {
+          margin-top: 2px;
+          height: 100px;
+          background-color: #fff;
           height: 60px;
           display: flex;
           padding: 10px;
@@ -361,11 +349,11 @@ export default {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                font-size: 1.3rem;
               }
             }
           }
         }
-      }
     }
   }
 

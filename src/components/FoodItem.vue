@@ -156,10 +156,13 @@ export default {
       flex: 1;
       display: flex;
 	    justify-content: center;
+
+      font-size: 1.3rem;
     }
 
     .icon-plus, .icon-sub {
       color: #86b201;
+      font-size: 1.3rem;
     }
 
   }
