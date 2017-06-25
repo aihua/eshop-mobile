@@ -56,7 +56,10 @@ const state = {
   // 就餐人数
   dinersNum: 1,
   // 是否已经 提示e代售买单信息
-  hasPromptEShop: false
+  hasPromptEShop: false,
+  hasPromptAlmostVip: false,
+  hasPromptVip: false,
+  hasPrompt: false
 }
 
 const mutations = {
@@ -152,6 +155,16 @@ const mutations = {
   },
   ENSURE_ESHOP_PROMPT(state) {
     state.hasPromptEShop = true
+  },
+
+  HAS_PROMPT_ALMOST_VIP(state) {
+    state.hasPromptAlmostVip = true
+  },
+  HAS_PROMPT_VIP(state) {
+    state.hasPromptVip = true
+  },
+  HAS_PROMPT(state) {
+    state.hasPrompt = true
   }
 }
 
@@ -602,7 +615,16 @@ const getters = {
   },
   hasPromptEShop(state) {
     return state.hasPromptEShop
-  }
+  },
+  hasPrompt(state) {
+    return state.hasPrompt
+  },
+  hasPromptAlmostVip(state) {
+    return state.hasPromptAlmostVip
+  },
+  hasPromptVip(state) {
+    return state.hasPromptVip
+  },
 }
 
 export {

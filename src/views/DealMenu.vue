@@ -23,8 +23,7 @@
     <deal-content>
       <div class="left-tab">
         <ul class="dish-type-container">
-          <li class="dish-type" :class="{'selected': menuCurrentIndex === index}"
-           @click="selectFoodType(item, index)" v-for="(item, index) in allFoods" :key="item.id">
+          <li class="dish-type" :class="{'selected': menuCurrentIndex === index}" @click="selectFoodType(item, index)" v-for="(item, index) in allFoods" :key="item.id">
             <span class="text">{{item.name}}</span>
             <div class="food-count" v-if="item.selectFoodCount">{{item.selectFoodCount || ''}}</div>
           </li>
@@ -34,9 +33,7 @@
       <div class="right-content" ref="foodsWrapper">
         <li class="food-type-container" v-for="(subFoods, index) in allFoods" :key="subFoods.id">
           <div class="food-type-title" :class="{selected: index === menuCurrentIndex}">{{subFoods.name}}</div>
-          <food-item v-for="food in subFoods.foods" :key="food.id" :food="food" :type-index="index" 
-          @change-food="changeFood($event, food, index)" @add-food="addFood(food, index)" 
-          @remove-food="removeFood(food, index)" :mode="showMode" @show-detail="showDetail(food,index)">
+          <food-item v-for="food in subFoods.foods" :key="food.id" :food="food" :type-index="index" @change-food="changeFood($event, food, index)" @add-food="addFood(food, index)" @remove-food="removeFood(food, index)" :mode="showMode" @show-detail="showDetail(food,index)">
           </food-item>
         </li>
       </div>
@@ -84,10 +81,10 @@ export default {
       listHeight: [],// 菜单右边菜品子列表的高度
       foodsScrollY: 0,// 菜单右边滚动区的 滚动y轴偏差
       menuCurrentIndex: 0,// 菜单左边 当前选中索引,
-      totalConsumer: 100, // 会员门槛金额
-      ratio: 0.8, // 快满会员金额 比率
-      hasPromptAlmostVip: false, // 是否已经提示 快满会员
-      hasPromptVip: false // 是否已经提示 可以成为会员
+      totalConsumer: 50, // 会员门槛金额
+      ratio: 0.5, // 快满会员金额 比率
+      // hasPromptAlmostVip: false, // 是否已经提示 快满会员
+      // hasPromptVip: false // 是否已经提示 可以成为会员
     }
   },
   computed: {
@@ -97,7 +94,10 @@ export default {
       'tempShopCartFoodCost',
       'isAddMoreFood',
       'shopCart',
-      'showMode'
+      'showMode',
+      'hasPromptAlmostVip',
+      'hasPromptVip',
+      'hasPrompt'
     ])
   },
   watch: {
@@ -114,27 +114,39 @@ export default {
     },
     'tempShopCartFoodCost': function (val, oldVal) {
       if (!this.hasPromptAlmostVip && val > this.totalConsumer * this.ratio) {
-        this.hasPromptAlmostVip = true
-        const text = `还差${(this.totalConsumer - val).toFixed(2)}元可成为会员, 享受会员价 : )`
+        this.$store.commit('HAS_PROMPT_ALMOST_VIP')
+        const text = `还差${(this.totalConsumer - val).toFixed(2)}元\n可成为会员 : )`
 
-        this.$vux.alert.show({
-          title: '提示',
-          content: text,
-          buttonText: '我知道了'
+        this.$vux.toast.show({
+          text: text,
+          type: 'text',
+          time: 50000
         })
+
+        // this.$vux.alert.show({
+        //   title: '提示',
+        //   content: text,
+        //   buttonText: '我知道了'
+        // })
       }
 
       if (!this.hasPromptVip && val >= this.totalConsumer) {
-        this.hasPromptVip = true
+        this.$store.commit('HAS_PROMPT_VIP')
         const text = `消费已满${this.totalConsumer}元, 可晋升为会员`
 
-        this.$vux.alert.show({
-          title: '提示',
-          content: text,
-          buttonText: '我知道了'
+        this.$vux.toast.show({
+          text: text,
+          type: 'text',
+          time: 50000
         })
+
+        // this.$vux.alert.show({
+        //   title: '提示',
+        //   content: text,
+        //   buttonText: '我知道了'
+        // })
       }
-      
+
     },
 
   },
@@ -177,12 +189,12 @@ export default {
           if (storage.has('phoneNumber')) {
             this.$store.dispatch('ADD_SHOP_CART')
           } else {
-            this.$router.push({name: 'PhoneVerify'})
+            this.$router.push({ name: 'PhoneVerify' })
           }
         } else {
           this.$store.dispatch('ADD_SHOP_CART')
         }
-        
+
       }
     },
     selectFoodType(foodType, index) {
@@ -204,7 +216,7 @@ export default {
       window.scrollTo(0, this.listHeight[index])
     },
     _initAllFoods() {
-      this.$store.dispatch('FETCH_ALL_FOODS')
+      return this.$store.dispatch('FETCH_ALL_FOODS')
         .then(_ => {
           this._initScroll()// 初始化scrollListener
           this._calcHeight()// 初始化不同品种菜列表 的高度
@@ -237,10 +249,21 @@ export default {
   },
   mounted() {
     this._initAllFoods()
+      .then(_ => {
+        if (!this.hasPrompt) {
+          this.$store.commit('HAS_PROMPT')
+          this.$vux.toast.show({
+            text: '满50元立可成为会员哦, 亲 : )',
+            type: 'text',
+            time: 5000
+          })
+        }
+        
+      })
   },
   beforeDestroy() {
     this._destroyScroll()
-  }
+  },
 }
 </script>
 <style lang="scss">
