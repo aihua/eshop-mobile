@@ -126,26 +126,6 @@ const router = new Router({
   routes,
 })
 
-// 路由切换动画
-// router.beforeEach((to, from, next) => {
-//   const toIndex = routes.findIndex(e => e.path === to.path)
-//   const fromIndex = routes.findIndex(e => e.path === from.path)
-//   if (toIndex < fromIndex) {
-//     store.commit('UPDATE_ACTIVE_CLASS', {
-//       enter: 'animated slideInLeft',
-//       leave: 'animated slideOutRight'
-//     })
-//   } else {
-//     store.commit('UPDATE_ACTIVE_CLASS', {
-//       enter: 'animated slideInRight',
-//       leave: 'animated slideOutLeft'
-//     })
-//   }
-
-//   console.log(`toIndex: ${toIndex}; fromIndex: ${fromIndex}`)
-//   next()
-// })
-
 export default router
 
 export {

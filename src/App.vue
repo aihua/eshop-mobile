@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <loading v-show="loading"></loading>
-    <transition :enter-active-class="enterActiveClass" :leave-active-class="leaveActiveClass">
+    <!--<transition :enter-active-class="enterActiveClass" :leave-active-class="leaveActiveClass">-->
       <router-view></router-view>
-    </transition>
+    <!--</transition>-->
   </div>
 </template>
 
@@ -17,8 +17,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'enterActiveClass',
-      'leaveActiveClass',
       'loading'
     ])
   },

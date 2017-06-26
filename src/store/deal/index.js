@@ -39,8 +39,6 @@ const state = {
   remark: '',
   allFoods: [],
   loading: false,
-  enterActiveClass: '',
-  leaveActiveClass: '',
   alipayUrl: '',
   // 二维码 标识 租户/桌号信息
   searchObj: null,
@@ -542,9 +540,7 @@ const actions = {
 }
 
 const getters = {
-  tempShopCart(state) {
-    return state.tempShopCart
-  },
+  
   tempShopCartFoodCount(state) {
     return Object.keys(state.tempShopCart).reduce((accu, curr) => {
       return accu + state.tempShopCart[curr].num
@@ -566,15 +562,7 @@ const getters = {
 
     return total
   },
-  foodDetail(state) {
-    return state.foodDetail
-  },
-  showMode(state) {
-    return state.showMode
-  },
-  shopComments(state) {
-    return state.shopComments
-  },
+  
   allFoods(state) {
     // 确定 allFoods 里 临时购物车里选中食物的 types
     for (let typeFoods of state.allFoods) {
@@ -589,42 +577,30 @@ const getters = {
 
     return state.allFoods
   },
-  shopCart(state) {
-    return state.shopCart
-  },
-  loading(state) {
-    return state.loading
-  },
-  enterActiveClass(state) {
-    return state.enterActiveClass
-  },
-  leaveActiveClass(state) {
-    return state.leaveActiveClass
-  },
-  isAddMoreFood(state) {
-    return state.isAddMoreFood
-  },
-  orderingSuccess(state) {
-    return state.orderingSuccess
-  },
-  orderDetail(state) {
-    return state.orderDetail
-  },
-  showIframe(state) {
-    return state.showIframe
-  },
-  hasPromptEShop(state) {
-    return state.hasPromptEShop
-  },
-  hasPrompt(state) {
-    return state.hasPrompt
-  },
-  hasPromptAlmostVip(state) {
-    return state.hasPromptAlmostVip
-  },
-  hasPromptVip(state) {
-    return state.hasPromptVip
-  },
+
+  ...generateGetters([
+    'foodDetail', 
+    'showMode', 
+    'shopComments', 
+    'tempShopCart', 
+    'shopCart',
+    'loading',
+    'isAddMoreFood',
+    'orderingSuccess',
+    'orderDetail',
+    'showIframe',
+    'hasPromptEShop',
+    'hasPrompt',
+    'hasPromptAlmostVip',
+    'hasPromptVip'
+    ], state)
+}
+
+function generateGetters(keys, state) {
+  return keys.reduce((accu, curr) => {
+    accu[curr] = () => state[curr]
+    return accu
+  }, {})
 }
 
 export {
