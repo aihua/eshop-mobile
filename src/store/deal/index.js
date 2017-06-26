@@ -546,6 +546,7 @@ const getters = {
       return accu + state.tempShopCart[curr].num
     }, 0)
   },
+  
   tempShopCartFoodCost(state) {
     let total = 0
 
