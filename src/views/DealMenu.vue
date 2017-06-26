@@ -132,7 +132,7 @@ export default {
 
       if (!this.hasPromptVip && val >= this.totalConsumer) {
         this.$store.commit('HAS_PROMPT_VIP')
-        const text = `消费已满${this.totalConsumer}元, 可晋升为会员`
+        const text = `消费已满${this.totalConsumer}元, 结账后可晋升为会员`
 
         this.$vux.toast.show({
           text: text,
