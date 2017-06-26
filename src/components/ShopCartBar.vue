@@ -7,7 +7,7 @@
       <span>{{foodCost}}</span>
     </div>
     <div class="right-area">
-      <x-button class="btn" type="primary" @click.native="toShopCart">购物车</x-button>
+      <x-button class="btn" type="primary" @click.native="toShopCart">购物车({{shopCart.totalNum + ' 份'}})</x-button>
     </div>
   </div>
 </template>
@@ -22,6 +22,9 @@ export default {
     addMore: {
       type: Boolean,
       default: false
+    },
+    shopCart: {
+      type: Object
     },
     foodCount: {
       type: Number

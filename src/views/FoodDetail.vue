@@ -50,7 +50,7 @@
     </deal-content>
   
     <deal-footer>
-      <shop-cart-bar :add-more="isAddMoreFood" :food-cost="tempShopCartFoodCost" :food-count="tempShopCartFoodCount" @go-shopcart="toShopCart"></shop-cart-bar>
+      <shop-cart-bar :add-more="isAddMoreFood" :shop-cart="shopCart" :food-cost="tempShopCartFoodCost" :food-count="tempShopCartFoodCount" @go-shopcart="toShopCart"></shop-cart-bar>
     </deal-footer>
   
     <transition enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
