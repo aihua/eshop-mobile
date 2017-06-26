@@ -120,7 +120,7 @@ export default {
         this.$vux.toast.show({
           text: text,
           type: 'text',
-          time: 50000
+          time: 5000
         })
 
         // this.$vux.alert.show({
@@ -137,7 +137,7 @@ export default {
         this.$vux.toast.show({
           text: text,
           type: 'text',
-          time: 50000
+          time: 5000
         })
 
         // this.$vux.alert.show({
