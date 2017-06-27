@@ -1,5 +1,9 @@
 <template>
   <div class="home-container" :style="homeStyle">
+  
+    <group class="phone" label-width="4.5em" label-margin-right="2em" label-align="right">
+      <cell title="全国统一客服热线" value="025-86662644"></cell>
+    </group>
     <footer class="footer">
       <router-link to="/deal-menu">
         <i class="icon-edit"></i>
@@ -13,6 +17,7 @@
   </div>
 </template>
 <script>
+import { Group, Cell } from 'vux'
 import { objFrom } from '@/util/index'
 import { mapGetters } from 'vuex'
 
@@ -21,6 +26,10 @@ import store from '@/store/index'
 
 export default {
   name: 'Home',
+  components: {
+    Group,
+    Cell
+  },
   computed: {
     ...mapGetters(['shopComments'])
   },
@@ -31,7 +40,7 @@ export default {
   },
   created() {
     document.title = storage.get('tenantName')
-                                        
+
     if (storage.get('tenantId') === '68d473e77f459833bb06c60f9a8f4809') {
       this.homeStyle = {
         'background': `url(${require('../assets/images/xuehuabing-home.jpg')}) no-repeat`,
@@ -76,35 +85,49 @@ export default {
   left: 0;
   right: 0;
 
+  .phone {
+    position: relative;
+    top: calc(100% - 150px);
+  }
+
   /*background: url(../assets/images/lashangyin-home1.png) no-repeat;
   background-size: 100% 93%;*/
-}
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 5px 0;
+    background-color: #f5f5f5;
 
-.home-container .footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-  padding: 5px 0;
-  background-color: #f5f5f5;
+    display: flex;
 
-  display: flex;
-}
+    a {
+      display: inline-block;
+      flex: 1;
+      text-decoration: none;
+      color: #282828;
 
-.home-container .footer a {
-  display: inline-block;
-  flex: 1;
-  text-decoration: none;
-  color: #282828;
-
-  &:first-child {
-    border-right: 1px solid black;
+      &:first-child {
+        border-right: 1px solid black;
+      }
+      &:last-child {
+        border-left: 1px solid black;
+      }
+    }
   }
-  &:last-child {
-    border-left: 1px solid black;
-  }
 }
+
+
+</style>
+
+<style lang="scss">
+  .phone {
+    .weui-cells {
+      background-color: #f5f5f5 !important;
+    }
+  }
 </style>
 
 
