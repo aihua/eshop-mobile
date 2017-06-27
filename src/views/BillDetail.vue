@@ -14,7 +14,7 @@
       </div>
       <div class="bill-detail">
         <div class="abstract">
-          <span class="text">桌号: {{orderDetail.tableId}}</span>
+          <span class="text">桌号: {{orderDetail.tableName}}</span>
           <span class="total-count">共 {{orderDetail.totalNum}} 份</span>
           <span class="total-cost">合计：
             <i class="icon-money"></i>

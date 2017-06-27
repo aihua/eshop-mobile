@@ -10,6 +10,16 @@ const getStatus = function () {
   })
 }
 
+const getTableName = function (tableId) {
+  return http.get(`/user/tableName/${tableId}`)
+  .then(resp => resp.data)
+  .catch(err => {
+    console.error(err)
+    return Promise.reject(err)
+  })
+}
+
 export {
   getStatus,
+  getTableName
 }

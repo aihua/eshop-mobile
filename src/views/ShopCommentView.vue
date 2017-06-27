@@ -15,14 +15,14 @@
   
         <div class="content">
           <template v-if="shopComments.length">
-            <div class="rating-item" v-for="(comment, index) in shopComments">
+            <div class="rating-item" v-for="(comment, index) in shopComments" :key="comment.$index">
               <div class="user-info">
                 <div class="avatar" :style="{'background': `url(${comment.avatar}) 100% 100% no-repeat`}">
                   <!--<img width="40px" :src="comment.avatar">-->
                 </div>
                 <div class="phone">
                   <span>{{comment.userName}}</span>
-                  <i class="icon-star" v-for="(item, starIndex) in 5" :class="{'on': starIndex < comment.averageScore}"></i>
+                  <i class="icon-star" v-for="(item, starIndex) in 5" :key="item.$index" :class="{'on': starIndex < comment.averageScore}"></i>
                 </div>
                 <div class="time">{{comment.createdAt | time}}</div>
               </div>

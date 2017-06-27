@@ -8,7 +8,7 @@
         <div class="title">
           餐厅评分
         </div>
-        <div class="item" v-for="item in items">
+        <div class="item" v-for="item in items" :key="item.$index">
           <rating :title="item.title" v-model="item.rating"></rating>
         </div>
       </div>

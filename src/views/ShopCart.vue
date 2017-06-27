@@ -6,7 +6,7 @@
   
     <deal-content>
       <div class="table-info">
-        <span class="table-number">桌号: {{shopCart.tableId}}</span>
+        <span class="table-number">桌号: {{shopCart.tableName}}</span>
         <span class="food-count">合计: {{shopCart.totalNum}}份</span>
         <span class="food-cost">
           <i class="icon-money"></i>
@@ -17,7 +17,7 @@
       <div class="order-list">
         <template v-if="shopCart.foods.length">
           <swipeout>
-            <div v-for="item in shopCart.foods">
+            <div v-for="item in shopCart.foods" :key="item.$index">
               <swipeout-item transition-mode="follow">
                 <div slot="right-menu">
                   <swipeout-button @click.native="deleteFood(item)" type="warn">删除</swipeout-button>

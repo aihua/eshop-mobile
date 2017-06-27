@@ -32,7 +32,7 @@
           <span style="margin-left: 20px;">台
             <span style="width: 30px; display:inline-block"></span>
             号：</span>
-          <span>{{orderDetail.tableId}}</span>
+          <span>{{orderDetail.tableName}}</span>
         </div>
         <div class="order-time">
           <span>下单时间：</span>

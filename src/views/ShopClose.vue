@@ -6,7 +6,7 @@
   
     <deal-content>
       <div class="img">
-        <img src="../assets/images/shop-close-logo.jpg"/>
+        <img src="../assets/images/shop-close-logo.jpg">
       </div>
     </deal-content>
   

@@ -6,8 +6,8 @@
     <deal-content>
       <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
         <div v-if="showContent" class="people-number-content">
-          <div class="line" v-for="subArr in numbers">
-            <div class="number" v-for="item in subArr" @click="chooseNumber(item)">
+          <div class="line" v-for="subArr in numbers" :key="subArr.$index">
+            <div class="number" v-for="item in subArr" :key="item.$index" @click="chooseNumber(item)">
               <div class="text">
                 <span>{{item}}</span>
               </div>

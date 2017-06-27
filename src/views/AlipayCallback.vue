@@ -17,7 +17,7 @@
             <div class="table-info">
               <div class="table-number">
                 <span>桌号：</span>
-                <span>{{orderDetail.tableId}}</span>
+                <span>{{orderDetail.tableName}}</span>
               </div>
               <div class="people-number">
                 <span>人数：</span>
