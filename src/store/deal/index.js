@@ -13,7 +13,7 @@ import storage from '@/util/storage'
 import router from '@/router/index'
 
 const state = {
-  showMode: 'noPicMode',
+  showMode: 'picMode',
   shopComments: '',
   // {
   //   foodId1: {
