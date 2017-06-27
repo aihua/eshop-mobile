@@ -28,7 +28,8 @@ export default {
   },
   data() {
     return {
-      animationEnd: false
+      animationEnd: false,
+      isBack: false
     }
   },
   computed: {
@@ -37,7 +38,9 @@ export default {
   watch: {
     orderingSuccess(v) {
       if (v && this.animationEnd) {
-        this.$router.push({ name: 'OrderSuccess' })
+        if (!this.isBack) {
+          this.$router.push({ name: 'OrderSuccess' })
+        }
       }
     }
   },
@@ -45,10 +48,20 @@ export default {
     end() {
       this.animationEnd = true
       if (this.orderingSuccess) {
-        this.$router.push({ name: 'OrderSuccess' })
+        if (!this.isBack) {
+          this.$router.push({ name: 'OrderSuccess' })
+        }
       }
     }
   },
+  beforeRouteEnter(to, from, next) {
+    
+    next((vm) => {
+      if (from.name === 'OrderSuccess') {
+        vm.isBack = true
+      }
+    })
+  }
 }
 </script>
 <style lang="scss" scoped>
