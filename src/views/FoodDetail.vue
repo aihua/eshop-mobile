@@ -231,7 +231,7 @@ export default {
       if (this.tempShopCartFoodCost === 0 && this.shopCart.totalPrice === 0) {
         this.$vux.alert.show({
           title: '提示',
-          content: '购物车还是空的呢 : )',
+          content: '购物车还是空的呢 :-)',
           buttonText: '我知道了'
         })
       } else {
@@ -258,7 +258,7 @@ export default {
       })
 
       this.$vux.toast.show({
-        text: '已添加购物车 : )',
+        text: '已添加购物车 :-)',
         type: 'text',
       })
 
@@ -275,7 +275,7 @@ export default {
         .then(_ => {
           this.commentText = ''
           this.$vux.toast.show({
-            text: '感谢评论 : )',
+            text: '感谢评论 :-)',
             type: 'text',
           })
         })

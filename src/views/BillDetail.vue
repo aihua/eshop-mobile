@@ -82,7 +82,7 @@ export default {
         } else {
           this.$vux.alert.show({
             title: '提示',
-            content: '您的微信版本过低, 不支持支付功能, 请升级微信版本 : )',
+            content: '您的微信版本过低, 不支持支付功能, 请升级微信版本 :-)',
             buttonText: '我知道了'
           })
         }
@@ -91,7 +91,7 @@ export default {
       } else {
         // this.$vux.alert.show({
         //   title: '提示',
-        //   content: '请选择微信或支付宝扫描支付 : )',
+        //   content: '请选择微信或支付宝扫描支付 :-)',
         //   buttonText: '我知道了'
         // })
 

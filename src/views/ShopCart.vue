@@ -138,7 +138,7 @@ export default {
       if (this.shopCart.foods.length === 0) {
         return this.$vux.alert.show({
           title: '提示',
-          content: '购物车为空呢 : )',
+          content: '购物车为空呢 :-)',
           buttonText: '我知道了'
         })
       }

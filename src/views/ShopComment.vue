@@ -74,7 +74,7 @@ export default {
       .then(data => {
         console.log(data)
         this.$vux.toast.show({
-          text: '感谢评论 : )',
+          text: '感谢评论 :-)',
           type: 'text',
         })
         window.setTimeout(() => {

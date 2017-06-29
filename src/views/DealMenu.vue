@@ -115,7 +115,7 @@ export default {
     'tempShopCartFoodCost': function (val, oldVal) {
       if (!this.hasPromptAlmostVip && val > this.totalConsumer * this.ratio) {
         this.$store.commit('HAS_PROMPT_ALMOST_VIP')
-        const text = `还差${(this.totalConsumer - val).toFixed(2)}元\n可成为会员 : )`
+        const text = `还差${(this.totalConsumer - val).toFixed(2)}元\n可成为会员 :-)`
 
         this.$vux.toast.show({
           text: text,
@@ -180,7 +180,7 @@ export default {
       if (this.tempShopCartFoodCost === 0 && this.shopCart.totalPrice === 0) {
         this.$vux.alert.show({
           title: '提示',
-          content: '购物车还是空的呢 : )',
+          content: '购物车还是空的呢 :-)',
           buttonText: '我知道了'
         })
       } else {
@@ -253,7 +253,7 @@ export default {
         if (!this.hasPrompt) {
           this.$store.commit('HAS_PROMPT')
           this.$vux.toast.show({
-            text: '满50元立可成为会员哦, 亲 : )',
+            text: '满50元立可成为会员哦, 亲 :-)',
             type: 'text',
             time: 5000
           })
