@@ -52,7 +52,7 @@
             <div class="order-title">
               <span>账单详情</span>
             </div>
-            <div class="order-item" v-for="item in orderDetail.foods">
+            <div class="order-item" v-for="item in orderDetail.foods" :key="item.$index">
               <span>{{item.name}}</span>
               <span>x {{item.num}}</span>
               <span>{{item.price}}元/份</span>
@@ -148,6 +148,8 @@ export default {
   created() {
     this.tenantName = storage.get('tenantName')
     const obj = objFrom(decodeURIComponent(location.search))
+
+    window.alert(JSON.stringify(obj))
 
     WechatService.getWechatPayParams(obj.code)
       .then(data => {
