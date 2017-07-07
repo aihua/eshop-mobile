@@ -156,7 +156,7 @@ export default {
     }
 
     if (obj.state === 'eshop') {
-      window.location.href = `http://eshopclient.xiaovbao.cn/wechatpay?code=${obj.code}`
+      window.location.href = `http://eshop.xiaovbao.cn/wechatpay?code=${obj.code}`
       return 
     }
 
