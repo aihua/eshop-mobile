@@ -149,7 +149,6 @@ export default {
     this.tenantName = storage.get('tenantName')
     const obj = objFrom(decodeURIComponent(location.search))
 
-    window.alert(JSON.stringify(obj))
     // 通过state参数 转发 到不同页面支付
     if (obj.state === 'deal') {
       window.location.href = `http://dealclient.xiaovbao.cn/wechatpay?code=${obj.code}`
