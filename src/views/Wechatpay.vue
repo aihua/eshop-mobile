@@ -150,6 +150,14 @@ export default {
     const obj = objFrom(decodeURIComponent(location.search))
 
     window.alert(JSON.stringify(obj))
+    // 通过state参数 转发 到不同页面支付
+    if (obj.state === 'deal') {
+      window.location.href = 'http://dealclient.xiaovbao.cn/wechatpay'
+    }
+
+    if (obj.state === 'eshop') {
+      window.location.href = 'http://eshopclient.xiaovbao.cn/wechatpay'
+    }
 
     WechatService.getWechatPayParams(obj.code)
       .then(data => {
