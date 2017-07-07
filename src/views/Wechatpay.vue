@@ -152,10 +152,12 @@ export default {
     // 通过state参数 转发 到不同页面支付
     if (obj.state === 'deal') {
       window.location.href = `http://dealclient.xiaovbao.cn/wechatpay?code=${obj.code}`
+      return 
     }
 
     if (obj.state === 'eshop') {
       window.location.href = `http://eshopclient.xiaovbao.cn/wechatpay?code=${obj.code}`
+      return 
     }
 
     WechatService.getWechatPayParams(obj.code)
